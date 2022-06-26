@@ -28,7 +28,10 @@ class Data {
   String? password;
   String? image;
   List<String>? skills;
-  List<SocialMediaLinks>? socialMediaLinks;
+  String? github;
+  String? linkedin;
+  String? website;
+  String? twitter;
   String? createdAt;
   String? updatedAt;
   int? iV;
@@ -42,7 +45,10 @@ class Data {
       this.password,
       this.skills,
       this.image,
-      this.socialMediaLinks,
+      this.github,
+      this.linkedin,
+      this.twitter,
+      this.website,
       this.createdAt,
       this.updatedAt,
       this.iV,
@@ -55,13 +61,11 @@ class Data {
     email = json['email'];
     password = json['password'];
     image = json['image'];
+    github = json['github'];
+    linkedin = json['linkedin'];
+    twitter = json['twitter'];
+    website = json['website'];
     skills = json['skills'].cast<String>();
-    if (json['socialMediaLinks'] != null) {
-      socialMediaLinks = <SocialMediaLinks>[];
-      json['socialMediaLinks'].forEach((v) {
-        socialMediaLinks!.add(new SocialMediaLinks.fromJson(v));
-      });
-    }
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     iV = json['__v'];
@@ -77,31 +81,15 @@ class Data {
     data['password'] = password;
     data['skills'] = skills;
     data['image'] = image;
-    if (socialMediaLinks != null) {
-      data['socialMediaLinks'] =
-          socialMediaLinks!.map((v) => v.toJson()).toList();
-    }
+    data['github'] = github;
+    data['linkedin'] = linkedin;
+    data['twitter'] = twitter;
+    data['website'] = website;
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;
     data['__v'] = iV;
     data['bio'] = bio;
     data['pic'] = pic;
-    return data;
-  }
-}
-
-class SocialMediaLinks {
-  String? github;
-
-  SocialMediaLinks({this.github});
-
-  SocialMediaLinks.fromJson(Map<String, dynamic> json) {
-    github = json['github'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['github'] = github;
     return data;
   }
 }

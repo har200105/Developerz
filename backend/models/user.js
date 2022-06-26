@@ -18,12 +18,10 @@ const userSchema = mongoose.Schema({
 
     skills:Array,
 
-    socialMediaLinks: [{
-        github: String,
-        linkedin: String,
-        twitter: String,
-        website:String
-    }],
+    github: String,
+    linkedin: String,
+    twitter: String,
+    website:String,
 
     image:String,
 

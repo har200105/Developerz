@@ -90,48 +90,36 @@ class _DeveloperProfileState extends State<DeveloperProfile> {
                             ),
                       ],
                     ),
-                    if (data.getDeveloper!.socialMediaLinks!.isNotEmpty)
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          // if (data.getDeveloper!.socialMediaLinks![0]
-                          //         .linkedin !=
-                          //     null)
-                          //   IconButton(
-                          //       onPressed: () async {
-                          //         print(data.getDeveloper!.socialMediaLinks![0]
-                          //                 .linkedin! +
-                          //             "sd");
-                          //         await launchUrl(Uri.parse(data.getDeveloper!
-                          //             .socialMediaLinks![0].linkedin!));
-                          //       },
-                          //       icon: const Icon(EvaIcons.linkedinOutline)),
-                          if (data.getDeveloper!.socialMediaLinks![0].github !=
-                              null)
-                            IconButton(
-                                onPressed: () async {
-                                  await launch((data.getDeveloper!
-                                      .socialMediaLinks![0].github!));
-                                },
-                                icon: const Icon(EvaIcons.githubOutline)),
-                          // if (data.getDeveloper!.socialMediaLinks![0].website !=
-                          //     null)
-                          //   IconButton(
-                          //       onPressed: () async {
-                          //         await launchUrl(Uri.parse(data.getDeveloper!
-                          //             .socialMediaLinks![0].website!));
-                          //       },
-                          //       icon: const Icon(EvaIcons.link)),
-                          // if (data.getDeveloper!.socialMediaLinks![0].twitter !=
-                          //     null)
-                          //   IconButton(
-                          //       onPressed: () async {
-                          //         await launchUrl(Uri.parse(data.getDeveloper!
-                          //             .socialMediaLinks![0].twitter!));
-                          //       },
-                          //       icon: const Icon(EvaIcons.twitter)),
-                        ],
-                      ),
+                    // if (data.getDeveloper!.socialMediaLinks!.isNotEmpty)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        if (data.getDeveloper!.github != null)
+                          IconButton(
+                              onPressed: () async {
+                                await launch((data.getDeveloper!.github!));
+                              },
+                              icon: const Icon(EvaIcons.githubOutline)),
+                        if (data.getDeveloper!.linkedin != null)
+                          IconButton(
+                              onPressed: () async {
+                                await launch((data.getDeveloper!.linkedin!));
+                              },
+                              icon: const Icon(EvaIcons.linkedinOutline)),
+                        if (data.getDeveloper!.website != null)
+                          IconButton(
+                              onPressed: () async {
+                                await launch((data.getDeveloper!.website!));
+                              },
+                              icon: const Icon(EvaIcons.link)),
+                        if (data.getDeveloper!.twitter != null)
+                          IconButton(
+                              onPressed: () async {
+                                await launch((data.getDeveloper!.twitter!));
+                              },
+                              icon: const Icon(EvaIcons.twitterOutline)),
+                      ],
+                    ),
                     const Divider(
                       color: Colors.grey,
                       thickness: 2.0,
@@ -171,7 +159,6 @@ class _DeveloperProfileState extends State<DeveloperProfile> {
                     scrollDirection: Axis.vertical,
                     itemCount: data.projectsUser.length,
                     itemBuilder: ((context, index) {
-                      print("wdwfewf");
                       print(data.getProjects[index].techStacksUsed);
                       return ProjectCard(
                         id: data.projectsUser[index].sId,

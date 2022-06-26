@@ -33,12 +33,11 @@ class _EditProfileState extends State<EditProfile> {
             "";
     _githubController.text =
         Provider.of<DevelopersProvider>(context, listen: false)
-                .getDeveloper!
-                .socialMediaLinks!
-                .isNotEmpty
+                    .getDeveloper!
+                    .github !=
+                null
             ? Provider.of<DevelopersProvider>(context, listen: false)
                     .getDeveloper!
-                    .socialMediaLinks![0]
                     .github ??
                 ""
             : "";

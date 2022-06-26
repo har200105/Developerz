@@ -108,25 +108,28 @@ class _ProfileState extends State<Profile> {
                             ),
                       ],
                     ),
-                    if (data.getDeveloper!.socialMediaLinks!.isNotEmpty)
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          // IconButton(
-                          //     onPressed: () {},
-                          //     icon: const Icon(EvaIcons.linkedinOutline)),
-                          if (data.getDeveloper!.socialMediaLinks![0].github !=
-                              null)
-                            IconButton(
-                                onPressed: () {},
-                                icon: const Icon(EvaIcons.githubOutline)),
-                          // IconButton(
-                          //     onPressed: () {}, icon: const Icon(EvaIcons.link)),
-                          // IconButton(
-                          //     onPressed: () {},
-                          //     icon: const Icon(EvaIcons.twitter)),
-                        ],
-                      ),
+                    // if (data.getDeveloper!.socialMediaLinks!.isNotEmpty)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        if (data.getDeveloper!.github != null)
+                          IconButton(
+                              onPressed: () {},
+                              icon: const Icon(EvaIcons.githubOutline)),
+                        if (data.getDeveloper!.linkedin != null)
+                          IconButton(
+                              onPressed: () {},
+                              icon: const Icon(EvaIcons.linkedinOutline)),
+                        if (data.getDeveloper!.twitter != null)
+                          IconButton(
+                              onPressed: () {},
+                              icon: const Icon(EvaIcons.twitterOutline)),
+                        if (data.getDeveloper!.website != null)
+                          IconButton(
+                              onPressed: () {},
+                              icon: const Icon(EvaIcons.link)),
+                      ],
+                    ),
                     const Divider(
                       color: Colors.grey,
                       thickness: 2.0,

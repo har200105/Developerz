@@ -215,11 +215,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               "https://thumbs.dreamstime.com/b/user-avatar-icon-button-profile-symbol-flat-person-icon-vector-user-avatar-icon-button-profile-symbol-flat-person-icon-%C3%A2%E2%82%AC-stock-131363829.jpg",
                           bio: data.getDevelopers[index].bio ?? "",
                           skills: data.getDevelopers[index].skills!,
-                          github: data.getDevelopers[index].socialMediaLinks!
-                                  .isNotEmpty
-                              ? data.getDevelopers[index].socialMediaLinks![0]
-                                  .github
-                              : null,
+                          github: data.getDevelopers[index].github,
                         );
                       }));
                 }
