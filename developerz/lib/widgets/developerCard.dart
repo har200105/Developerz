@@ -95,31 +95,31 @@ class Developer extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // if (linkedin != null)
-                    //   IconButton(
-                    //       onPressed: () async {
-                    //         print(linkedin! + "sd");
-                    //         await launchUrl(Uri.parse(linkedin!));
-                    //       },
-                    //       icon: const Icon(EvaIcons.linkedinOutline)),
-                    if (github != null)
+                    if (linkedin != null && linkedin != "")
+                      IconButton(
+                          onPressed: () async {
+                            print(linkedin! + "sd");
+                            await launchUrl(Uri.parse(linkedin!));
+                          },
+                          icon: const Icon(EvaIcons.linkedinOutline)),
+                    if (github != null && github != "")
                       IconButton(
                           onPressed: () {
                             launch(github!);
                           },
                           icon: const Icon(EvaIcons.githubOutline)),
-                    // if (portfolio != null)
-                    //   IconButton(
-                    //       onPressed: () async {
-                    //         await launchUrl(Uri.parse(portfolio!));
-                    //       },
-                    //       icon: const Icon(EvaIcons.link)),
-                    // if (twitter != null)
-                    //   IconButton(
-                    //       onPressed: () async {
-                    //         await launchUrl(Uri.parse(twitter!));
-                    //       },
-                    //       icon: const Icon(EvaIcons.twitter)),
+                    if (portfolio != null && portfolio != "")
+                      IconButton(
+                          onPressed: () async {
+                            await launchUrl(Uri.parse(portfolio!));
+                          },
+                          icon: const Icon(EvaIcons.link)),
+                    if (twitter != null && twitter != "")
+                      IconButton(
+                          onPressed: () async {
+                            await launchUrl(Uri.parse(twitter!));
+                          },
+                          icon: const Icon(EvaIcons.twitter)),
                   ],
                 )
               ],

@@ -8,6 +8,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Profile extends StatefulWidget {
   final String id;
@@ -112,22 +113,34 @@ class _ProfileState extends State<Profile> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        if (data.getDeveloper!.github != null)
+                        if (data.getDeveloper!.github != null &&
+                            (data.getDeveloper!.github != ""))
                           IconButton(
-                              onPressed: () {},
+                              onPressed: () async {
+                                await launch((data.getDeveloper!.github!));
+                              },
                               icon: const Icon(EvaIcons.githubOutline)),
-                        if (data.getDeveloper!.linkedin != null)
+                        if (data.getDeveloper!.linkedin != null &&
+                            (data.getDeveloper!.linkedin != ""))
                           IconButton(
-                              onPressed: () {},
+                              onPressed: () async {
+                                await launch((data.getDeveloper!.linkedin!));
+                              },
                               icon: const Icon(EvaIcons.linkedinOutline)),
-                        if (data.getDeveloper!.twitter != null)
+                        if (data.getDeveloper!.website != null &&
+                            data.getDeveloper!.website != "")
                           IconButton(
-                              onPressed: () {},
-                              icon: const Icon(EvaIcons.twitterOutline)),
-                        if (data.getDeveloper!.website != null)
-                          IconButton(
-                              onPressed: () {},
+                              onPressed: () async {
+                                await launch((data.getDeveloper!.website!));
+                              },
                               icon: const Icon(EvaIcons.link)),
+                        if (data.getDeveloper!.twitter != null &&
+                            data.getDeveloper!.twitter != "")
+                          IconButton(
+                              onPressed: () async {
+                                await launch((data.getDeveloper!.twitter!));
+                              },
+                              icon: const Icon(EvaIcons.twitterOutline)),
                       ],
                     ),
                     const Divider(
@@ -168,7 +181,8 @@ class _ProfileState extends State<Profile> {
                         projectName: data.projectsUser[index].name ?? "",
                         image: data.projectsUser[index].image,
                         description: "asdsd",
-                        techStacks: data.projectsUser[index].techStacksUsed,
+                        techStacks:
+                            data.projectsUser[index].techStacksUsed ?? [],
                         // return Container();
                       );
                     }));

@@ -216,6 +216,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           bio: data.getDevelopers[index].bio ?? "",
                           skills: data.getDevelopers[index].skills!,
                           github: data.getDevelopers[index].github,
+                          linkedin: data.getDevelopers[index].linkedin,
+                          twitter: data.getDevelopers[index].twitter,
+                          portfolio: data.getDevelopers[index].website,
                         );
                       }));
                 }

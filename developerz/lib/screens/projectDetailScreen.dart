@@ -77,6 +77,13 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
+                child: Text(
+                  data.getProject.about ?? "",
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0),
                 child: Text("Developer: ${data.getProject.developer!.name}"),
               ),
               Padding(

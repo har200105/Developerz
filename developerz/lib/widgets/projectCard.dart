@@ -10,7 +10,7 @@ class ProjectCard extends StatelessWidget {
   final String? sourceCode;
   final String? liveLink;
   final String id;
-  final List<String>? techStacks;
+  final List<String> techStacks;
   final String? github;
   final String? link;
 
@@ -22,7 +22,7 @@ class ProjectCard extends StatelessWidget {
       this.sourceCode,
       this.liveLink,
       required this.id,
-      this.techStacks,
+      required this.techStacks,
       this.github,
       this.link})
       : super(key: key);
@@ -62,26 +62,28 @@ class ProjectCard extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(projectName ?? ""),
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.only(left: 8.0, top: 8.0),
-                //   child: Text(description ?? ""),
-                // ),
-                if (techStacks != null && techStacks!.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0, top: 8.0),
+                  child: Text(description ?? ""),
+                ),
+                if (techStacks.isNotEmpty)
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      if (techStacks != null && techStacks!.isNotEmpty)
-                        for (int i = 0; i < techStacks!.length; i++)
-                          Chip(
-                            elevation: 10,
-                            padding: const EdgeInsets.all(10),
-                            backgroundColor: const Color.fromRGBO(6, 40, 61, 1),
-                            label: Text(
-                              techStacks![i],
-                              style: const TextStyle(
-                                  fontSize: 15, color: Colors.white),
+                      if (techStacks.isNotEmpty)
+                        for (int i = 0; i < techStacks.length; i++)
+                          if (techStacks.length > i)
+                            Chip(
+                              elevation: 10,
+                              padding: const EdgeInsets.all(10),
+                              backgroundColor:
+                                  const Color.fromRGBO(6, 40, 61, 1),
+                              label: Text(
+                                techStacks[i],
+                                style: const TextStyle(
+                                    fontSize: 15, color: Colors.white),
+                              ),
                             ),
-                          ),
                     ],
                   ),
                 Row(

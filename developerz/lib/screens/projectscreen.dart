@@ -110,7 +110,8 @@ class _ProjectScreenState extends State<ProjectScreen> {
                           projectName: data.getProjects[index].name,
                           image: data.getProjects[index].image,
                           description: data.getProjects[index].about,
-                          techStacks: data.getProjects[index].techStacksUsed,
+                          techStacks:
+                              data.getProjects[index].techStacksUsed ?? [],
                           github: data.getProjects[index].codeUrl,
                           link: data.getProjects[index].liveUrl,
                         );

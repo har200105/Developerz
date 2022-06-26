@@ -49,7 +49,7 @@ class DeveloperService {
       Map<String, dynamic> data = {
         'bio': bio ?? "",
         'github': github ?? "",
-        'linkedinurl': linkedurl ?? "",
+        'linkedin': linkedurl ?? "",
         'twitter': twitter ?? "",
         'website': website ?? "",
         'skills': skills ?? []

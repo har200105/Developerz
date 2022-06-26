@@ -98,7 +98,8 @@ class _SearchState extends State<Search> {
                           description:
                               value.getSearchedProjects[index].about ?? "",
                           techStacks:
-                              value.getSearchedProjects[index].techStacksUsed);
+                              value.getSearchedProjects[index].techStacksUsed ??
+                                  []);
                     }));
               }
             })),

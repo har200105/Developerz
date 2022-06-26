@@ -94,25 +94,29 @@ class _DeveloperProfileState extends State<DeveloperProfile> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        if (data.getDeveloper!.github != null)
+                        if (data.getDeveloper!.github != null &&
+                            (data.getDeveloper!.github != ""))
                           IconButton(
                               onPressed: () async {
                                 await launch((data.getDeveloper!.github!));
                               },
                               icon: const Icon(EvaIcons.githubOutline)),
-                        if (data.getDeveloper!.linkedin != null)
+                        if (data.getDeveloper!.linkedin != null &&
+                            (data.getDeveloper!.linkedin != ""))
                           IconButton(
                               onPressed: () async {
                                 await launch((data.getDeveloper!.linkedin!));
                               },
                               icon: const Icon(EvaIcons.linkedinOutline)),
-                        if (data.getDeveloper!.website != null)
+                        if (data.getDeveloper!.website != null &&
+                            data.getDeveloper!.website != "")
                           IconButton(
                               onPressed: () async {
                                 await launch((data.getDeveloper!.website!));
                               },
                               icon: const Icon(EvaIcons.link)),
-                        if (data.getDeveloper!.twitter != null)
+                        if (data.getDeveloper!.twitter != null &&
+                            data.getDeveloper!.twitter != "")
                           IconButton(
                               onPressed: () async {
                                 await launch((data.getDeveloper!.twitter!));
@@ -159,13 +163,16 @@ class _DeveloperProfileState extends State<DeveloperProfile> {
                     scrollDirection: Axis.vertical,
                     itemCount: data.projectsUser.length,
                     itemBuilder: ((context, index) {
-                      print(data.getProjects[index].techStacksUsed);
                       return ProjectCard(
                         id: data.projectsUser[index].sId,
-                        projectName: data.projectsUser[index].name ?? "",
+                        projectName: data.projectsUser[index].name,
                         image: data.projectsUser[index].image,
-                        techStacks: data.projectsUser[index].techStacksUsed!,
-                        description: data.projectsUser[index].about ?? "",
+                        description: data.projectsUser[index].about,
+                        techStacks:
+                            data.projectsUser[index].techStacksUsed ?? [],
+                        // techStacks: data.projectsUser[index].techStacksUsed,
+                        github: data.projectsUser[index].codeUrl,
+                        link: data.projectsUser[index].liveUrl,
                       );
                     }));
               }

@@ -62,6 +62,8 @@ class _EditProfileState extends State<AddProject> {
       body: Column(
         children: [
           const Text("Add Project", style: TextStyle(fontSize: 25)),
+          const Text("Include http/https in all urls",
+              style: TextStyle(fontSize: 15, color: Colors.redAccent)),
           userImage.isNotEmpty
               ? SizedBox(
                   height: 100.0,

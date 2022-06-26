@@ -39,22 +39,6 @@ const updateDeveloperProfile = catchAsyncErrors(async (req, res) => {
         new: true
     });
 
-    let user = await User.findById(req.user._id);
-    
-    if (req.body.github) {
-        if (user.socialMediaLinks.length === 0) {
-            user.socialMediaLinks.push({ github: req.body.github });
-        } else {
-            let findIndex = user.socialMediaLinks.findIndex((s) => s.github !== null);
-            if (findIndex === null) {
-                user.socialMediaLinks.push({ github: req.body.github });
-            } else {
-                user.socialMediaLinks[findIndex].github = req.body.github;
-            }
-        }
-            await user.save();
-    }
-
     //  if (req.body.linkedinurl) {
     //      if (user.socialMediaLinks.length === 0) {
     //         user.socialMediaLinks.push({ linkedin: req.body.linkedinurl });

@@ -62,7 +62,7 @@ class ProjectProvider extends ChangeNotifier {
       var response = await _projectService.fetchProjectOfUserById(id);
       Projects modelData = Projects.fromJson(jsonDecode(response));
       _projectsUser = modelData.projects;
-      print(_projectsUser.length);
+      print(_projectsUser[0].techStacksUsed);
       print("sdsd");
       _loading = false;
       notifyListeners();
