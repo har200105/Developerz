@@ -5,6 +5,7 @@ const OTP = require('../models/otp');
 const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
+const { sendVerificationEmail } = require('../utils/mailServices');
 
 
 const signUp = catchAsyncErrors(async (req, res) => {
@@ -20,6 +21,7 @@ const signUp = catchAsyncErrors(async (req, res) => {
             return res.json({ success: false, message: "User Already Exists" });
         }
         
+        
         else {
             const otp = otpgen.generate(6, {
                 digits: true,
@@ -27,12 +29,12 @@ const signUp = catchAsyncErrors(async (req, res) => {
                 upperCaseAlphabets: false,
                 specialChars: false
             });
-            const newOTP = await OTP({
-                email,
-                otp
-            });
+            // const newOTP = await OTP({
+            //     email,
+            //     otp
+            // });
             // await newOTP.save();
-            // sendOTP(email, otp);
+            // sendVerificationEmail(email,otp);
             bcryptjs.hash(password, 8)
                 .then(async (hashedpassword) => {
                     const newUser = User({
@@ -42,7 +44,6 @@ const signUp = catchAsyncErrors(async (req, res) => {
                         image
                     });
                     await newUser.save();
-                    // const token = jwt.sign({ _id: newUser._id }, process.env.JWT_KEY);
                     return res.status(200).json({ message: "Signup Successfull", success: true });
                 })
         }
@@ -70,13 +71,10 @@ const login = catchAsyncErrors(async (req, res) => {
                     });
                 } else {
                     console.log("Not Matched");
-                    return res.json({ message: "Invalid Email or Password", success: false, verified: true })
+                    return res.json({ message: "Invalid Email or Password", success: false, verified: true });
                 }
             });
         }
-        // if (exist !== null) {
-            // return res.json({ verified: false, success: true, message: "Please Verify your email" });
-        // }
         else {
             res.json({ message: "User Doesnt Exist", success: false, verified: false });
         }
@@ -104,16 +102,15 @@ const verifyOTP = async (req, res) => {
         }).then(() => {
             res.status(200).json({
                 message: "OTP Verified Successfully",
-                success:false
-            })
+                success: false
+            });
         })
     }
 }
 
 
-router.post('/resetPassword', async (req, res) => {
+const resetPassword = async (req, res) => {
     const checkotp = await OTP.findOne({ otp: req.body.otp, email:req.body.email });
-    console.log(checkotp);
     if (!checkotp) {
         return res.status(401).json({message:"Not a Valid OTP",success:false});
     } else {
@@ -134,17 +131,18 @@ router.post('/resetPassword', async (req, res) => {
             })
         })
     }
-});
+}
 
-router.post('/sendforgotpasswordOTP', async (req, res) => {
+const sendForgetPasswordOTP = async (req, res) => {
     const { email } = req.body;
     const user = await User.find({ email });
     if (!user) {
-      return res.status(201).json({
+       return res.status(201).json({
         success: false,
         message: "User not found"
-    });
+     });
     }
+    await OTP.findOneAndDelete({ email: user.email });
     const otp = otpgen.generate(6, {
             digits: true,
             lowerCaseAlphabets: false,
@@ -161,7 +159,7 @@ router.post('/sendforgotpasswordOTP', async (req, res) => {
         success: true,
         message: "Forgot Password OTP Sent"
     });
-});
+}
 
 
 
@@ -171,4 +169,6 @@ module.exports = {
     signUp,
     login,
     verifyOTP,
+    sendForgetPasswordOTP,
+    resetPassword
 };
