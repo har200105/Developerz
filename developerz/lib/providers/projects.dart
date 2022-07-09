@@ -25,6 +25,12 @@ class ProjectProvider extends ChangeNotifier {
   bool _loading = false;
   bool get getLoading => _loading;
 
+  bool _isUpVoted = false;
+  bool get getIsUpVoted => _isUpVoted;
+
+  bool _isDownVoted = false;
+  bool get getIsDownVoted => _isDownVoted;
+
   final ProjectService _projectService = ProjectService();
 
   Future fetchProjects(BuildContext context) async {
@@ -62,11 +68,11 @@ class ProjectProvider extends ChangeNotifier {
       var response = await _projectService.fetchProjectOfUserById(id);
       Projects modelData = Projects.fromJson(jsonDecode(response));
       _projectsUser = modelData.projects;
-      print(_projectsUser[0].techStacksUsed);
       print("sdsd");
       _loading = false;
       notifyListeners();
     } catch (e) {
+      print(e.toString());
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
@@ -158,6 +164,60 @@ class ProjectProvider extends ChangeNotifier {
             .showSnackBar(const SnackBar(content: Text("Project Added")));
         Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (context) => BottomNavigationBarExample()));
+      }
+      notifyListeners();
+    } catch (e) {
+      print(e.toString());
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            "Something Went Wrong",
+          ),
+          backgroundColor: Color.fromRGBO(6, 40, 61, 1),
+        ),
+      );
+      _loading = false;
+      notifyListeners();
+    }
+  }
+
+  Future upVoteProject(BuildContext context, String id) async {
+    try {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      _isUpVoted = true;
+      var token = preferences.getString("token");
+      var response = await _projectService.upVoteProject(token, id);
+      _loading = false;
+      if (json.decode(response)['success'] == true) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("Project UpVoted")));
+      }
+      notifyListeners();
+    } catch (e) {
+      print(e.toString());
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            "Something Went Wrong",
+          ),
+          backgroundColor: Color.fromRGBO(6, 40, 61, 1),
+        ),
+      );
+      _loading = false;
+      notifyListeners();
+    }
+  }
+
+  Future downVoteProject(BuildContext context, String id) async {
+    try {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      _isDownVoted = true;
+      var token = preferences.getString("token");
+      var response = await _projectService.downVoteProject(token, id);
+      _loading = false;
+      if (json.decode(response)['success'] == true) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("Project DownVoted")));
       }
       notifyListeners();
     } catch (e) {

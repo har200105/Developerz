@@ -1,4 +1,5 @@
 import 'package:developerz/providers/user.dart';
+import 'package:developerz/screens/resetPassword.dart';
 import 'package:developerz/screens/signup.dart';
 import 'package:developerz/widgets/bottomnavbar.dart';
 import 'package:flutter/material.dart';
@@ -15,8 +16,8 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final formkey = GlobalKey<FormState>();
 
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +54,7 @@ class _LoginState extends State<Login> {
                     controller: _emailController,
                     style: const TextStyle(color: Colors.black),
                     decoration: InputDecoration(
-                      labelText: "Enter your Email",
+                      labelText: "Enter your Username",
                       focusedBorder: OutlineInputBorder(
                         borderSide:
                             const BorderSide(color: Colors.black, width: 2.0),
@@ -114,7 +115,31 @@ class _LoginState extends State<Login> {
                           MaterialPageRoute(
                               builder: (context) => const Signup()));
                     },
-                    child: const Text("New To Developerz ?"))
+                    child: const Text("New To Developerz ?")),
+                // Padding(
+                //   padding: const EdgeInsets.only(top: 10.0),
+                //   child: TextButton(
+                //       onPressed: () async {
+                //         Navigator.pushReplacement(
+                //             context,
+                //             MaterialPageRoute(
+                //                 builder: (context) => ResetPassword()));
+                //       },
+                //       child: const Text("Forget Password ?",
+                //           style: TextStyle(color: Colors.black))),
+                // ),
+                // Padding(
+                //   padding: const EdgeInsets.only(top: 10.0),
+                //   child: TextButton(
+                //       onPressed: () async {
+                //         Navigator.pushReplacement(
+                //             context,
+                //             MaterialPageRoute(
+                //                 builder: (context) => const Signup()));
+                //       },
+                //       child: const Text("New User ?",
+                //           style: TextStyle(color: Colors.black))),
+                // ),
               ],
             ),
           ),

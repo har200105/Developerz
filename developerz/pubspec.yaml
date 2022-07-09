@@ -42,7 +42,8 @@ dependencies:
   url_launcher: 
   textfield_tags: ^2.0.0+1
   image_picker:
-  shared_preferences: 
+  shared_preferences:
+  apihit: ^0.0.4
 
 
 

@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../providers/user.dart';
+
 class ProjectDetailScreen extends StatefulWidget {
   final String id;
   const ProjectDetailScreen({
@@ -90,25 +92,26 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
                 padding: const EdgeInsets.only(top: 10.0),
                 child: Text(data.getProject.about ?? ""),
               ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-              //   children: const [
-              //     Padding(
-              //       padding: EdgeInsets.only(top: 10.0),
-              //       child: Text(
-              //         "22 Upvotes",
-              //         style: TextStyle(fontWeight: FontWeight.bold),
-              //       ),
-              //     ),
-              //     Padding(
-              //       padding: EdgeInsets.only(top: 10.0),
-              //       child: Text(
-              //         "10 Downvotes",
-              //         style: TextStyle(fontWeight: FontWeight.bold),
-              //       ),
-              //     ),
-              //   ],
-              // ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: Text(
+                      "UpVotes :" + data.getProject.upvotes!.length.toString(),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: Text(
+                      "DownVotes :" +
+                          data.getProject.downvotes!.length.toString(),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -149,16 +152,42 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
                 color: Colors.grey,
                 thickness: 2.0,
               ),
-              // const Text("Upvote | Downvote"),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     IconButton(
-              //         onPressed: () {}, icon: const Icon(EvaIcons.arrowUp)),
-              //     IconButton(
-              //         onPressed: () {}, icon: const Icon(EvaIcons.arrowDown)),
-              //   ],
-              // )
+              if (Provider.of<UserProvider>(context).getIsUser)
+                const Text("Upvote | Downvote"),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (Provider.of<UserProvider>(context).getIsUser &&
+                      !(data.getProject.upvotes!.map((element) => element.sId))
+                          .contains(
+                              Provider.of<UserProvider>(context, listen: false)
+                                  .user!
+                                  .sId))
+                    IconButton(
+                        onPressed: () async {
+                          await data.upVoteProject(context, widget.id);
+                          await Provider.of<ProjectProvider>(context,
+                                  listen: false)
+                              .getProjectDetailsById(context, widget.id);
+                        },
+                        icon: const Icon(EvaIcons.arrowUp)),
+                  if (Provider.of<UserProvider>(context).getIsUser &&
+                      !(data.getProject.downvotes!
+                              .map((element) => element.sId))
+                          .contains(
+                              Provider.of<UserProvider>(context, listen: false)
+                                  .user!
+                                  .sId))
+                    IconButton(
+                        onPressed: () async {
+                          await data.downVoteProject(context, widget.id);
+                          await Provider.of<ProjectProvider>(context,
+                                  listen: false)
+                              .getProjectDetailsById(context, widget.id);
+                        },
+                        icon: const Icon(EvaIcons.arrowDown)),
+                ],
+              )
             ],
           );
         }),

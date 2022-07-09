@@ -90,7 +90,7 @@ class _SignupState extends State<Signup> {
                     controller: _emailController,
                     style: const TextStyle(color: Colors.black),
                     decoration: InputDecoration(
-                      labelText: "Enter your Email",
+                      labelText: "Enter your Username",
                       focusedBorder: OutlineInputBorder(
                         borderSide:
                             const BorderSide(color: Colors.black, width: 2.0),

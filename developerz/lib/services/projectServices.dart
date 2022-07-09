@@ -83,4 +83,33 @@ class ProjectService {
       }
     }
   }
+
+  Future upVoteProject(String? token, String? id) async {
+    if (token != null) {
+      final Uri uri = Uri.parse(url + "/upVoteProject/$id");
+
+      final http.Response response = await client.put(uri, headers: {
+        "Authorization": token,
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      });
+      if (response.statusCode == 201) {
+        return response.body;
+      }
+    }
+  }
+
+  Future downVoteProject(String? token, String? id) async {
+    if (token != null) {
+      final Uri uri = Uri.parse(url + "/downVoteProject/$id");
+      final http.Response response = await client.put(uri, headers: {
+        "Authorization": token,
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      });
+      if (response.statusCode == 201) {
+        return response.body;
+      }
+    }
+  }
 }

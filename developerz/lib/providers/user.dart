@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:developerz/models/developer.dart';
 import 'package:developerz/providers/imageUtility.dart';
 import 'package:developerz/screens/login.dart';
+import 'package:developerz/screens/verifyEmail.dart';
 import 'package:developerz/services/authenticationServices.dart';
 import 'package:developerz/widgets/bottomnavbar.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +63,7 @@ class UserProvider extends ChangeNotifier {
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text("Login Successfull")));
         Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const Login()));
+            MaterialPageRoute(builder: (context) => VerifyEmail(email: email)));
       } else {
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text(message)));
