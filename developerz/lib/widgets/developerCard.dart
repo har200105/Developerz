@@ -54,7 +54,7 @@ class Developer extends StatelessWidget {
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 8.0, top: 8.0),
+                  padding: const EdgeInsets.only(left: 5.0, top: 5.0),
                   child: Text(bio!),
                 ),
                 Row(
@@ -64,7 +64,7 @@ class Developer extends StatelessWidget {
                       for (int i = 0; i < skills!.length; i++)
                         Chip(
                           elevation: 10,
-                          padding: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(3),
                           backgroundColor: const Color.fromRGBO(6, 40, 61, 1),
                           label: Text(
                             skills![i],

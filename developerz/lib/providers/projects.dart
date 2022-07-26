@@ -11,7 +11,7 @@ class ProjectProvider extends ChangeNotifier {
   List<Project> get getProjects => _projects;
 
   Project? _project;
-  Project get getProject => _project!;
+  Project? get getProject => _project;
 
   List<Project> _projectsUser = [];
   List<Project> get projectsUser => _projectsUser;
@@ -233,5 +233,11 @@ class ProjectProvider extends ChangeNotifier {
       _loading = false;
       notifyListeners();
     }
+  }
+
+  void resetProjectDetail() {
+    _project = null;
+    _projectsUser = [];
+    notifyListeners();
   }
 }

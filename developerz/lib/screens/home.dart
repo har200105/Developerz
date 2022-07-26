@@ -58,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ? Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(top: 15.0),
+                          padding: const EdgeInsets.only(top: 25.0),
                           child: CircleAvatar(
                             backgroundImage: NetworkImage(Provider.of<
                                         UserProvider>(context, listen: false)

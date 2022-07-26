@@ -115,4 +115,9 @@ class DevelopersProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  void resetDeveloperProfile() {
+    _developer = null;
+    notifyListeners();
+  }
 }
