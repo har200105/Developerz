@@ -22,7 +22,6 @@ class _SearchState extends State<Search> {
         automaticallyImplyLeading: false,
         systemOverlayStyle: SystemUiOverlayStyle.light,
         elevation: 1.0,
-        // leading: const Drawer(),
         centerTitle: true,
         backgroundColor: const Color.fromRGBO(6, 40, 61, 1),
         title: const Text(

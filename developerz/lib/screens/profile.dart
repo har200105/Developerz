@@ -66,28 +66,51 @@ class _ProfileState extends State<Profile> {
                   data.getLoading == false) {
                 return Column(
                   children: [
-                    CircleAvatar(
-                      backgroundImage: NetworkImage(data.getDeveloper!.image ??
-                          "https://thumbs.dreamstime.com/b/user-avatar-icon-button-profile-symbol-flat-person-icon-vector-user-avatar-icon-button-profile-symbol-flat-person-icon-%C3%A2%E2%82%AC-stock-131363829.jpg"),
-                      radius: 50.0,
+                    Padding(
+                      padding: const EdgeInsets.only(top: 15.0),
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(data
+                                .getDeveloper!.image ??
+                            "https://thumbs.dreamstime.com/b/user-avatar-icon-button-profile-symbol-flat-person-icon-vector-user-avatar-icon-button-profile-symbol-flat-person-icon-%C3%A2%E2%82%AC-stock-131363829.jpg"),
+                        radius: 50.0,
+                      ),
                     ),
                     Text(data.getDeveloper!.name ?? ""),
                     Text(data.getDeveloper!.bio ?? ""),
-                    MaterialButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => EditProfile(
-                                      id: widget.id,
-                                    )));
-                      },
-                      child: const Text("Update Profile"),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: ElevatedButton(
+                          style: ButtonStyle(
+                              minimumSize:
+                                  MaterialStateProperty.all(Size(200, 50)),
+                              backgroundColor: MaterialStateProperty.all(
+                                  Color.fromARGB(255, 7, 247, 151)),
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25.0),
+                              ))),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => EditProfile(
+                                          id: widget.id,
+                                        )));
+                          },
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          child: const Text(
+                            "Update Profile",
+                            style: TextStyle(color: Colors.white),
+                          )),
                     ),
-                    const Text(
-                      "Skills ",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 25.0),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 25.0),
+                      child: const Text(
+                        "Skills 🚀",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 25.0),
+                      ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -109,39 +132,41 @@ class _ProfileState extends State<Profile> {
                             ),
                       ],
                     ),
-                    // if (data.getDeveloper!.socialMediaLinks!.isNotEmpty)
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        if (data.getDeveloper!.github != null &&
-                            (data.getDeveloper!.github != ""))
-                          IconButton(
-                              onPressed: () async {
-                                await launch((data.getDeveloper!.github!));
-                              },
-                              icon: const Icon(EvaIcons.githubOutline)),
-                        if (data.getDeveloper!.linkedin != null &&
-                            (data.getDeveloper!.linkedin != ""))
-                          IconButton(
-                              onPressed: () async {
-                                await launch((data.getDeveloper!.linkedin!));
-                              },
-                              icon: const Icon(EvaIcons.linkedinOutline)),
-                        if (data.getDeveloper!.website != null &&
-                            data.getDeveloper!.website != "")
-                          IconButton(
-                              onPressed: () async {
-                                await launch((data.getDeveloper!.website!));
-                              },
-                              icon: const Icon(EvaIcons.link)),
-                        if (data.getDeveloper!.twitter != null &&
-                            data.getDeveloper!.twitter != "")
-                          IconButton(
-                              onPressed: () async {
-                                await launch((data.getDeveloper!.twitter!));
-                              },
-                              icon: const Icon(EvaIcons.twitterOutline)),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.only(top: 15.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          if (data.getDeveloper!.github != null &&
+                              (data.getDeveloper!.github != ""))
+                            IconButton(
+                                onPressed: () async {
+                                  await launch((data.getDeveloper!.github!));
+                                },
+                                icon: const Icon(EvaIcons.githubOutline)),
+                          if (data.getDeveloper!.linkedin != null &&
+                              (data.getDeveloper!.linkedin != ""))
+                            IconButton(
+                                onPressed: () async {
+                                  await launch((data.getDeveloper!.linkedin!));
+                                },
+                                icon: const Icon(EvaIcons.linkedinOutline)),
+                          if (data.getDeveloper!.website != null &&
+                              data.getDeveloper!.website != "")
+                            IconButton(
+                                onPressed: () async {
+                                  await launch((data.getDeveloper!.website!));
+                                },
+                                icon: const Icon(EvaIcons.link)),
+                          if (data.getDeveloper!.twitter != null &&
+                              data.getDeveloper!.twitter != "")
+                            IconButton(
+                                onPressed: () async {
+                                  await launch((data.getDeveloper!.twitter!));
+                                },
+                                icon: const Icon(EvaIcons.twitterOutline)),
+                        ],
+                      ),
                     ),
                     const Divider(
                       color: Colors.grey,

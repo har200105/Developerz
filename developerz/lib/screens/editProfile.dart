@@ -1,5 +1,5 @@
 import 'package:developerz/providers/developers.dart';
-import 'package:developerz/widgets/bottomnavbar.dart';
+import 'package:developerz/screens/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -80,7 +80,7 @@ class _EditProfileState extends State<EditProfile> {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => BottomNavigationBarExample()));
+                        builder: (context) => Profile(id: widget.id)));
               },
               icon: const Icon(Icons.arrow_back)),
           systemOverlayStyle: SystemUiOverlayStyle.light,
@@ -98,22 +98,14 @@ class _EditProfileState extends State<EditProfile> {
               ? Form(
                   key: _formKey,
                   child: Column(
-                    // shrinkWrap: true,
                     children: [
                       const Text("Edit Profile",
                           style: TextStyle(fontSize: 25)),
-                      const Text("Include http/https in all urls",
-                          style:
-                              TextStyle(fontSize: 15, color: Colors.redAccent)),
                       Padding(
                         padding: const EdgeInsets.only(
                             top: 30.0, left: 80.0, right: 80.0),
                         child: TextFormField(
                           controller: _bioController,
-                          // initialValue: Provider.of<DevelopersProvider>(context)
-                          //         .getDeveloper!
-                          //         .bio ??
-                          //     "",
                           style: const TextStyle(color: Colors.black),
                           decoration: InputDecoration(
                             labelText: "Enter your Short Bio",
@@ -137,16 +129,6 @@ class _EditProfileState extends State<EditProfile> {
                             top: 30.0, left: 80.0, right: 80.0),
                         child: TextFormField(
                           controller: _githubController,
-                          // focusNode: _node,
-                          // initialValue: Provider.of<DevelopersProvider>(context)
-                          //         .getDeveloper!
-                          //         .socialMediaLinks!
-                          //         .isNotEmpty
-                          //     ? Provider.of<DevelopersProvider>(context)
-                          //         .getDeveloper!
-                          //         .socialMediaLinks![0]
-                          //         .github
-                          //     : "",
                           style: const TextStyle(color: Colors.black),
                           decoration: InputDecoration(
                             labelText:
@@ -171,7 +153,6 @@ class _EditProfileState extends State<EditProfile> {
                             top: 30.0, left: 80.0, right: 80.0),
                         child: TextFormField(
                           controller: _linkedinController,
-                          // focusNode: _node,
                           style: const TextStyle(color: Colors.black),
                           decoration: InputDecoration(
                             labelText: "Enter your Linkedin Profile Url",
@@ -195,15 +176,6 @@ class _EditProfileState extends State<EditProfile> {
                             top: 30.0, left: 80.0, right: 80.0),
                         child: TextFormField(
                           controller: _twitterController,
-                          // initialValue: Provider.of<DevelopersProvider>(context)
-                          //         .getDeveloper!
-                          //         .socialMediaLinks!
-                          //         .isNotEmpty
-                          //     ? Provider.of<DevelopersProvider>(context)
-                          //         .getDeveloper!
-                          //         .socialMediaLinks![0]
-                          //         .twitter
-                          //     : "",
                           focusNode: _twitternode,
                           onEditingComplete: () {
                             _twitternode.unfocus();
@@ -231,18 +203,8 @@ class _EditProfileState extends State<EditProfile> {
                         padding: const EdgeInsets.only(
                             top: 30.0, left: 80.0, right: 80.0),
                         child: TextFormField(
-                          // autofocus: true,
                           controller: _websiteController,
                           focusNode: _websitenode,
-                          // initialValue: Provider.of<DevelopersProvider>(context)
-                          //         .getDeveloper!
-                          //         .socialMediaLinks!
-                          //         .isNotEmpty
-                          //     ? Provider.of<DevelopersProvider>(context)
-                          //         .getDeveloper!
-                          //         .socialMediaLinks![0]
-                          //         .website
-                          //     : "",
                           onEditingComplete: () {
                             _websitenode.unfocus();
                             FocusScope.of(context).requestFocus(_skillsnode);
@@ -275,7 +237,7 @@ class _EditProfileState extends State<EditProfile> {
                         letterCase: LetterCase.normal,
                         validator: (String tag) {
                           if (_controller.getTags!.contains(tag)) {
-                            return 'You have already entered that';
+                            return 'You have already entered this';
                           } else if (_controller.getTags!.length >= 3) {
                             return 'You can enter only up to 3 Tags';
                           }
@@ -389,6 +351,26 @@ class _EditProfileState extends State<EditProfile> {
                       ),
                       MaterialButton(
                         onPressed: () {
+                          if (!(_githubController.text.contains("https://") ||
+                              _githubController.text.contains("http://"))) {
+                            _githubController.text =
+                                "https://" + _githubController.text;
+                          }
+                          if (!(_linkedinController.text.contains("https://") ||
+                              _linkedinController.text.contains("http://"))) {
+                            _linkedinController.text =
+                                "https://" + _linkedinController.text;
+                          }
+                          if (!(_websiteController.text.contains("https://") ||
+                              _websiteController.text.contains("http://"))) {
+                            _websiteController.text =
+                                "https://" + _websiteController.text;
+                          }
+                          if (!(_twitterController.text.contains("https://") ||
+                              _twitterController.text.contains("http://"))) {
+                            _twitterController.text =
+                                "https://" + _twitterController.text;
+                          }
                           print(_controller.getTags.runtimeType);
                           Provider.of<DevelopersProvider>(context,
                                   listen: false)

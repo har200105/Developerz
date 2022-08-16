@@ -1,5 +1,4 @@
 import 'package:developerz/providers/user.dart';
-import 'package:developerz/screens/resetPassword.dart';
 import 'package:developerz/screens/signup.dart';
 import 'package:developerz/widgets/bottomnavbar.dart';
 import 'package:flutter/material.dart';
@@ -37,112 +36,110 @@ class _LoginState extends State<Login> {
           centerTitle: true,
           backgroundColor: const Color.fromRGBO(6, 40, 61, 1),
           title: const Text(
-            'Developerz',
+            "Developerz",
             style: TextStyle(color: Colors.white),
           ),
         ),
-        body: Column(children: [
-          Form(
-            key: formkey,
-            child: Column(
-              children: [
-                const Text("Login", style: TextStyle(fontSize: 25)),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(top: 30.0, left: 80.0, right: 80.0),
-                  child: TextFormField(
-                    controller: _emailController,
-                    style: const TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      labelText: "Enter your Username",
-                      focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: Colors.black, width: 2.0),
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: Colors.black, width: 2.0),
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                      hintStyle:
-                          const TextStyle(fontSize: 18.0, color: Colors.black),
+        body: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Form(
+                key: formkey,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: const Text("Login At the Developerz",
+                          style: TextStyle(fontSize: 25)),
                     ),
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(top: 30.0, left: 80.0, right: 80.0),
-                  child: TextFormField(
-                    controller: _passwordController,
-                    style: const TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      labelText: "Enter your Password",
-                      focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: Colors.black, width: 2.0),
-                        borderRadius: BorderRadius.circular(25.0),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: 30.0, left: 80.0, right: 80.0),
+                      child: TextFormField(
+                        controller: _emailController,
+                        style: const TextStyle(color: Colors.black),
+                        decoration: InputDecoration(
+                          labelText: "Enter your username",
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Colors.black, width: 2.0),
+                            borderRadius: BorderRadius.circular(25.0),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Colors.black, width: 2.0),
+                            borderRadius: BorderRadius.circular(25.0),
+                          ),
+                          hintStyle: const TextStyle(
+                              fontSize: 18.0, color: Colors.black),
+                        ),
                       ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: Colors.black, width: 2.0),
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                      hintStyle:
-                          const TextStyle(fontSize: 18.0, color: Colors.black),
                     ),
-                  ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          top: 30.0, left: 80.0, right: 80.0),
+                      child: TextFormField(
+                        controller: _passwordController,
+                        style: const TextStyle(color: Colors.black),
+                        decoration: InputDecoration(
+                          labelText: "Enter your Password",
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Colors.black, width: 2.0),
+                            borderRadius: BorderRadius.circular(25.0),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Colors.black, width: 2.0),
+                            borderRadius: BorderRadius.circular(25.0),
+                          ),
+                          hintStyle: const TextStyle(
+                              fontSize: 18.0, color: Colors.black),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: ElevatedButton(
+                          style: ButtonStyle(
+                              minimumSize:
+                                  MaterialStateProperty.all(Size(200, 50)),
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.blueGrey),
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25.0),
+                              ))),
+                          onPressed: () {
+                            Provider.of<UserProvider>(context, listen: false)
+                                .LoginService(
+                                    context,
+                                    _emailController.text.trim().toLowerCase(),
+                                    _passwordController.text.trim());
+                          },
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          child: const Text(
+                            "Login",
+                            style: TextStyle(color: Colors.white),
+                          )),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: GestureDetector(
+                          onTap: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Signup()));
+                          },
+                          child: const Text("New To Developerz ?",
+                              style: TextStyle(color: Colors.blue))),
+                    ),
+                  ],
                 ),
-                MaterialButton(
-                  onPressed: () {
-                    Provider.of<UserProvider>(context, listen: false)
-                        .LoginService(
-                            context,
-                            _emailController.text.trim().toLowerCase(),
-                            _passwordController.text.trim());
-                  },
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  child: const Text(
-                    "Login",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  color: const Color.fromRGBO(6, 40, 61, 1),
-                ),
-                GestureDetector(
-                    onTap: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Signup()));
-                    },
-                    child: const Text("New To Developerz ?")),
-                // Padding(
-                //   padding: const EdgeInsets.only(top: 10.0),
-                //   child: TextButton(
-                //       onPressed: () async {
-                //         Navigator.pushReplacement(
-                //             context,
-                //             MaterialPageRoute(
-                //                 builder: (context) => ResetPassword()));
-                //       },
-                //       child: const Text("Forget Password ?",
-                //           style: TextStyle(color: Colors.black))),
-                // ),
-                // Padding(
-                //   padding: const EdgeInsets.only(top: 10.0),
-                //   child: TextButton(
-                //       onPressed: () async {
-                //         Navigator.pushReplacement(
-                //             context,
-                //             MaterialPageRoute(
-                //                 builder: (context) => const Signup()));
-                //       },
-                //       child: const Text("New User ?",
-                //           style: TextStyle(color: Colors.black))),
-                // ),
-              ],
-            ),
-          ),
-        ]));
+              ),
+            ]));
   }
 }

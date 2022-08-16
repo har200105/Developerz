@@ -35,196 +35,183 @@ class _HomeScreenState extends State<HomeScreen> {
     // Use [dark] for white status bar and [light] for black status bar.
     // statusBarBrightness: Brightness.light,
     // ),
-    return Expanded(
-      child: Scaffold(
-        appBar: AppBar(
-          systemOverlayStyle: SystemUiOverlayStyle.light,
-          elevation: 1.0,
-          centerTitle: true,
-          backgroundColor: const Color.fromRGBO(6, 40, 61, 1),
-          title: const Text(
-            'Developerz',
-            style: TextStyle(color: Colors.white),
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        systemOverlayStyle: SystemUiOverlayStyle.light,
+        elevation: 1.0,
+        centerTitle: true,
+        backgroundColor: const Color.fromRGBO(6, 40, 61, 1),
+        title: const Text(
+          'Developerz',
+          style: TextStyle(color: Colors.white),
         ),
-        drawer: Drawer(
-          backgroundColor: const Color.fromRGBO(6, 40, 61, 1.0),
-          child: Provider.of<UserProvider>(context).loading
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : Provider.of<UserProvider>(context).getIsUser &&
-                      Provider.of<UserProvider>(context).loading == false
-                  ? Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 25.0),
-                          child: CircleAvatar(
-                            backgroundImage: NetworkImage(Provider.of<
-                                        UserProvider>(context, listen: false)
-                                    .user!
-                                    .image ??
-                                "https://thumbs.dreamstime.com/b/user-avatar-icon-button-profile-symbol-flat-person-icon-vector-user-avatar-icon-button-profile-symbol-flat-person-icon-%C3%A2%E2%82%AC-stock-131363829.jpg"),
-                            radius: 50.0,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                              Provider.of<UserProvider>(context, listen: false)
+      ),
+      drawer: Drawer(
+        backgroundColor: const Color.fromRGBO(6, 40, 61, 1.0),
+        child: Provider.of<UserProvider>(context).loading
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : Provider.of<UserProvider>(context).getIsUser &&
+                    Provider.of<UserProvider>(context).loading == false
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 50.0),
+                        child: CircleAvatar(
+                          backgroundImage: NetworkImage(Provider.of<
+                                      UserProvider>(context, listen: false)
                                   .user!
-                                  .name
-                                  .toString(),
-                              style: const TextStyle(
-                                color: Colors.white,
-                              )),
+                                  .image ??
+                              "https://thumbs.dreamstime.com/b/user-avatar-icon-button-profile-symbol-flat-person-icon-vector-user-avatar-icon-button-profile-symbol-flat-person-icon-%C3%A2%E2%82%AC-stock-131363829.jpg"),
+                          radius: 50.0,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                              Provider.of<UserProvider>(context, listen: false)
-                                      .user!
-                                      .bio ??
-                                  "",
-                              style: const TextStyle(
-                                color: Colors.white,
-                              )),
-                        ),
-                        const Divider(
-                          color: Colors.grey,
-                          thickness: 2.0,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Profile(
-                                          id: Provider.of<UserProvider>(context,
-                                                  listen: false)
-                                              .user!
-                                              .sId!)));
-                            },
-                            child: const Text(
-                              "Profile",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const AddProject()));
-                            },
-                            child: const Text(
-                              "Add Project",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              Provider.of<UserProvider>(context, listen: false)
-                                  .logout();
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const Login()));
-                            },
-                            child: const Text(
-                              "Logout",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                  : Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const SizedBox(
-                          child: Center(
-                              child: Text(
-                            "Developerz",
-                            style:
-                                TextStyle(color: Colors.white, fontSize: 20.0),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                            Provider.of<UserProvider>(context, listen: false)
+                                .user!
+                                .name
+                                .toString(),
+                            style: const TextStyle(
+                              color: Colors.white,
+                            )),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                            Provider.of<UserProvider>(context, listen: false)
+                                    .user!
+                                    .bio ??
+                                "",
+                            style: const TextStyle(
+                              color: Colors.white,
+                            )),
+                      ),
+                      const Divider(
+                        color: Colors.grey,
+                        thickness: 2.0,
+                      ),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Profile(
+                                        id: Provider.of<UserProvider>(context,
+                                                listen: false)
+                                            .user!
+                                            .sId!)));
+                          },
+                          child: const Text(
+                            "Profile",
+                            style: TextStyle(color: Colors.white),
                           )),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) => const AddProject()));
+                        },
+                        child: const Text(
+                          "Add Project",
+                          style: TextStyle(color: Colors.white),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const Login()));
-                            },
-                            child: const Text(
-                              "Login",
-                              style: TextStyle(color: Colors.white),
-                            ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Provider.of<UserProvider>(context, listen: false)
+                              .logout();
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Login()));
+                        },
+                        child: const Text(
+                          "Logout",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  )
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(
+                        child: Center(
+                            child: Text(
+                          "Developerz",
+                          style: TextStyle(color: Colors.white, fontSize: 20.0),
+                        )),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10.0),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Login()));
+                          },
+                          child: const Text(
+                            "Login",
+                            style: TextStyle(color: Colors.white),
                           ),
                         ),
-                      ],
-                    ),
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(left: 10.0, top: 10.0, bottom: 20.0),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Recently Joined Developers",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 20.0),
+                      ),
+                    ],
                   ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(left: 10.0, top: 10.0, bottom: 20.0),
+              child: Align(
+                alignment: Alignment.center,
+                child: Text(
+                  "Recently Joined Developers 🚀",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20.0),
                 ),
               ),
-              Consumer<DevelopersProvider>(builder: (context, data, snapshot) {
-                if (data.getLoading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else if (data.getDevelopers.isEmpty) {
-                  return const Center(
-                    child: Text("No Developers Available Currently"),
-                  );
-                } else {
-                  return ListView.builder(
-                      shrinkWrap: true,
-                      physics: const ClampingScrollPhysics(),
-                      scrollDirection: Axis.vertical,
-                      itemCount: data.getDevelopers.length,
-                      itemBuilder: ((context, index) {
-                        return Developer(
-                          id: data.getDevelopers[index].sId!,
-                          name: data.getDevelopers[index].name,
-                          image: data.getDevelopers[index].image ??
-                              "https://thumbs.dreamstime.com/b/user-avatar-icon-button-profile-symbol-flat-person-icon-vector-user-avatar-icon-button-profile-symbol-flat-person-icon-%C3%A2%E2%82%AC-stock-131363829.jpg",
-                          bio: data.getDevelopers[index].bio ?? "",
-                          skills: data.getDevelopers[index].skills!,
-                          github: data.getDevelopers[index].github,
-                          linkedin: data.getDevelopers[index].linkedin,
-                          twitter: data.getDevelopers[index].twitter,
-                          portfolio: data.getDevelopers[index].website,
-                        );
-                      }));
-                }
-              })
-            ],
-          ),
+            ),
+            Consumer<DevelopersProvider>(builder: (context, data, snapshot) {
+              if (data.getLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (data.getDevelopers.isEmpty) {
+                return const Center(
+                  child: Text("No Developer Available Currently"),
+                );
+              } else {
+                return ListView.builder(
+                    shrinkWrap: true,
+                    physics: const ClampingScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    itemCount: data.getDevelopers.length,
+                    itemBuilder: ((context, index) {
+                      return Developer(
+                        id: data.getDevelopers[index].sId!,
+                        name: data.getDevelopers[index].name,
+                        image: data.getDevelopers[index].image ??
+                            "https://thumbs.dreamstime.com/b/user-avatar-icon-button-profile-symbol-flat-person-icon-vector-user-avatar-icon-button-profile-symbol-flat-person-icon-%C3%A2%E2%82%AC-stock-131363829.jpg",
+                        bio: data.getDevelopers[index].bio ?? "",
+                        skills: data.getDevelopers[index].skills!,
+                        github: data.getDevelopers[index].github,
+                        linkedin: data.getDevelopers[index].linkedin,
+                        twitter: data.getDevelopers[index].twitter,
+                        portfolio: data.getDevelopers[index].website,
+                      );
+                    }));
+              }
+            })
+          ],
         ),
       ),
     );

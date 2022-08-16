@@ -113,7 +113,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5.0),
+                                    borderRadius: BorderRadius.circular(25.0),
                                     side: const BorderSide(
                                         color: Colors.white, width: 2.0)))),
                     onPressed: () async {

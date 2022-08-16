@@ -71,80 +71,96 @@ class _DeveloperProfileState extends State<DeveloperProfile> {
                     child: CircularProgressIndicator(),
                   );
                 } else {
-                  return Column(
-                    children: [
-                      CircleAvatar(
-                        backgroundImage: NetworkImage(data
-                                .getDeveloper!.image ??
-                            "https://thumbs.dreamstime.com/b/user-avatar-icon-button-profile-symbol-flat-person-icon-vector-user-avatar-icon-button-profile-symbol-flat-person-icon-%C3%A2%E2%82%AC-stock-131363829.jpg"),
-                        radius: 50.0,
-                      ),
-                      Text(data.getDeveloper!.name ?? ""),
-                      Text(data.getDeveloper!.bio ?? ""),
-                      const Text(
-                        "Skills ",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 25.0),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          if (data.getDeveloper!.skills != null)
-                            for (int i = 0;
-                                i < data.getDeveloper!.skills!.length;
-                                i++)
-                              Chip(
-                                elevation: 10,
-                                padding: const EdgeInsets.all(10),
-                                backgroundColor:
-                                    const Color.fromRGBO(6, 40, 61, 1),
-                                label: Text(
-                                  data.getDeveloper!.skills![i],
-                                  style: const TextStyle(
-                                      fontSize: 15, color: Colors.white),
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 15.0),
+                    child: Column(
+                      children: [
+                        CircleAvatar(
+                          backgroundImage: NetworkImage(data
+                                  .getDeveloper!.image ??
+                              "https://thumbs.dreamstime.com/b/user-avatar-icon-button-profile-symbol-flat-person-icon-vector-user-avatar-icon-button-profile-symbol-flat-person-icon-%C3%A2%E2%82%AC-stock-131363829.jpg"),
+                          radius: 50.0,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 15.0),
+                          child: Text(data.getDeveloper!.name ?? "",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                        ),
+                        Text(data.getDeveloper!.bio ?? ""),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10.0),
+                          child: const Text(
+                            "Skills 🚀",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 25.0),
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            if (data.getDeveloper!.skills != null)
+                              for (int i = 0;
+                                  i < data.getDeveloper!.skills!.length;
+                                  i++)
+                                Chip(
+                                  elevation: 10,
+                                  padding: const EdgeInsets.all(10),
+                                  backgroundColor:
+                                      const Color.fromRGBO(6, 40, 61, 1),
+                                  label: Text(
+                                    data.getDeveloper!.skills![i],
+                                    style: const TextStyle(
+                                        fontSize: 15, color: Colors.white),
+                                  ),
                                 ),
-                              ),
-                        ],
-                      ),
-                      // if (data.getDeveloper!.socialMediaLinks!.isNotEmpty)
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          if (data.getDeveloper!.github != null ||
-                              (data.getDeveloper!.github != ""))
-                            IconButton(
-                                onPressed: () async {
-                                  await launch((data.getDeveloper!.github!));
-                                },
-                                icon: const Icon(EvaIcons.githubOutline)),
-                          if (data.getDeveloper!.linkedin != null ||
-                              (data.getDeveloper!.linkedin != ""))
-                            IconButton(
-                                onPressed: () async {
-                                  await launch((data.getDeveloper!.linkedin!));
-                                },
-                                icon: const Icon(EvaIcons.linkedinOutline)),
-                          if (data.getDeveloper!.website != null ||
-                              data.getDeveloper!.website != "")
-                            IconButton(
-                                onPressed: () async {
-                                  await launch((data.getDeveloper!.website!));
-                                },
-                                icon: const Icon(EvaIcons.link)),
-                          if (data.getDeveloper!.twitter != null ||
-                              data.getDeveloper!.twitter != "")
-                            IconButton(
-                                onPressed: () async {
-                                  await launch((data.getDeveloper!.twitter!));
-                                },
-                                icon: const Icon(EvaIcons.twitterOutline)),
-                        ],
-                      ),
-                      const Divider(
-                        color: Colors.grey,
-                        thickness: 2.0,
-                      ),
-                    ],
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 15.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              if (data.getDeveloper!.github != null ||
+                                  (data.getDeveloper!.github != ""))
+                                IconButton(
+                                    onPressed: () async {
+                                      await launch(
+                                          (data.getDeveloper!.github!));
+                                    },
+                                    icon: const Icon(EvaIcons.githubOutline)),
+                              if (data.getDeveloper!.linkedin != null ||
+                                  (data.getDeveloper!.linkedin != ""))
+                                IconButton(
+                                    onPressed: () async {
+                                      await launch(
+                                          (data.getDeveloper!.linkedin!));
+                                    },
+                                    icon: const Icon(EvaIcons.linkedinOutline)),
+                              if (data.getDeveloper!.website != null ||
+                                  data.getDeveloper!.website != "")
+                                IconButton(
+                                    onPressed: () async {
+                                      await launch(
+                                          (data.getDeveloper!.website!));
+                                    },
+                                    icon: const Icon(EvaIcons.link)),
+                              if (data.getDeveloper!.twitter != null ||
+                                  data.getDeveloper!.twitter != "")
+                                IconButton(
+                                    onPressed: () async {
+                                      await launch(
+                                          (data.getDeveloper!.twitter!));
+                                    },
+                                    icon: const Icon(EvaIcons.twitterOutline)),
+                            ],
+                          ),
+                        ),
+                        const Divider(
+                          color: Colors.blueGrey,
+                          thickness: 2.0,
+                        ),
+                      ],
+                    ),
                   );
                 }
               }),
@@ -187,7 +203,6 @@ class _DeveloperProfileState extends State<DeveloperProfile> {
                           description: data.projectsUser[index].about,
                           techStacks:
                               data.projectsUser[index].techStacksUsed ?? [],
-                          // techStacks: data.projectsUser[index].techStacksUsed,
                           github: data.projectsUser[index].codeUrl,
                           link: data.projectsUser[index].liveUrl,
                         );

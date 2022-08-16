@@ -32,7 +32,6 @@ class _BottomNavigationBarExampleState
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
-        // Navigator.pushReplacement(context, route)
         return Future.value(false);
       },
       child: Scaffold(
@@ -54,7 +53,7 @@ class _BottomNavigationBarExampleState
               currentIndex = index;
               pageController.animateToPage(index,
                   duration: const Duration(milliseconds: 500),
-                  curve: Curves.easeIn);
+                  curve: Curves.bounceInOut);
             });
           },
           items: const [

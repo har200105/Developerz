@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../providers/user.dart';
 
 class ProjectDetailScreen extends StatefulWidget {
@@ -72,12 +71,12 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
               children: [
                 if (data.getProject!.image != null)
                   Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
+                    padding: const EdgeInsets.only(top: 25.0),
                     child: Align(
                       alignment: Alignment.center,
                       child: SizedBox(
-                        height: 80.0,
-                        width: MediaQuery.of(context).size.width * 0.85,
+                        height: 200.0,
+                        width: MediaQuery.of(context).size.width * 0.90,
                         child:
                             Image(image: NetworkImage(data.getProject!.image!)),
                       ),
@@ -87,63 +86,113 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
                   padding: const EdgeInsets.only(top: 10.0),
                   child: Text(
                     data.getProject!.name ?? "",
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 20.0),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0),
                   child: Text(
                     data.getProject!.about ?? "",
-                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
-                  child: Text("Developer: ${data.getProject!.developer!.name}"),
-                ),
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: Text(
+                        "Developer: ${data.getProject!.developer!.name}",
+                        style: TextStyle(fontWeight: FontWeight.bold))),
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0),
                   child: Text(data.getProject!.about ?? ""),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10.0),
-                      child: Text(
-                        "UpVotes :" +
-                            data.getProject!.upvotes!.length.toString(),
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10.0),
+                        child: Text(
+                          "UpVotes :" +
+                              data.getProject!.upvotes!.length.toString(),
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10.0),
-                      child: Text(
-                        "DownVotes :" +
-                            data.getProject!.downvotes!.length.toString(),
-                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10.0),
+                        child: Text(
+                          "DownVotes :" +
+                              data.getProject!.downvotes!.length.toString(),
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    if (data.getProject!.techStacksUsed != null)
-                      for (int i = 0;
-                          i < data.getProject!.techStacksUsed!.length;
-                          i++)
-                        Chip(
-                          elevation: 10,
-                          padding: const EdgeInsets.all(10),
-                          backgroundColor: const Color.fromRGBO(6, 40, 61, 1),
-                          label: Text(
-                            data.getProject!.techStacksUsed![i],
-                            style: const TextStyle(
-                                fontSize: 15, color: Colors.white),
-                          ),
-                        ),
+                    if (Provider.of<UserProvider>(context).getIsUser &&
+                        (data.getProject!.upvotes!
+                                .map((element) => element.sId))
+                            .contains(Provider.of<UserProvider>(context,
+                                    listen: false)
+                                .user!
+                                .sId))
+                      IconButton(
+                          tooltip: "DownVote Project",
+                          onPressed: () async {
+                            await data.downVoteProject(context, widget.id);
+                            await Provider.of<ProjectProvider>(context,
+                                    listen: false)
+                                .getProjectDetailsById(context, widget.id);
+                          },
+                          icon: const Icon(
+                            EvaIcons.arrowCircleDown,
+                            color: Colors.red,
+                          )),
+                    if (Provider.of<UserProvider>(context).getIsUser &&
+                        (data.getProject!.downvotes!
+                                .map((element) => element.sId))
+                            .contains(Provider.of<UserProvider>(context,
+                                    listen: false)
+                                .user!
+                                .sId))
+                      IconButton(
+                          tooltip: "Upvote Project",
+                          onPressed: () async {
+                            await data.upVoteProject(context, widget.id);
+                            await Provider.of<ProjectProvider>(context,
+                                    listen: false)
+                                .getProjectDetailsById(context, widget.id);
+                          },
+                          icon: const Icon(
+                            EvaIcons.arrowCircleUp,
+                            color: Colors.green,
+                          )),
                   ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 15.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      if (data.getProject!.techStacksUsed != null)
+                        for (int i = 0;
+                            i < data.getProject!.techStacksUsed!.length;
+                            i++)
+                          Chip(
+                            elevation: 10,
+                            padding: const EdgeInsets.all(10),
+                            backgroundColor: const Color.fromRGBO(6, 40, 61, 1),
+                            label: Text(
+                              data.getProject!.techStacksUsed![i],
+                              style: const TextStyle(
+                                  fontSize: 15, color: Colors.white),
+                            ),
+                          ),
+                    ],
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -162,47 +211,6 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
                           icon: const Icon(EvaIcons.link)),
                   ],
                 ),
-                const Divider(
-                  color: Colors.grey,
-                  thickness: 2.0,
-                ),
-                if (Provider.of<UserProvider>(context).getIsUser)
-                  const Text("Upvote | Downvote"),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    if (Provider.of<UserProvider>(context).getIsUser &&
-                        !(data.getProject!.upvotes!
-                                .map((element) => element.sId))
-                            .contains(Provider.of<UserProvider>(context,
-                                    listen: false)
-                                .user!
-                                .sId))
-                      IconButton(
-                          onPressed: () async {
-                            await data.upVoteProject(context, widget.id);
-                            await Provider.of<ProjectProvider>(context,
-                                    listen: false)
-                                .getProjectDetailsById(context, widget.id);
-                          },
-                          icon: const Icon(EvaIcons.arrowUp)),
-                    if (Provider.of<UserProvider>(context).getIsUser &&
-                        !(data.getProject!.downvotes!
-                                .map((element) => element.sId))
-                            .contains(Provider.of<UserProvider>(context,
-                                    listen: false)
-                                .user!
-                                .sId))
-                      IconButton(
-                          onPressed: () async {
-                            await data.downVoteProject(context, widget.id);
-                            await Provider.of<ProjectProvider>(context,
-                                    listen: false)
-                                .getProjectDetailsById(context, widget.id);
-                          },
-                          icon: const Icon(EvaIcons.arrowDown)),
-                  ],
-                )
               ],
             );
           }),

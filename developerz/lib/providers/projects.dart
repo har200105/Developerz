@@ -60,15 +60,12 @@ class ProjectProvider extends ChangeNotifier {
   Future getProjectsDoneByDevelopersById(
       BuildContext context, String id) async {
     try {
-      print("sfdsd");
       if (_projectsUser.isEmpty) {
         _loading = true;
       }
-      print('dsdsd');
       var response = await _projectService.fetchProjectOfUserById(id);
       Projects modelData = Projects.fromJson(jsonDecode(response));
       _projectsUser = modelData.projects;
-      print("sdsd");
       _loading = false;
       notifyListeners();
     } catch (e) {

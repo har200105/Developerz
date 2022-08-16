@@ -59,7 +59,11 @@ class _SignupState extends State<Signup> {
             key: formkey,
             child: Column(
               children: [
-                const Text("Signup", style: TextStyle(fontSize: 25)),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: const Text("Signup At the Developerz",
+                      style: TextStyle(fontSize: 25)),
+                ),
                 Padding(
                   padding:
                       const EdgeInsets.only(top: 30.0, left: 80.0, right: 80.0),
@@ -129,41 +133,53 @@ class _SignupState extends State<Signup> {
                     ),
                   ),
                 ),
-                MaterialButton(
+                IconButton(
                   onPressed: () {
                     utils.uploadImage();
                   },
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  child: const Text(
-                    "Upload Image",
-                    style: TextStyle(color: Colors.white),
-                  ),
+                  icon: Icon(Icons.cloud_upload_outlined),
                   color: const Color.fromRGBO(6, 40, 61, 1),
+                  tooltip: "Upload your pic",
                 ),
-                MaterialButton(
-                  onPressed: () {
-                    Provider.of<UserProvider>(context, listen: false).Signup(
-                        context,
-                        _nameController.text,
-                        _emailController.text.trim().toLowerCase(),
-                        _passwordController.text.trim(),
-                        utils.userimage);
-                  },
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  child: const Text(
-                    "Signup",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  color: const Color.fromRGBO(6, 40, 61, 1),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: ElevatedButton(
+                      style: ButtonStyle(
+                          minimumSize: MaterialStateProperty.all(Size(200, 50)),
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.teal),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25.0),
+                          ))),
+                      onPressed: () {
+                        Provider.of<UserProvider>(context, listen: false)
+                            .Signup(
+                                context,
+                                _nameController.text,
+                                _emailController.text.trim().toLowerCase(),
+                                _passwordController.text.trim(),
+                                utils.userimage);
+                      },
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      child: const Text(
+                        "Signup",
+                        style: TextStyle(color: Colors.white),
+                      )),
                 ),
-                GestureDetector(
-                    onTap: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Login()));
-                    },
-                    child: const Text("Already a user ?"))
+                Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: GestureDetector(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Login()));
+                      },
+                      child: const Text("Already a user ?",
+                          style: TextStyle(color: Colors.blue))),
+                ),
               ],
             ),
           ),

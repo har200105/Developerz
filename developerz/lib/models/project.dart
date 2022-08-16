@@ -62,18 +62,21 @@ class Project {
         : null;
     techStacksUsed = json['techStacksUsed'].cast<String>();
     about = json['about'];
+
     if (json['upvotes'] != null) {
       upvotes = <Developer>[];
       json['upvotes'].forEach((v) {
         upvotes!.add(Developer.fromJson(v));
       });
     }
+
     if (json['downvotes'] != null) {
       downvotes = <Developer>[];
       json['downvotes'].forEach((v) {
         downvotes!.add(Developer.fromJson(v));
       });
     }
+
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     iV = json['__v'];
