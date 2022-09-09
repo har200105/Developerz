@@ -105,8 +105,7 @@ class _DeveloperProfileState extends State<DeveloperProfile> {
                                 Chip(
                                   elevation: 10,
                                   padding: const EdgeInsets.all(10),
-                                  backgroundColor:
-                                      const Color.fromRGBO(6, 40, 61, 1),
+                                  backgroundColor: Colors.teal,
                                   label: Text(
                                     data.getDeveloper!.skills![i],
                                     style: const TextStyle(

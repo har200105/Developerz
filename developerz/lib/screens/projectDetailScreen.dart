@@ -184,7 +184,7 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
                           Chip(
                             elevation: 10,
                             padding: const EdgeInsets.all(10),
-                            backgroundColor: const Color.fromRGBO(6, 40, 61, 1),
+                            backgroundColor: Colors.orangeAccent,
                             label: Text(
                               data.getProject!.techStacksUsed![i],
                               style: const TextStyle(

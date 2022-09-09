@@ -49,7 +49,7 @@ class ProjectProvider extends ChangeNotifier {
           content: Text(
             "Something Went Wrong",
           ),
-          backgroundColor: Color.fromRGBO(6, 40, 61, 1),
+          backgroundColor: Colors.red,
         ),
       );
       _loading = false;
@@ -75,7 +75,7 @@ class ProjectProvider extends ChangeNotifier {
           content: Text(
             "Something Went Wrong",
           ),
-          backgroundColor: Color.fromRGBO(6, 40, 61, 1),
+          backgroundColor: Colors.red,
         ),
       );
       _loading = false;
@@ -100,7 +100,7 @@ class ProjectProvider extends ChangeNotifier {
           content: Text(
             "Something Went Wrong",
           ),
-          backgroundColor: Color.fromRGBO(6, 40, 61, 1),
+          backgroundColor: Colors.red,
         ),
       );
       _loading = false;
@@ -127,7 +127,7 @@ class ProjectProvider extends ChangeNotifier {
           content: Text(
             "Something Went Wrong",
           ),
-          backgroundColor: Color.fromRGBO(6, 40, 61, 1),
+          backgroundColor: Colors.red,
         ),
       );
       _loading = false;
@@ -146,8 +146,10 @@ class ProjectProvider extends ChangeNotifier {
     try {
       _loading = true;
       if (name.isEmpty || description.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Name and Description is required")));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Name and Description is required"),
+          backgroundColor: Colors.tealAccent,
+        ));
         return;
       }
       SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -157,8 +159,10 @@ class ProjectProvider extends ChangeNotifier {
           token, name, description, github, live, image, techStacksUsed);
       _loading = false;
       if (json.decode(response)['success'] == true) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text("Project Added")));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Project Added"),
+          backgroundColor: Colors.tealAccent,
+        ));
         Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (context) => BottomNavigationBarExample()));
       }
@@ -170,7 +174,7 @@ class ProjectProvider extends ChangeNotifier {
           content: Text(
             "Something Went Wrong",
           ),
-          backgroundColor: Color.fromRGBO(6, 40, 61, 1),
+          backgroundColor: Colors.red,
         ),
       );
       _loading = false;
@@ -186,8 +190,10 @@ class ProjectProvider extends ChangeNotifier {
       var response = await _projectService.upVoteProject(token, id);
       _loading = false;
       if (json.decode(response)['success'] == true) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text("Project UpVoted")));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Project UpVoted"),
+          backgroundColor: Colors.tealAccent,
+        ));
       }
       notifyListeners();
     } catch (e) {
@@ -197,7 +203,7 @@ class ProjectProvider extends ChangeNotifier {
           content: Text(
             "Something Went Wrong",
           ),
-          backgroundColor: Color.fromRGBO(6, 40, 61, 1),
+          backgroundColor: Colors.red,
         ),
       );
       _loading = false;
@@ -213,8 +219,10 @@ class ProjectProvider extends ChangeNotifier {
       var response = await _projectService.downVoteProject(token, id);
       _loading = false;
       if (json.decode(response)['success'] == true) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text("Project DownVoted")));
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Project DownVoted"),
+          backgroundColor: Colors.tealAccent,
+        ));
       }
       notifyListeners();
     } catch (e) {
@@ -224,7 +232,7 @@ class ProjectProvider extends ChangeNotifier {
           content: Text(
             "Something Went Wrong",
           ),
-          backgroundColor: Color.fromRGBO(6, 40, 61, 1),
+          backgroundColor: Colors.red,
         ),
       );
       _loading = false;

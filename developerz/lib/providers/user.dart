@@ -1,13 +1,10 @@
 import 'dart:convert';
-// import 'dart:html';
 import 'package:developerz/models/developer.dart';
-import 'package:developerz/providers/imageUtility.dart';
 import 'package:developerz/screens/login.dart';
 import 'package:developerz/screens/verifyEmail.dart';
 import 'package:developerz/services/authenticationServices.dart';
 import 'package:developerz/widgets/bottomnavbar.dart';
 import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserProvider extends ChangeNotifier {
@@ -65,13 +62,17 @@ class UserProvider extends ChangeNotifier {
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => VerifyEmail(email: email)));
       } else {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(message)));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(message),
+          backgroundColor: Colors.tealAccent,
+        ));
       }
     } catch (e) {
       print(e.toString());
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text("Something went wrong")));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text("Something went wrong"),
+        backgroundColor: Colors.red,
+      ));
     }
   }
 

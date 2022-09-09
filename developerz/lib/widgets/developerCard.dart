@@ -65,31 +65,13 @@ class Developer extends StatelessWidget {
                         Chip(
                           elevation: 10,
                           padding: const EdgeInsets.all(3),
-                          backgroundColor: const Color.fromRGBO(6, 40, 61, 1),
+                          backgroundColor: Colors.teal,
                           label: Text(
                             skills![i],
                             style: const TextStyle(
                                 fontSize: 15, color: Colors.white),
                           ),
                         ),
-                    // Chip(
-                    //   elevation: 10,
-                    //   padding: EdgeInsets.all(10),
-                    //   backgroundColor: Color.fromRGBO(6, 40, 61, 1),
-                    //   label: Text(
-                    //     'Django',
-                    //     style: TextStyle(fontSize: 15, color: Colors.white),
-                    //   ),
-                    // ),
-                    // Chip(
-                    //   elevation: 10,
-                    //   padding: EdgeInsets.all(10),
-                    //   backgroundColor: Color.fromRGBO(6, 40, 61, 1),
-                    //   label: Text(
-                    //     'Flutter',
-                    //     style: TextStyle(fontSize: 15, color: Colors.white),
-                    //   ),
-                    // ),
                   ],
                 ),
                 Row(

@@ -319,6 +319,9 @@ class _EditProfileState extends State<AddProject> {
                       style: TextStyle(color: Colors.white),
                     )),
               ),
+              Padding(
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).viewInsets.bottom))
             ],
           ),
         ),

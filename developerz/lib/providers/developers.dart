@@ -35,7 +35,7 @@ class DevelopersProvider extends ChangeNotifier {
           content: Text(
             "Something Went Wrong",
           ),
-          backgroundColor: Color.fromRGBO(6, 40, 61, 1),
+          backgroundColor: Colors.red,
         ),
       );
       _loading = false;
@@ -60,7 +60,7 @@ class DevelopersProvider extends ChangeNotifier {
           content: Text(
             "Something Went Wrong",
           ),
-          backgroundColor: Color.fromRGBO(6, 40, 61, 1),
+          backgroundColor: Colors.red,
         ),
       );
       _loading = false;
@@ -91,8 +91,10 @@ class DevelopersProvider extends ChangeNotifier {
             website: website,
             skills: skills);
         if (json.decode(response)['success'] == true) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(const SnackBar(content: Text("Profile Updated")));
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text("Profile Updated"),
+            backgroundColor: Colors.tealAccent,
+          ));
           Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (context) => BottomNavigationBarExample()));
         }
@@ -108,7 +110,7 @@ class DevelopersProvider extends ChangeNotifier {
           content: Text(
             "Something Went Wrong",
           ),
-          backgroundColor: Color.fromRGBO(6, 40, 61, 1),
+          backgroundColor: Colors.red,
         ),
       );
       _loading = false;
