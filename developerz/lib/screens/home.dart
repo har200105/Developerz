@@ -1,12 +1,15 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:developerz/providers/developers.dart';
 import 'package:developerz/providers/user.dart';
 import 'package:developerz/screens/addProject.dart';
 import 'package:developerz/screens/login.dart';
 import 'package:developerz/screens/profile.dart';
+import 'package:developerz/widgets/colorLoader.dart';
 import 'package:developerz/widgets/developerCard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -38,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle.light,
-        elevation: 1.0,
+        elevation: 2.0,
         centerTitle: true,
         backgroundColor: const Color.fromRGBO(6, 40, 61, 1),
         title: const Text(
@@ -169,21 +172,38 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(left: 10.0, top: 10.0, bottom: 20.0),
               child: Align(
-                alignment: Alignment.center,
-                child: Text(
-                  "Recently Joined Developers 🚀",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 20.0),
-                ),
-              ),
+                  alignment: Alignment.center,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      AnimatedTextKit(
+                        animatedTexts: [
+                          TypewriterAnimatedText(
+                            "Recently Joined Developers 🚀",
+                            textAlign: TextAlign.center,
+                            textStyle: TextStyle(fontSize: 20.0),
+                            speed: const Duration(milliseconds: 200),
+                          ),
+                        ],
+                        totalRepeatCount: 1,
+                      )
+                    ],
+                  )),
             ),
             Consumer<DevelopersProvider>(builder: (context, data, snapshot) {
               if (data.getLoading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
+                return SizedBox(
+                  height: MediaQuery.of(context).size.height / 1.5,
+                  child: Center(
+                    child: ColorLoader2(
+                      color1: Colors.blue,
+                      color2: Colors.tealAccent,
+                      color3: Colors.deepOrangeAccent,
+                    ),
+                  ),
                 );
               } else if (data.getDevelopers.isEmpty) {
                 return const Center(
@@ -192,7 +212,7 @@ class _HomeScreenState extends State<HomeScreen> {
               } else {
                 return ListView.builder(
                     shrinkWrap: true,
-                    physics: const ClampingScrollPhysics(),
+                    physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.vertical,
                     itemCount: data.getDevelopers.length,
                     itemBuilder: ((context, index) {

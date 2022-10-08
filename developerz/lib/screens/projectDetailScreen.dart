@@ -97,10 +97,18 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
                   ),
                 ),
                 Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: Text(
-                        "Developer: ${data.getProject!.developer!.name}",
-                        style: TextStyle(fontWeight: FontWeight.bold))),
+                    padding: const EdgeInsets.only(top: 5.0),
+                    child: Container(
+                      padding: EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                          color: Colors.pink,
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Text(
+                          "Developer: ${data.getProject!.developer!.name}",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white)),
+                    )),
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0),
                   child: Text(data.getProject!.about ?? ""),
@@ -112,20 +120,37 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(top: 10.0),
-                        child: Text(
-                          "UpVotes :" +
-                              data.getProject!.upvotes!.length.toString(),
-                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        child: Container(
+                          padding: EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                              color: Colors.cyanAccent,
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Text(
+                            "Up votes :" +
+                                data.getProject!.upvotes!.length.toString(),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 10.0),
-                        child: Text(
-                          "DownVotes :" +
-                              data.getProject!.downvotes!.length.toString(),
-                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        child: Container(
+                          padding: EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                              color: Colors.greenAccent,
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Text(
+                            "Down votes :" +
+                                data.getProject!.downvotes!.length.toString(),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
-                      ),
+                      )
                     ],
                   ),
                 ),
@@ -140,7 +165,7 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
                                 .user!
                                 .sId))
                       IconButton(
-                          tooltip: "DownVote Project",
+                          tooltip: "Downvote Project",
                           onPressed: () async {
                             await data.downVoteProject(context, widget.id);
                             await Provider.of<ProjectProvider>(context,

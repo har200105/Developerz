@@ -45,7 +45,6 @@ class _BottomNavigationBarExampleState
           },
         ),
         bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
           backgroundColor: const Color.fromRGBO(6, 40, 61, 1),
           currentIndex: currentIndex,
           onTap: (index) {
@@ -53,7 +52,7 @@ class _BottomNavigationBarExampleState
               currentIndex = index;
               pageController.animateToPage(index,
                   duration: const Duration(milliseconds: 500),
-                  curve: Curves.bounceInOut);
+                  curve: Curves.easeIn);
             });
           },
           items: const [

@@ -1,12 +1,16 @@
 import 'package:developerz/providers/developers.dart';
 import 'package:developerz/providers/projects.dart';
 import 'package:developerz/widgets/bottomnavbar.dart';
+import 'package:developerz/widgets/modelBottomSheet.dart';
+import 'package:developerz/widgets/profileDetail.dart';
 import 'package:developerz/widgets/projectCard.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../widgets/colorLoader.dart';
 
 class DeveloperProfile extends StatefulWidget {
   final String id;
@@ -67,36 +71,52 @@ class _DeveloperProfileState extends State<DeveloperProfile> {
             children: [
               Consumer<DevelopersProvider>(builder: (context, data, child) {
                 if (data.getLoading || data.getDeveloper == null) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
+                  return SizedBox(
+                    height: MediaQuery.of(context).size.height / 1.5,
+                    child: Center(
+                      child: ColorLoader2(
+                        color1: Colors.blue,
+                        color2: Colors.tealAccent,
+                        color3: Colors.deepOrangeAccent,
+                      ),
+                    ),
                   );
                 } else {
                   return Padding(
                     padding: const EdgeInsets.only(top: 15.0),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        CircleAvatar(
-                          backgroundImage: NetworkImage(data
-                                  .getDeveloper!.image ??
-                              "https://thumbs.dreamstime.com/b/user-avatar-icon-button-profile-symbol-flat-person-icon-vector-user-avatar-icon-button-profile-symbol-flat-person-icon-%C3%A2%E2%82%AC-stock-131363829.jpg"),
-                          radius: 50.0,
+                        Center(
+                          child: CircleAvatar(
+                            backgroundImage: NetworkImage(data
+                                    .getDeveloper!.image ??
+                                "https://thumbs.dreamstime.com/b/user-avatar-icon-button-profile-symbol-flat-person-icon-vector-user-avatar-icon-button-profile-symbol-flat-person-icon-%C3%A2%E2%82%AC-stock-131363829.jpg"),
+                            radius: 50.0,
+                          ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 15.0),
-                          child: Text(data.getDeveloper!.name ?? "",
-                              style: TextStyle(fontWeight: FontWeight.bold)),
+                        Center(
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 15.0),
+                            child: Text(data.getDeveloper!.name ?? "",
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                          ),
                         ),
                         Text(data.getDeveloper!.bio ?? ""),
                         Padding(
                           padding: const EdgeInsets.only(top: 10.0),
-                          child: const Text(
-                            "Skills 🚀",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 25.0),
+                          child: Center(
+                            child: const Text(
+                              "Skills 🚀",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 25.0),
+                            ),
                           ),
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             if (data.getDeveloper!.skills != null)
                               for (int i = 0;
@@ -126,7 +146,7 @@ class _DeveloperProfileState extends State<DeveloperProfile> {
                                       await launch(
                                           (data.getDeveloper!.github!));
                                     },
-                                    icon: const Icon(EvaIcons.githubOutline)),
+                                    icon: const Icon(EvaIcons.github)),
                               if (data.getDeveloper!.linkedin != null ||
                                   (data.getDeveloper!.linkedin != ""))
                                 IconButton(
@@ -134,7 +154,10 @@ class _DeveloperProfileState extends State<DeveloperProfile> {
                                       await launch(
                                           (data.getDeveloper!.linkedin!));
                                     },
-                                    icon: const Icon(EvaIcons.linkedinOutline)),
+                                    icon: const Icon(
+                                      EvaIcons.linkedinOutline,
+                                      color: Colors.blueAccent,
+                                    )),
                               if (data.getDeveloper!.website != null ||
                                   data.getDeveloper!.website != "")
                                 IconButton(
@@ -150,8 +173,49 @@ class _DeveloperProfileState extends State<DeveloperProfile> {
                                       await launch(
                                           (data.getDeveloper!.twitter!));
                                     },
-                                    icon: const Icon(EvaIcons.twitterOutline)),
+                                    icon: const Icon(
+                                      EvaIcons.twitterOutline,
+                                      color: Colors.lightBlueAccent,
+                                    )),
                             ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 15.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              GestureDetector(
+                                  onTap: () {
+                                    showFollowingsSheet(context);
+                                  },
+                                  child: profileDetailBox("Followers", "30")),
+                              GestureDetector(
+                                  onTap: () {
+                                    showFollowingsSheet(context);
+                                  },
+                                  child: profileDetailBox("Followings", "50")),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 15.0),
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            style: ButtonStyle(
+                                minimumSize:
+                                    MaterialStateProperty.all(Size(150, 50)),
+                                backgroundColor: MaterialStateProperty.all(
+                                    Colors.indigo.shade600),
+                                shape: MaterialStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(25.0),
+                                ))),
+                            child: Text(
+                              "Follow",
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
                         const Divider(
@@ -170,18 +234,29 @@ class _DeveloperProfileState extends State<DeveloperProfile> {
                   Provider.of<DevelopersProvider>(context, listen: false)
                           .getDeveloper !=
                       null)
-                Text(
-                  "Projects Done By " +
-                      Provider.of<DevelopersProvider>(context)
-                          .getDeveloper!
-                          .name!,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 15.0),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "Projects done by " +
+                        Provider.of<DevelopersProvider>(context)
+                            .getDeveloper!
+                            .name!,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15.0,
+                        color: Colors.cyan),
+                  ),
                 ),
               Consumer<ProjectProvider>(builder: (context, data, snapshot) {
-                if (data.getLoading) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
+                if (Provider.of<DevelopersProvider>(context).getLoading ==
+                        false &&
+                    data.getLoading) {
+                  return Center(
+                    child: ColorLoader2(
+                      color1: Colors.blue,
+                      color2: Colors.tealAccent,
+                      color3: Colors.deepOrangeAccent,
+                    ),
                   );
                 } else if (data.getLoading == false &&
                     data.projectsUser.isEmpty) {

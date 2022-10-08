@@ -11,7 +11,6 @@ module.exports = (req, res, next) => {
       return res.status(401).json({ error: "You are not Logged In !!" });
     }
    
-
     jwt.verify(authorization,process.env.JWT_SECRET, (err, payload) => {
         if (err) {
             return res.status(401).json({ error: "You must be logged in" });

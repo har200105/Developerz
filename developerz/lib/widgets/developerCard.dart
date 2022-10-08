@@ -29,82 +29,114 @@ class Developer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => DeveloperProfile(id: id)));
-      },
-      child: Card(
-        child: Container(
-          width: MediaQuery.of(context).size.width * 0.95,
-          clipBehavior: Clip.antiAlias,
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0)),
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              children: [
-                Row(
-                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    CircleAvatar(backgroundImage: NetworkImage(image)),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(name!),
-                    )
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 5.0, top: 5.0),
-                  child: Text(bio!),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    if (skills != null)
-                      for (int i = 0; i < skills!.length; i++)
-                        Chip(
-                          elevation: 10,
-                          padding: const EdgeInsets.all(3),
-                          backgroundColor: Colors.teal,
-                          label: Text(
-                            skills![i],
-                            style: const TextStyle(
-                                fontSize: 15, color: Colors.white),
-                          ),
-                        ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    if (linkedin != null && linkedin != "")
-                      IconButton(
-                          onPressed: () async {
-                            print(linkedin! + "sd");
-                            await launchUrl(Uri.parse(linkedin!));
-                          },
-                          icon: const Icon(EvaIcons.linkedinOutline)),
-                    if (github != null && github != "")
-                      IconButton(
-                          onPressed: () {
-                            launch(github!);
-                          },
-                          icon: const Icon(EvaIcons.githubOutline)),
-                    if (portfolio != null && portfolio != "")
-                      IconButton(
-                          onPressed: () async {
-                            await launchUrl(Uri.parse(portfolio!));
-                          },
-                          icon: const Icon(EvaIcons.link)),
-                    if (twitter != null && twitter != "")
-                      IconButton(
-                          onPressed: () async {
-                            await launchUrl(Uri.parse(twitter!));
-                          },
-                          icon: const Icon(EvaIcons.twitter)),
-                  ],
-                )
-              ],
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => DeveloperProfile(id: id)));
+        },
+        child: Card(
+          elevation: 10,
+          shape: RoundedRectangleBorder(
+              side: BorderSide(
+                color: Colors.grey,
+              ),
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  bottomRight: Radius.circular(20))),
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.95,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircleAvatar(
+                        backgroundImage: NetworkImage(image),
+                        radius: 30,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10.0),
+                        child: Text(name!),
+                      )
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5.0, top: 5.0),
+                    child: Text(bio!),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.035),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        if (skills != null)
+                          for (int i = 0; i < skills!.length; i++)
+                            Chip(
+                              elevation: 10,
+                              padding: const EdgeInsets.all(3),
+                              backgroundColor: Colors.teal.shade400,
+                              label: Text(
+                                skills![i],
+                                style: const TextStyle(
+                                    fontSize: 15, color: Colors.white),
+                              ),
+                            ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.035),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        if (linkedin != null && linkedin != "")
+                          IconButton(
+                              onPressed: () async {
+                                print(linkedin!);
+                                await launchUrl(Uri.parse(linkedin!));
+                              },
+                              tooltip: "Visit $name's linkedin",
+                              icon: const Icon(
+                                EvaIcons.linkedinOutline,
+                                color: Colors.blueAccent,
+                              )),
+                        if (github != null && github != "")
+                          IconButton(
+                              onPressed: () {
+                                launch(github!);
+                              },
+                              tooltip: "Visit $name's github",
+                              icon: const Icon(EvaIcons.github)),
+                        if (portfolio != null && portfolio != "")
+                          IconButton(
+                              onPressed: () async {
+                                await launchUrl(Uri.parse(portfolio!));
+                              },
+                              tooltip: "visit $name's Portfolio",
+                              icon: const Icon(EvaIcons.link)),
+                        if (twitter != null && twitter != "")
+                          IconButton(
+                              onPressed: () async {
+                                await launchUrl(Uri.parse(twitter!));
+                              },
+                              tooltip: "Visit $name's Twitter",
+                              icon: const Icon(
+                                EvaIcons.twitter,
+                                color: Colors.lightBlueAccent,
+                              )),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

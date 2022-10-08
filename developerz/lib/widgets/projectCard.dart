@@ -38,6 +38,7 @@ class ProjectCard extends StatelessWidget {
                 builder: (context) => ProjectDetailScreen(id: id)));
       },
       child: Card(
+        elevation: 10,
         child: Container(
           width: MediaQuery.of(context).size.width * 0.95,
           clipBehavior: Clip.antiAlias,
@@ -49,7 +50,6 @@ class ProjectCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // CircleAvatar(backgroundImage: NetworkImage(image)),
                     if (image != null)
                       SizedBox(
                         height: 80.0,
@@ -68,7 +68,7 @@ class ProjectCard extends StatelessWidget {
                 ),
                 if (techStacks.isNotEmpty)
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       if (techStacks.isNotEmpty)
                         for (int i = 0; i < techStacks.length; i++)
@@ -76,7 +76,7 @@ class ProjectCard extends StatelessWidget {
                             Chip(
                               elevation: 10,
                               padding: const EdgeInsets.all(10),
-                              backgroundColor: Colors.deepOrangeAccent,
+                              backgroundColor: Colors.lime[600],
                               label: Text(
                                 techStacks[i],
                                 style: const TextStyle(
@@ -97,7 +97,7 @@ class ProjectCard extends StatelessWidget {
                               throw 'Could not launch $github!';
                             }
                           },
-                          icon: const Icon(EvaIcons.githubOutline)),
+                          icon: const Icon(EvaIcons.github)),
                     if (link != null)
                       IconButton(
                           onPressed: () async {

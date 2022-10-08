@@ -23,6 +23,32 @@ const getUserProfile = catchAsyncErrors(async (req, res) => {
    } 
 });
 
+const followUser = catchAsyncErrors(async (req, res) => {
+    await User.findByIdAndUpdate(req.params.id, {
+        $addToSet: {
+            followers: req.user._id
+        }
+    });
+    await User.findByIdAndUpdate(req.user._id, {
+        $addToSet: {
+            following: req.params.id
+        }
+    });
+});
+
+const unfollowUser = catchAsyncErrors(async (req, res) => {
+    await User.findByIdAndUpdate(req.params.id, {
+        $pull: {
+            followers: req.user._id
+        }
+    });
+    await User.findByIdAndUpdate(req.user._id, {
+        $pull: {
+            following: req.params.id
+        }
+    });
+});
+
 
 const getAllDevelopers = catchAsyncErrors(async (req, res) => {
     await User.find({}).sort("-createdAt").limit(10).then((data) => {
@@ -83,13 +109,17 @@ const updateDeveloperProfile = catchAsyncErrors(async (req, res) => {
 
 
     res.status(201).json({ success: true });
-
 });
+
+
+
 
 module.exports = {
     getDeveloperById,
     getDeveloperBySkill,
     getAllDevelopers,
     updateDeveloperProfile,
-    getUserProfile
+    getUserProfile,
+    followUser,
+    unfollowUser
 };

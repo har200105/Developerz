@@ -43,7 +43,7 @@ class _ProjectScreenState extends State<ProjectScreen> {
               child: Align(
                 alignment: Alignment.center,
                 child: Text(
-                  "Recently Added Projects",
+                  "Recently Added Projects 🚀",
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 20.0),
                 ),
