@@ -30,11 +30,7 @@ class Authentication {
       "Access-Control-Allow-Origin": "*"
     });
     print(response.body);
-    print("Responsing");
-    // if (response.statusCode == 200) {
-    print("Response");
     return response.body;
-    // }
   }
 
   Future getUser(String? token) async {
@@ -43,6 +39,8 @@ class Authentication {
           Uri.parse("${API.api}/getUser"),
           headers: {"Authorization": token});
       // if (response.statusCode == 200) {
+      print("Response 1");
+      print(response.body);
       return response.body;
     }
   }

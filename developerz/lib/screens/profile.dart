@@ -1,12 +1,15 @@
 import 'package:developerz/providers/developers.dart';
 import 'package:developerz/providers/projects.dart';
-import 'package:developerz/providers/user.dart';
 import 'package:developerz/screens/editProfile.dart';
 import 'package:developerz/widgets/bottomnavbar.dart';
+import 'package:developerz/widgets/colorLoader.dart';
+import 'package:developerz/widgets/modelBottomSheet.dart';
+import 'package:developerz/widgets/profileDetail.dart';
 import 'package:developerz/widgets/projectCard.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -28,7 +31,6 @@ class _ProfileState extends State<Profile> {
 
   @override
   void initState() {
-    print("-------" + widget.id);
     call();
     super.initState();
   }
@@ -39,10 +41,8 @@ class _ProfileState extends State<Profile> {
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => BottomNavigationBarExample()));
+              Get.to(() => BottomNavigationBarExample(),
+                  transition: Transition.fade, duration: Duration(seconds: 1));
             },
             icon: const Icon(Icons.arrow_back)),
         systemOverlayStyle: SystemUiOverlayStyle.light,
@@ -59,8 +59,12 @@ class _ProfileState extends State<Profile> {
           children: [
             Consumer<DevelopersProvider>(builder: (context, data, child) {
               if (data.getLoading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
+                return Center(
+                  child: ColorLoader2(
+                    color1: Colors.blue,
+                    color2: Colors.tealAccent,
+                    color3: Colors.deepOrangeAccent,
+                  ),
                 );
               } else if (data.getDeveloper != null &&
                   data.getLoading == false) {
@@ -76,9 +80,22 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                     Text(data.getDeveloper!.name ?? ""),
-                    Text(data.getDeveloper!.bio ?? ""),
+                    SizedBox(
+                        height: 50.0,
+                        width: 200.0,
+                        child: Wrap(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 5.0),
+                              child: Text(
+                                data.getDeveloper!.bio ?? "",
+                                textAlign: TextAlign.center,
+                              ),
+                            )
+                          ],
+                        )),
                     Padding(
-                      padding: const EdgeInsets.only(top: 20.0),
+                      padding: const EdgeInsets.only(top: 30.0),
                       child: ElevatedButton(
                           style: ButtonStyle(
                               minimumSize:
@@ -108,12 +125,13 @@ class _ProfileState extends State<Profile> {
                       padding: const EdgeInsets.only(top: 25.0),
                       child: const Text(
                         "Skills 🚀",
+                        textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 25.0),
+                            fontWeight: FontWeight.bold, fontSize: 20.0),
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    Wrap(
+                      spacing: 2.0,
                       children: [
                         if (data.getDeveloper!.skills != null)
                           for (int i = 0;
@@ -142,14 +160,15 @@ class _ProfileState extends State<Profile> {
                                 onPressed: () async {
                                   await launch((data.getDeveloper!.github!));
                                 },
-                                icon: const Icon(EvaIcons.githubOutline)),
+                                icon: const Icon(EvaIcons.github)),
                           if (data.getDeveloper!.linkedin != null &&
                               (data.getDeveloper!.linkedin != ""))
                             IconButton(
                                 onPressed: () async {
                                   await launch((data.getDeveloper!.linkedin!));
                                 },
-                                icon: const Icon(EvaIcons.linkedinOutline)),
+                                icon: const Icon(EvaIcons.linkedinOutline,
+                                    color: Colors.blue)),
                           if (data.getDeveloper!.website != null &&
                               data.getDeveloper!.website != "")
                             IconButton(
@@ -163,7 +182,49 @@ class _ProfileState extends State<Profile> {
                                 onPressed: () async {
                                   await launch((data.getDeveloper!.twitter!));
                                 },
-                                icon: const Icon(EvaIcons.twitterOutline)),
+                                icon: const Icon(
+                                  EvaIcons.twitterOutline,
+                                  color: Colors.lightBlue,
+                                )),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 15.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          GestureDetector(
+                              onTap: () {
+                                if (data.getDeveloper!.followers!.length > 0) {
+                                  showFollowingsSheet(context,
+                                      data.getDeveloper!.followers!, widget.id);
+                                }
+                              },
+                              child: profileDetailBox(
+                                  "Followers",
+                                  data.getDeveloper!.followers!.length
+                                      .toString())),
+                          profileDetailBox(
+                              "Projects",
+                              Provider.of<ProjectProvider>(context,
+                                      listen: false)
+                                  .projectsUser
+                                  .length
+                                  .toString()),
+                          GestureDetector(
+                              onTap: () {
+                                if (data.getDeveloper!.followings!.length > 0) {
+                                  showFollowingsSheet(
+                                      context,
+                                      data.getDeveloper!.followings!,
+                                      widget.id);
+                                }
+                              },
+                              child: profileDetailBox(
+                                  "Followings",
+                                  data.getDeveloper!.followings!.length
+                                      .toString())),
                         ],
                       ),
                     ),
@@ -174,24 +235,29 @@ class _ProfileState extends State<Profile> {
                   ],
                 );
               } else {
-                return const Center(
-                  child: CircularProgressIndicator(),
+                return Center(
+                  child: ColorLoader2(
+                    color1: Colors.blue,
+                    color2: Colors.tealAccent,
+                    color3: Colors.deepOrangeAccent,
+                  ),
                 );
               }
             }),
             if (Provider.of<DevelopersProvider>(context).getDeveloper != null)
               Text(
-                "Projects Done By " +
-                    Provider.of<DevelopersProvider>(context)
-                        .getDeveloper!
-                        .name!,
+                "Projects",
                 style: const TextStyle(
                     fontWeight: FontWeight.bold, fontSize: 15.0),
               ),
             Consumer<ProjectProvider>(builder: (context, data, snapshot) {
               if (data.getLoading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
+                return Center(
+                  child: ColorLoader2(
+                    color1: Colors.blue,
+                    color2: Colors.tealAccent,
+                    color3: Colors.deepOrangeAccent,
+                  ),
                 );
               } else if (data.projectsUser.isNotEmpty) {
                 return ListView.builder(
@@ -204,10 +270,11 @@ class _ProfileState extends State<Profile> {
                         id: data.projectsUser[index].sId,
                         projectName: data.projectsUser[index].name ?? "",
                         image: data.projectsUser[index].image,
-                        description: "asdsd",
+                        developer: data.projectsUser[index].developer!.name,
+                        description: data.projectsUser[index].about,
                         techStacks:
                             data.projectsUser[index].techStacksUsed ?? [],
-                        // return Container();
+                        developerId: data.projectsUser[index].developer!.sId,
                       );
                     }));
               } else {

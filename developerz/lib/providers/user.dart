@@ -20,30 +20,42 @@ class UserProvider extends ChangeNotifier {
   bool get getIsUser => _Isuser;
 
   setUser() async {
-    _loading = true;
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    if (preferences.getString("token") != null) {
-      String? token = preferences.getString("token");
-      var response = await _authentication.getUser(token);
-      Data userData = Data.fromJson(jsonDecode(response));
-      print("setting user");
-      print(userData.email);
-      _Isuser = userData.email != null ? true : false;
-      _data = userData;
-      _loading = false;
-      notifyListeners();
-    } else {
+    try {
+      _loading = true;
+      if (await preferences.getString("token") != null) {
+        String? token = await preferences.getString("token");
+        var response = await _authentication.getUser(token);
+        print("Response 0");
+        print(response);
+        Data userData = Data.fromJson(jsonDecode(response));
+        print("setting user");
+        print(userData.email);
+        _Isuser = userData.email != null ? true : false;
+        _data = userData;
+        _loading = false;
+        notifyListeners();
+      } else {
+        _loading = false;
+        logout();
+        notifyListeners();
+      }
+    } catch (e) {
+      logout();
+      print(preferences.getString("token"));
+      print(e.toString() + " error");
       _loading = false;
       notifyListeners();
     }
   }
 
-  logout() async {
+  void logout() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     _data = Data();
     _Isuser = false;
     preferences.remove("token");
     preferences.clear();
+    notifyListeners();
   }
 
   Future Signup(BuildContext context, String name, String email,
@@ -55,7 +67,6 @@ class UserProvider extends ChangeNotifier {
       print(parsedData['success']);
       final success = parsedData['success'];
       final message = parsedData['message'];
-      // var utils = Provider.of<UtilityNotifier>(context, listen: false);
       if (success == true) {
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text("Login Successfull")));

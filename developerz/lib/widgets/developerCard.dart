@@ -1,6 +1,7 @@
 import 'package:developerz/screens/developerProfileScreen.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Developer extends StatelessWidget {
@@ -30,23 +31,19 @@ class Developer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(15.0),
+      padding: const EdgeInsets.all(20.0),
       child: GestureDetector(
         onTap: () {
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => DeveloperProfile(id: id)));
+          Get.to(() => DeveloperProfile(id: id),
+              transition: Transition.zoom, duration: Duration(seconds: 1));
         },
         child: Card(
           elevation: 10,
           shape: RoundedRectangleBorder(
               side: BorderSide(
-                color: Colors.grey,
+                color: Colors.white60,
               ),
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20))),
+              borderRadius: BorderRadius.all(Radius.circular(40.0))),
           child: Container(
             width: MediaQuery.of(context).size.width * 0.95,
             child: Padding(
@@ -58,7 +55,7 @@ class Developer extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         backgroundImage: NetworkImage(image),
-                        radius: 30,
+                        radius: 40,
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 10.0),
@@ -68,28 +65,28 @@ class Developer extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 5.0, top: 5.0),
-                    child: Text(bio!),
+                    child: Center(
+                        child: Text(
+                      bio!,
+                      textAlign: TextAlign.center,
+                    )),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.035),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        if (skills != null)
-                          for (int i = 0; i < skills!.length; i++)
-                            Chip(
-                              elevation: 10,
-                              padding: const EdgeInsets.all(3),
-                              backgroundColor: Colors.teal.shade400,
-                              label: Text(
-                                skills![i],
-                                style: const TextStyle(
-                                    fontSize: 15, color: Colors.white),
-                              ),
+                  Wrap(
+                    spacing: 2.0,
+                    children: [
+                      if (skills != null)
+                        for (int i = 0; i < skills!.length; i++)
+                          Chip(
+                            elevation: 10,
+                            padding: const EdgeInsets.all(3),
+                            backgroundColor: Colors.teal.shade400,
+                            label: Text(
+                              skills![i],
+                              style: const TextStyle(
+                                  fontSize: 15, color: Colors.white),
                             ),
-                      ],
-                    ),
+                          ),
+                    ],
                   ),
                   Padding(
                     padding: EdgeInsets.only(

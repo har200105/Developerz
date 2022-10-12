@@ -8,8 +8,8 @@ import 'package:developerz/widgets/colorLoader.dart';
 import 'package:developerz/widgets/developerCard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-import 'package:shimmer/shimmer.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -29,15 +29,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // return AnnotatedRegion<SystemUiOverlayStyle>(
-    // value: const SystemUiOverlayStyle(
-    // For Android.
-    // Use [light] for white status bar and [dark] for black status bar.
-    // statusBarIconBrightness: Brightness.light,
-    // For iOS.
-    // Use [dark] for white status bar and [light] for black status bar.
-    // statusBarBrightness: Brightness.light,
-    // ),
     return Scaffold(
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle.light,
@@ -52,8 +43,12 @@ class _HomeScreenState extends State<HomeScreen> {
       drawer: Drawer(
         backgroundColor: const Color.fromRGBO(6, 40, 61, 1.0),
         child: Provider.of<UserProvider>(context).loading
-            ? const Center(
-                child: CircularProgressIndicator(),
+            ? Center(
+                child: ColorLoader2(
+                  color1: Colors.blue,
+                  color2: Colors.tealAccent,
+                  color3: Colors.deepOrangeAccent,
+                ),
               )
             : Provider.of<UserProvider>(context).getIsUser &&
                     Provider.of<UserProvider>(context).loading == false
@@ -83,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             )),
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(12.0),
                         child: Text(
                             Provider.of<UserProvider>(context, listen: false)
                                     .user!
@@ -99,14 +94,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       TextButton(
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Profile(
-                                        id: Provider.of<UserProvider>(context,
-                                                listen: false)
-                                            .user!
-                                            .sId!)));
+                            Get.to(
+                                () => Profile(
+                                    id: Provider.of<UserProvider>(context,
+                                            listen: false)
+                                        .user!
+                                        .sId!),
+                                transition: Transition.zoom,
+                                duration: Duration(seconds: 1));
                           },
                           child: const Text(
                             "Profile",
@@ -114,9 +109,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           )),
                       GestureDetector(
                         onTap: () {
-                          Navigator.of(context).pushReplacement(
-                              MaterialPageRoute(
-                                  builder: (context) => const AddProject()));
+                          Get.to(() => AddProject(),
+                              transition: Transition.zoom,
+                              duration: Duration(seconds: 1));
                         },
                         child: const Text(
                           "Add Project",

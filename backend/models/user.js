@@ -16,16 +16,6 @@ const userSchema = mongoose.Schema({
         required: true
     },
 
-    followers: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:"User"
-    }],
-
-    followings: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:"User"
-    }],
-
     skills:Array,
 
     github: String,

@@ -3,6 +3,7 @@ import 'package:developerz/providers/projects.dart';
 import 'package:developerz/widgets/bottomnavbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:textfield_tags/textfield_tags.dart';
 
@@ -44,10 +45,8 @@ class _EditProfileState extends State<AddProject> {
       appBar: AppBar(
         leading: IconButton(
             onPressed: () {
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => BottomNavigationBarExample()));
+              Get.to(() => BottomNavigationBarExample(),
+                  transition: Transition.fade, duration: Duration(seconds: 1));
             },
             icon: const Icon(Icons.arrow_back)),
         systemOverlayStyle: SystemUiOverlayStyle.light,

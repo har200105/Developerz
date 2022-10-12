@@ -2,7 +2,6 @@ import 'package:cloudinary_sdk/cloudinary_sdk.dart';
 import 'package:developerz/utils/Credentials.dart';
 import 'package:developerz/utils/imagePicker.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:image_picker/image_picker.dart';
 
 class UtilityNotifier extends ChangeNotifier {
   final ImageUtility imageUtility = ImageUtility();

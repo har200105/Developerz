@@ -1,6 +1,7 @@
 import 'package:developerz/screens/projectDetailScreen.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ProjectCard extends StatelessWidget {
@@ -13,6 +14,8 @@ class ProjectCard extends StatelessWidget {
   final List<String> techStacks;
   final String? github;
   final String? link;
+  final String? developer;
+  final String? developerId;
 
   const ProjectCard(
       {Key? key,
@@ -23,19 +26,17 @@ class ProjectCard extends StatelessWidget {
       this.liveLink,
       required this.id,
       required this.techStacks,
+      required this.developer,
+      required this.developerId,
       this.github,
-      this.link})
-      : super(key: key);
+      this.link});
 
   @override
   Widget build(BuildContext context) {
-    print(techStacks);
     return GestureDetector(
       onTap: () {
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) => ProjectDetailScreen(id: id)));
+        Get.to(() => ProjectDetailScreen(id: id),
+            transition: Transition.fade, duration: Duration(seconds: 1));
       },
       child: Card(
         elevation: 10,
@@ -44,66 +45,69 @@ class ProjectCard extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0)),
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(10.0),
             child: Column(
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     if (image != null)
-                      SizedBox(
-                        height: 80.0,
-                        width: MediaQuery.of(context).size.width * 0.70,
-                        child: Image(image: NetworkImage(image!)),
+                      Center(
+                        child: Image(
+                          image: NetworkImage(image!),
+                          height: 150.0,
+                          width: MediaQuery.of(context).size.width * 0.70,
+                        ),
                       ),
                   ],
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(projectName ?? ""),
+                  child: Center(child: Text(projectName ?? "")),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0, top: 8.0),
-                  child: Text(description ?? ""),
+                  child: Center(child: Text(description ?? "")),
                 ),
                 if (techStacks.isNotEmpty)
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      if (techStacks.isNotEmpty)
-                        for (int i = 0; i < techStacks.length; i++)
-                          if (techStacks.length > i)
-                            Chip(
-                              elevation: 10,
-                              padding: const EdgeInsets.all(10),
-                              backgroundColor: Colors.lime[600],
-                              label: Text(
-                                techStacks[i],
-                                style: const TextStyle(
-                                    fontSize: 15, color: Colors.white),
-                              ),
+                  if (techStacks.isNotEmpty)
+                    Wrap(spacing: 2.0, children: [
+                      for (int i = 0; i < techStacks.length; i++)
+                        if (techStacks.length > i)
+                          Chip(
+                            elevation: 10,
+                            padding: const EdgeInsets.all(10.0),
+                            backgroundColor: Colors.orangeAccent,
+                            label: Text(
+                              techStacks[i],
+                              style: const TextStyle(
+                                  fontSize: 15, color: Colors.white),
                             ),
-                    ],
-                  ),
+                          ),
+                    ]),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     if (github != null)
                       IconButton(
-                          onPressed: () async {
-                            if (await canLaunch(github!)) {
-                              await launch(github!);
-                            } else {
-                              throw 'Could not launch $github!';
-                            }
-                          },
-                          icon: const Icon(EvaIcons.github)),
+                        onPressed: () async {
+                          if (await canLaunch(github!)) {
+                            await launch(github!);
+                          } else {
+                            throw 'Could not launch $github!';
+                          }
+                        },
+                        icon: const Icon(EvaIcons.github),
+                        tooltip: "Visit Project's Github Repo",
+                      ),
                     if (link != null)
                       IconButton(
-                          onPressed: () async {
-                            await launch(link!);
-                          },
-                          icon: const Icon(EvaIcons.link)),
+                        onPressed: () async {
+                          await launch(link!);
+                        },
+                        icon: const Icon(EvaIcons.link),
+                        tooltip: "Visit Project's Live Link",
+                      ),
                   ],
                 )
               ],

@@ -28,6 +28,8 @@ class Data {
   String? password;
   String? image;
   List<String>? skills;
+  List<User>? followers;
+  List<User>? followings;
   String? github;
   String? linkedin;
   String? website;
@@ -52,6 +54,8 @@ class Data {
       this.createdAt,
       this.updatedAt,
       this.iV,
+      this.followers,
+      this.followings,
       this.bio,
       this.pic});
 
@@ -62,6 +66,19 @@ class Data {
     password = json['password'];
     image = json['image'];
     github = json['github'];
+    if (json['followers'] != null) {
+      followers = <User>[];
+      json['followers'].forEach((v) {
+        followers!.add(User.fromJson(v));
+      });
+    }
+    if (json['followings'] != null) {
+      followings = <User>[];
+      json['followings'].forEach((v) {
+        followings!.add(User.fromJson(v));
+      });
+    }
+
     linkedin = json['linkedin'];
     twitter = json['twitter'];
     website = json['website'];
@@ -84,12 +101,48 @@ class Data {
     data['github'] = github;
     data['linkedin'] = linkedin;
     data['twitter'] = twitter;
+    data['followers'] = followers;
+    data['followings'] = followings;
     data['website'] = website;
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;
     data['__v'] = iV;
     data['bio'] = bio;
     data['pic'] = pic;
+    return data;
+  }
+}
+
+class User {
+  String? sId;
+  String? name;
+  String? email;
+  String? image;
+  String? bio;
+  List<String>? followers;
+  List<String>? followings;
+
+  User({this.sId, this.name, this.bio, this.email, this.image});
+
+  User.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    name = json['name'];
+    email = json['email'];
+    followers = json['followers'].cast<String>();
+    followings = json['followings'].cast<String>();
+    image = json['image'];
+    bio = json['bio'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['_id'] = sId;
+    data['name'] = name;
+    data['email'] = email;
+    data['image'] = image;
+    data['bio'] = bio;
+    data['followers'] = followers;
+    data['followings'] = followings;
     return data;
   }
 }

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:developerz/models/developer.dart';
-import 'package:developerz/screens/profile.dart';
 import 'package:developerz/services/developerServices.dart';
 import 'package:developerz/widgets/bottomnavbar.dart';
 import 'package:flutter/material.dart';
@@ -49,12 +48,77 @@ class DevelopersProvider extends ChangeNotifier {
         _loading = true;
       }
       var response = await _developerService.fetchDeveloperById(id);
-      print(json.decode(response)['data']);
       Data modelData = Data.fromJson(jsonDecode(response)['data']);
       _developer = modelData;
       _loading = false;
       notifyListeners();
     } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            "Something Went Wrong",
+          ),
+          backgroundColor: Colors.red,
+        ),
+      );
+      _loading = false;
+      notifyListeners();
+    }
+  }
+
+  Future followDeveloper(BuildContext context, String id) async {
+    try {
+      _loading = true;
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      if (preferences.getString("token") != null) {
+        var response = await _developerService.followDeveloper(
+            preferences.getString("token"), id);
+        print(jsonDecode(response));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              "Please Login to Follow",
+            ),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } catch (e) {
+      print(e.toString());
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            "Something Went Wrong",
+          ),
+          backgroundColor: Colors.red,
+        ),
+      );
+      _loading = false;
+      notifyListeners();
+    }
+  }
+
+  Future unfollowDeveloper(BuildContext context, String id) async {
+    try {
+      _loading = true;
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      if (preferences.getString("token") != null) {
+        var response = await _developerService.unfollowDeveloper(
+            preferences.getString("token"), id);
+        print(jsonDecode(response));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              "Please Login to Follow",
+            ),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } catch (e) {
+      print(e.toString());
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text(
@@ -81,7 +145,6 @@ class DevelopersProvider extends ChangeNotifier {
       }
       SharedPreferences preferences = await SharedPreferences.getInstance();
       if (preferences.getString("token") != null) {
-        print('object');
         var response = await _developerService.updateProfile(
             preferences.getString("token"),
             bio: bio,

@@ -1,5 +1,6 @@
 import 'package:developerz/providers/developers.dart';
 import 'package:developerz/screens/profile.dart';
+import 'package:developerz/widgets/colorLoader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -243,8 +244,6 @@ class _EditProfileState extends State<EditProfile> {
                       validator: (String tag) {
                         if (_controller.getTags!.contains(tag)) {
                           return 'You have already entered this';
-                        } else if (_controller.getTags!.length >= 3) {
-                          return 'You can enter only up to 3 Tags';
                         }
                         return null;
                       },
@@ -403,8 +402,14 @@ class _EditProfileState extends State<EditProfile> {
                             bottom: MediaQuery.of(context).viewInsets.bottom))
                   ],
                 )
-              : const SizedBox(
-                  child: Center(child: CircularProgressIndicator()),
+              : SizedBox(
+                  child: Center(
+                    child: ColorLoader2(
+                      color1: Colors.blue,
+                      color2: Colors.tealAccent,
+                      color3: Colors.deepOrangeAccent,
+                    ),
+                  ),
                 ),
         ),
       ),

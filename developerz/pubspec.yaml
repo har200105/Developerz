@@ -44,9 +44,7 @@ dependencies:
   image_picker:
   shared_preferences:
   animated_text_kit: ^4.2.2
-  shimmer: ^2.0.0
-  # full_screen_image: ^1.0.2
-  
+  get: ^4.6.5
 
 
 

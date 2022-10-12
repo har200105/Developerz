@@ -1,4 +1,5 @@
 import 'package:developerz/providers/projects.dart';
+import 'package:developerz/widgets/colorLoader.dart';
 import 'package:developerz/widgets/developerCard.dart';
 import 'package:developerz/widgets/projectCard.dart';
 import 'package:flutter/material.dart';
@@ -80,8 +81,12 @@ class _SearchState extends State<Search> {
               ),
             Consumer<ProjectProvider>(builder: ((context, value, child) {
               if (value.getLoading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
+                return Center(
+                  child: ColorLoader2(
+                    color1: Colors.blue,
+                    color2: Colors.tealAccent,
+                    color3: Colors.deepOrangeAccent,
+                  ),
                 );
               } else {
                 return ListView.builder(
@@ -94,6 +99,10 @@ class _SearchState extends State<Search> {
                           id: value.getSearchedProjects[index].sId,
                           projectName: value.getSearchedProjects[index].name,
                           image: value.getSearchedProjects[index].image,
+                          developer:
+                              value.getSearchedProjects[index].developer!.name,
+                          developerId:
+                              value.getSearchedProjects[index].developer!.sId,
                           description:
                               value.getSearchedProjects[index].about ?? "",
                           techStacks:
@@ -111,9 +120,15 @@ class _SearchState extends State<Search> {
               ),
             Consumer<ProjectProvider>(builder: (context, data, snapshot) {
               if (data.getLoading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
+                return SizedBox(
+                    height: MediaQuery.of(context).size.height / 1.5,
+                    child: Center(
+                      child: ColorLoader2(
+                        color1: Colors.blue,
+                        color2: Colors.tealAccent,
+                        color3: Colors.deepOrangeAccent,
+                      ),
+                    ));
               } else {
                 return ListView.builder(
                     shrinkWrap: true,

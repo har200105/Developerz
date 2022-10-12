@@ -1,8 +1,6 @@
-import 'package:developerz/screens/login.dart';
 import 'package:developerz/screens/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 
 class VerifyEmail extends StatefulWidget {
   @override
@@ -18,6 +16,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back)),
         automaticallyImplyLeading: false,
         systemOverlayStyle: SystemUiOverlayStyle.light,
         elevation: 1.0,

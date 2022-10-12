@@ -1,4 +1,5 @@
 import 'package:developerz/providers/projects.dart';
+import 'package:developerz/widgets/colorLoader.dart';
 import 'package:developerz/widgets/developerCard.dart';
 import 'package:developerz/widgets/projectCard.dart';
 import 'package:flutter/material.dart';
@@ -51,9 +52,15 @@ class _ProjectScreenState extends State<ProjectScreen> {
             ),
             Consumer<ProjectProvider>(builder: (context, data, snapshot) {
               if (data.getLoading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
+                return SizedBox(
+                    height: MediaQuery.of(context).size.height / 1.5,
+                    child: Center(
+                      child: ColorLoader2(
+                        color1: Colors.blue,
+                        color2: Colors.tealAccent,
+                        color3: Colors.deepOrangeAccent,
+                      ),
+                    ));
               } else if (data.getLoading == false && data.getProjects.isEmpty) {
                 return const Center(
                   child: Text("No Projects Available Currently"),
@@ -74,6 +81,8 @@ class _ProjectScreenState extends State<ProjectScreen> {
                             data.getProjects[index].techStacksUsed ?? [],
                         github: data.getProjects[index].codeUrl,
                         link: data.getProjects[index].liveUrl,
+                        developer: data.getProjects[index].developer!.name,
+                        developerId: data.getProjects[index].developer!.sId,
                       );
                     }));
               }

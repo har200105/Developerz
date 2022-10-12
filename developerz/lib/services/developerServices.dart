@@ -35,6 +35,49 @@ class DeveloperService {
     }
   }
 
+  Future followDeveloper(String? token, String id) async {
+    print("See " + id);
+    final Uri uri = Uri.parse(url + "/follow/" + id);
+    if (token != null) {
+      final http.Response response = await client.put(uri, headers: {
+        "Content-type": "application/json",
+        "Accept": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Authorization": token,
+      });
+
+      print(response.body);
+
+      if (response.statusCode == 201) {
+        return response.body;
+      }
+    } else {
+      return;
+    }
+  }
+
+  Future unfollowDeveloper(String? token, String id) async {
+    final Uri uri = Uri.parse(url + "/unfollow/" + id);
+    if (token != null) {
+      final http.Response response = await client.put(uri, headers: {
+        "Content-type": "application/json",
+        "Accept": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Authorization": token,
+      });
+
+      if (response.statusCode == 201) {
+        print("Response");
+        print(response.body);
+        return response.body;
+      } else {
+        print(response.body);
+      }
+    } else {
+      return;
+    }
+  }
+
   Future updateProfile(String? token,
       {String? bio,
       String? github,

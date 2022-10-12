@@ -7,9 +7,10 @@ import 'package:developerz/widgets/projectCard.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-
+import '../providers/user.dart';
 import '../widgets/colorLoader.dart';
 
 class DeveloperProfile extends StatefulWidget {
@@ -49,10 +50,9 @@ class _DeveloperProfileState extends State<DeveloperProfile> {
         appBar: AppBar(
           leading: IconButton(
               onPressed: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => BottomNavigationBarExample()));
+                Get.to(() => BottomNavigationBarExample(),
+                    transition: Transition.fade,
+                    duration: Duration(seconds: 1));
                 Provider.of<DevelopersProvider>(context, listen: false)
                     .resetDeveloperProfile();
               },
@@ -103,20 +103,33 @@ class _DeveloperProfileState extends State<DeveloperProfile> {
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                           ),
                         ),
-                        Text(data.getDeveloper!.bio ?? ""),
+                        SizedBox(
+                            height: 50.0,
+                            width: 200.0,
+                            child: Wrap(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 5.0),
+                                  child: Text(
+                                    data.getDeveloper!.bio ?? "",
+                                    textAlign: TextAlign.center,
+                                  ),
+                                )
+                              ],
+                            )),
                         Padding(
-                          padding: const EdgeInsets.only(top: 10.0),
+                          padding: const EdgeInsets.only(top: 30.0),
                           child: Center(
                             child: const Text(
                               "Skills 🚀",
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 25.0),
+                                  fontWeight: FontWeight.bold, fontSize: 20.0),
                             ),
                           ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        Wrap(
+                          spacing: 2.0,
                           children: [
                             if (data.getDeveloper!.skills != null)
                               for (int i = 0;
@@ -187,37 +200,110 @@ class _DeveloperProfileState extends State<DeveloperProfile> {
                             children: [
                               GestureDetector(
                                   onTap: () {
-                                    showFollowingsSheet(context);
+                                    if (data.getDeveloper!.followers!.length >
+                                        0) {
+                                      showFollowingsSheet(
+                                          context,
+                                          data.getDeveloper!.followers!,
+                                          widget.id);
+                                    }
                                   },
-                                  child: profileDetailBox("Followers", "30")),
+                                  child: profileDetailBox(
+                                      "Followers",
+                                      data.getDeveloper!.followers!.length
+                                          .toString())),
+                              profileDetailBox(
+                                  "Projects",
+                                  Provider.of<ProjectProvider>(context,
+                                          listen: false)
+                                      .projectsUser
+                                      .length
+                                      .toString()),
                               GestureDetector(
                                   onTap: () {
-                                    showFollowingsSheet(context);
+                                    if (data.getDeveloper!.followings!.length >
+                                        0) {
+                                      showFollowingsSheet(
+                                          context,
+                                          data.getDeveloper!.followings!,
+                                          widget.id);
+                                    }
                                   },
-                                  child: profileDetailBox("Followings", "50")),
+                                  child: profileDetailBox(
+                                      "Followings",
+                                      data.getDeveloper!.followings!.length
+                                          .toString())),
                             ],
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 15.0),
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            style: ButtonStyle(
-                                minimumSize:
-                                    MaterialStateProperty.all(Size(150, 50)),
-                                backgroundColor: MaterialStateProperty.all(
-                                    Colors.indigo.shade600),
-                                shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25.0),
-                                ))),
-                            child: Text(
-                              "Follow",
-                              style: TextStyle(color: Colors.white),
+                        if (Provider.of<UserProvider>(context).getIsUser &&
+                            Provider.of<UserProvider>(context).loading ==
+                                false &&
+                            Provider.of<UserProvider>(context, listen: false)
+                                    .user!
+                                    .sId !=
+                                widget.id)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 15.0),
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                int check = await data.getDeveloper!.followers!
+                                    .indexWhere((user) =>
+                                        user.sId ==
+                                        Provider.of<UserProvider>(context,
+                                                listen: false)
+                                            .user!
+                                            .sId);
+                                if (check != -1) {
+                                  Provider.of<DevelopersProvider>(context,
+                                          listen: false)
+                                      .unfollowDeveloper(context, widget.id)
+                                      .whenComplete(() => {
+                                            Provider.of<DevelopersProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .fetchDeveloperById(
+                                                    context, widget.id)
+                                          });
+                                } else {
+                                  Provider.of<DevelopersProvider>(context,
+                                          listen: false)
+                                      .followDeveloper(context, widget.id)
+                                      .whenComplete(() => {
+                                            Provider.of<DevelopersProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .fetchDeveloperById(
+                                                    context, widget.id)
+                                          });
+                                }
+                              },
+                              style: ButtonStyle(
+                                  minimumSize:
+                                      MaterialStateProperty.all(Size(150, 50)),
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Colors.indigo.shade600),
+                                  shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25.0),
+                                  ))),
+                              child: Text(
+                                data.getDeveloper!.followers!.indexWhere(
+                                            (user) =>
+                                                user.sId ==
+                                                Provider.of<UserProvider>(
+                                                        context,
+                                                        listen: false)
+                                                    .user!
+                                                    .sId) ==
+                                        -1
+                                    ? "Follow"
+                                    : "Following",
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
                           ),
-                        ),
                         const Divider(
                           color: Colors.blueGrey,
                           thickness: 2.0,
@@ -279,6 +365,8 @@ class _DeveloperProfileState extends State<DeveloperProfile> {
                               data.projectsUser[index].techStacksUsed ?? [],
                           github: data.projectsUser[index].codeUrl,
                           link: data.projectsUser[index].liveUrl,
+                          developer: data.projectsUser[index].developer!.name,
+                          developerId: data.projectsUser[index].developer!.sId,
                         );
                       }));
                 }

@@ -154,7 +154,6 @@ class ProjectProvider extends ChangeNotifier {
       }
       SharedPreferences preferences = await SharedPreferences.getInstance();
       var token = preferences.getString("token");
-      // print(tags);
       var response = await _projectService.addProject(
           token, name, description, github, live, image, techStacksUsed);
       _loading = false;
@@ -191,8 +190,8 @@ class ProjectProvider extends ChangeNotifier {
       _loading = false;
       if (json.decode(response)['success'] == true) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Project UpVoted"),
-          backgroundColor: Colors.tealAccent,
+          content: Text("Project Upvoted"),
+          backgroundColor: Colors.green,
         ));
       }
       notifyListeners();
@@ -220,8 +219,8 @@ class ProjectProvider extends ChangeNotifier {
       _loading = false;
       if (json.decode(response)['success'] == true) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Project DownVoted"),
-          backgroundColor: Colors.tealAccent,
+          content: Text("Project Downvoted"),
+          backgroundColor: Colors.red,
         ));
       }
       notifyListeners();

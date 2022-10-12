@@ -4,6 +4,7 @@ import 'package:developerz/providers/projects.dart';
 import 'package:developerz/providers/user.dart';
 import 'package:developerz/screens/splash.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => DevelopersProvider()),
         ChangeNotifierProvider(create: (context) => UserProvider())
       ],
-      child: MaterialApp(
+      child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Developerz',
         theme: ThemeData(

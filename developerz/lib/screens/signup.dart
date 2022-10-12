@@ -4,6 +4,7 @@ import 'package:developerz/screens/login.dart';
 import 'package:developerz/widgets/bottomnavbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 class Signup extends StatefulWidget {
@@ -63,10 +64,9 @@ class _SignupState extends State<Signup> with TickerProviderStateMixin {
         appBar: AppBar(
           leading: IconButton(
               onPressed: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => BottomNavigationBarExample()));
+                Get.to(() => BottomNavigationBarExample(),
+                    transition: Transition.fade,
+                    duration: Duration(seconds: 1));
               },
               icon: const Icon(Icons.arrow_back)),
           systemOverlayStyle: SystemUiOverlayStyle.light,
