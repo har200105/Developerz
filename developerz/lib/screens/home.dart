@@ -31,15 +31,37 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        systemOverlayStyle: SystemUiOverlayStyle.light,
-        elevation: 2.0,
-        centerTitle: true,
-        backgroundColor: const Color.fromRGBO(6, 40, 61, 1),
-        title: const Text(
-          'Developerz',
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
+          systemOverlayStyle: SystemUiOverlayStyle.light,
+          elevation: 2.0,
+          centerTitle: true,
+          backgroundColor: const Color.fromRGBO(6, 40, 61, 1),
+          title: const Text(
+            'Developerz',
+            style: TextStyle(color: Colors.white),
+          ),
+          actions: [
+            if (Provider.of<UserProvider>(context).getIsUser &&
+                Provider.of<UserProvider>(context).loading == false)
+              IconButton(
+                  onPressed: () {
+                    Provider.of<UserProvider>(context, listen: false).logout();
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const Login()));
+                  },
+                  icon: Icon(Icons.logout, color: Colors.white)),
+            if (Provider.of<UserProvider>(context).getIsUser == false &&
+                Provider.of<UserProvider>(context).loading == false)
+              MaterialButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const Login()));
+                },
+                child: const Text(
+                  "Login",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+          ]),
       drawer: Drawer(
         backgroundColor: const Color.fromRGBO(6, 40, 61, 1.0),
         child: Provider.of<UserProvider>(context).loading
@@ -172,21 +194,13 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Align(
                   alignment: Alignment.center,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      AnimatedTextKit(
-                        animatedTexts: [
-                          TypewriterAnimatedText(
-                            "Recently Joined Developers 🚀",
-                            textAlign: TextAlign.center,
-                            textStyle: TextStyle(fontSize: 20.0),
-                            speed: const Duration(milliseconds: 200),
-                          ),
-                        ],
-                        totalRepeatCount: 1,
-                      )
-                    ],
-                  )),
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Recently Joined Developers 🚀",
+                          style: TextStyle(fontSize: 20.0),
+                        ),
+                      ])),
             ),
             Consumer<DevelopersProvider>(builder: (context, data, snapshot) {
               if (data.getLoading) {

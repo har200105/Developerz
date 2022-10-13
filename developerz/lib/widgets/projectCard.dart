@@ -77,7 +77,7 @@ class ProjectCard extends StatelessWidget {
                           Chip(
                             elevation: 10,
                             padding: const EdgeInsets.all(10.0),
-                            backgroundColor: Colors.orangeAccent,
+                            backgroundColor: Colors.teal.shade400,
                             label: Text(
                               techStacks[i],
                               style: const TextStyle(

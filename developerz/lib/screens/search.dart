@@ -41,7 +41,10 @@ class _SearchState extends State<Search> {
                 width: double.infinity,
                 child: TextField(
                   controller: controller,
-                  onChanged: (text) {},
+                  onChanged: (text) {
+                    Provider.of<ProjectProvider>(context, listen: false)
+                        .getSearchedData(context, controller.text);
+                  },
                   decoration: InputDecoration(
                     suffixIcon: IconButton(
                       onPressed: () {

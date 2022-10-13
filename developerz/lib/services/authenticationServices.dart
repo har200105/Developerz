@@ -38,9 +38,6 @@ class Authentication {
       final http.Response response = await http.get(
           Uri.parse("${API.api}/getUser"),
           headers: {"Authorization": token});
-      // if (response.statusCode == 200) {
-      print("Response 1");
-      print(response.body);
       return response.body;
     }
   }

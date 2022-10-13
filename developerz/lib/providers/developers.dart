@@ -23,7 +23,6 @@ class DevelopersProvider extends ChangeNotifier {
         _loading = true;
       }
       var response = await _developerService.fetchDevelopers();
-      print(response);
       Developer modelData = Developer.fromJson(jsonDecode(response));
       _developers = modelData.data!;
       _loading = false;

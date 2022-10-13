@@ -32,7 +32,6 @@ class _EditProfileState extends State<AddProject> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // _distanceToField = MediaQuery.of(context).size.width;
   }
 
   @override
@@ -179,8 +178,6 @@ class _EditProfileState extends State<AddProject> {
                   validator: (String tag) {
                     if (_controller.getTags!.contains(tag)) {
                       return 'You have already entered that';
-                    } else if (_controller.getTags!.length >= 3) {
-                      return 'You can enter only up to 3 Tags';
                     }
                     return null;
                   },
@@ -209,7 +206,7 @@ class _EditProfileState extends State<AddProject> {
                             helperStyle: const TextStyle(
                               color: Color.fromRGBO(6, 40, 61, 1),
                             ),
-                            hintText: 'Enter Project Tech Stacks...',
+                            hintText: 'Enter Project Tech Stacks....',
                             errorText: error,
                             prefixIconConstraints: BoxConstraints(
                                 maxWidth:
@@ -225,7 +222,7 @@ class _EditProfileState extends State<AddProject> {
                                           borderRadius: BorderRadius.all(
                                             Radius.circular(20.0),
                                           ),
-                                          color: Color.fromRGBO(6, 40, 61, 1),
+                                          color: Colors.teal,
                                         ),
                                         margin: const EdgeInsets.symmetric(
                                             horizontal: 5.0),
@@ -241,9 +238,7 @@ class _EditProfileState extends State<AddProject> {
                                                 style: const TextStyle(
                                                     color: Colors.white),
                                               ),
-                                              onTap: () {
-                                                print("$tag selected");
-                                              },
+                                              onTap: () {},
                                             ),
                                             const SizedBox(width: 4.0),
                                             InkWell(
@@ -285,7 +280,8 @@ class _EditProfileState extends State<AddProject> {
                 child: ElevatedButton(
                     style: ButtonStyle(
                         minimumSize: MaterialStateProperty.all(Size(200, 50)),
-                        backgroundColor: MaterialStateProperty.all(Colors.lime),
+                        backgroundColor: MaterialStateProperty.all(
+                            Color.fromARGB(123, 9, 232, 143)),
                         shape:
                             MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(

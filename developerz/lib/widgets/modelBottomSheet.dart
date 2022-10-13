@@ -4,7 +4,6 @@ import 'package:developerz/providers/projects.dart';
 import 'package:developerz/providers/user.dart';
 import 'package:developerz/screens/developerProfileScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 Future showFollowingsSheet(
@@ -69,7 +68,6 @@ Future showFollowingsSheet(
                                               listen: false)
                                           .user!
                                           .sId);
-                                  print(check);
                                   if (check) {
                                     Provider.of<DevelopersProvider>(context,
                                             listen: false)
@@ -81,6 +79,9 @@ Future showFollowingsSheet(
                                                       listen: false)
                                                   .fetchDeveloperById(
                                                       context, currentId),
+                                              Provider.of<UserProvider>(context,
+                                                      listen: false)
+                                                  .setUser(),
                                               Navigator.of(context).pop()
                                             });
                                   } else {
@@ -94,18 +95,21 @@ Future showFollowingsSheet(
                                                       listen: false)
                                                   .fetchDeveloperById(
                                                       context, currentId),
+                                              Provider.of<UserProvider>(context,
+                                                      listen: false)
+                                                  .setUser(),
                                               Navigator.of(context).pop()
                                             });
                                   }
                                 },
                                 child: Text(
-                                  (data[index].followings!.contains(
+                                  data[index].followers!.contains(
                                           Provider.of<UserProvider>(context,
                                                   listen: false)
                                               .user!
-                                              .sId))
-                                      ? 'Follow'
-                                      : 'Following',
+                                              .sId)
+                                      ? 'Following'
+                                      : 'Follow',
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,

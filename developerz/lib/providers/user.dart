@@ -26,7 +26,6 @@ class UserProvider extends ChangeNotifier {
       if (await preferences.getString("token") != null) {
         String? token = await preferences.getString("token");
         var response = await _authentication.getUser(token);
-        print("Response 0");
         print(response);
         Data userData = Data.fromJson(jsonDecode(response));
         print("setting user");
@@ -64,14 +63,13 @@ class UserProvider extends ChangeNotifier {
       var userData =
           await _authentication.signupUser(email, password, name, image);
       Map<String, dynamic> parsedData = await jsonDecode(userData);
-      print(parsedData['success']);
       final success = parsedData['success'];
       final message = parsedData['message'];
       if (success == true) {
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text("Login Successfull")));
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => VerifyEmail(email: email)));
+        Navigator.of(context)
+            .pushReplacement(MaterialPageRoute(builder: (context) => Login()));
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(message),

@@ -138,7 +138,7 @@ class _DeveloperProfileState extends State<DeveloperProfile> {
                                 Chip(
                                   elevation: 10,
                                   padding: const EdgeInsets.all(10),
-                                  backgroundColor: Colors.teal,
+                                  backgroundColor: Colors.teal.shade400,
                                   label: Text(
                                     data.getDeveloper!.skills![i],
                                     style: const TextStyle(
@@ -152,7 +152,7 @@ class _DeveloperProfileState extends State<DeveloperProfile> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              if (data.getDeveloper!.github != null ||
+                              if (data.getDeveloper!.github != null &&
                                   (data.getDeveloper!.github != ""))
                                 IconButton(
                                     onPressed: () async {
@@ -160,7 +160,7 @@ class _DeveloperProfileState extends State<DeveloperProfile> {
                                           (data.getDeveloper!.github!));
                                     },
                                     icon: const Icon(EvaIcons.github)),
-                              if (data.getDeveloper!.linkedin != null ||
+                              if (data.getDeveloper!.linkedin != null &&
                                   (data.getDeveloper!.linkedin != ""))
                                 IconButton(
                                     onPressed: () async {
@@ -171,7 +171,7 @@ class _DeveloperProfileState extends State<DeveloperProfile> {
                                       EvaIcons.linkedinOutline,
                                       color: Colors.blueAccent,
                                     )),
-                              if (data.getDeveloper!.website != null ||
+                              if (data.getDeveloper!.website != null &&
                                   data.getDeveloper!.website != "")
                                 IconButton(
                                     onPressed: () async {
@@ -179,7 +179,7 @@ class _DeveloperProfileState extends State<DeveloperProfile> {
                                           (data.getDeveloper!.website!));
                                     },
                                     icon: const Icon(EvaIcons.link)),
-                              if (data.getDeveloper!.twitter != null ||
+                              if (data.getDeveloper!.twitter != null &&
                                   data.getDeveloper!.twitter != "")
                                 IconButton(
                                     onPressed: () async {
@@ -330,7 +330,7 @@ class _DeveloperProfileState extends State<DeveloperProfile> {
                     style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 15.0,
-                        color: Colors.cyan),
+                        color: Colors.black),
                   ),
                 ),
               Consumer<ProjectProvider>(builder: (context, data, snapshot) {

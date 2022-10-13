@@ -101,7 +101,7 @@ class _ProfileState extends State<Profile> {
                               minimumSize:
                                   MaterialStateProperty.all(Size(200, 50)),
                               backgroundColor: MaterialStateProperty.all(
-                                  Color.fromARGB(255, 7, 247, 151)),
+                                  Color.fromARGB(123, 9, 232, 143)),
                               shape: MaterialStateProperty.all<
                                       RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
@@ -140,7 +140,7 @@ class _ProfileState extends State<Profile> {
                             Chip(
                               elevation: 10,
                               padding: const EdgeInsets.all(10),
-                              backgroundColor: Colors.teal,
+                              backgroundColor: Colors.teal.shade400,
                               label: Text(
                                 data.getDeveloper!.skills![i],
                                 style: const TextStyle(

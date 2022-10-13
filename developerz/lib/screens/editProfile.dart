@@ -350,33 +350,42 @@ class _EditProfileState extends State<EditProfile> {
                               minimumSize:
                                   MaterialStateProperty.all(Size(200, 50)),
                               backgroundColor: MaterialStateProperty.all(
-                                  Color.fromARGB(255, 154, 19, 250)),
+                                  Color.fromARGB(123, 9, 232, 143)),
                               shape: MaterialStateProperty.all<
                                       RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(25.0),
                               ))),
                           onPressed: () {
-                            if (!(_githubController.text.contains("https://") ||
-                                _githubController.text.contains("http://"))) {
+                            if (_githubController.text.length != 0 &&
+                                (!(_githubController.text
+                                        .contains("https://") ||
+                                    _githubController.text
+                                        .contains("http://")))) {
                               _githubController.text =
                                   "https://" + _githubController.text;
                             }
-                            if (!(_linkedinController.text
-                                    .contains("https://") ||
-                                _linkedinController.text.contains("http://"))) {
+                            if (_linkedinController.text.length != 0 &&
+                                (!(_linkedinController.text
+                                        .contains("https://") ||
+                                    _linkedinController.text
+                                        .contains("http://")))) {
                               _linkedinController.text =
                                   "https://" + _linkedinController.text;
                             }
-                            if (!(_websiteController.text
-                                    .contains("https://") ||
-                                _websiteController.text.contains("http://"))) {
+                            if (_websiteController.text.length != 0 &&
+                                (!(_websiteController.text
+                                        .contains("https://") ||
+                                    _websiteController.text
+                                        .contains("http://")))) {
                               _websiteController.text =
                                   "https://" + _websiteController.text;
                             }
-                            if (!(_twitterController.text
-                                    .contains("https://") ||
-                                _twitterController.text.contains("http://"))) {
+                            if (_twitterController.text.length != 0 &&
+                                (!(_twitterController.text
+                                        .contains("https://") ||
+                                    _twitterController.text
+                                        .contains("http://")))) {
                               _twitterController.text =
                                   "https://" + _twitterController.text;
                             }

@@ -112,8 +112,6 @@ class ProjectProvider extends ChangeNotifier {
     try {
       _loading = true;
       var response = await _projectService.getSearchedQuery(query);
-      print(jsonDecode(response)['projects']);
-      print(jsonDecode(response)['data']);
       Projects modelData = Projects.fromJson(jsonDecode(response));
       d.Developer modelData1 = d.Developer.fromJson(jsonDecode(response));
       _searchedProjects = modelData.projects;
@@ -196,6 +194,49 @@ class ProjectProvider extends ChangeNotifier {
       }
       notifyListeners();
     } catch (e) {
+      print(e.toString());
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            "Something Went Wrong",
+          ),
+          backgroundColor: Colors.red,
+        ),
+      );
+      _loading = false;
+      notifyListeners();
+    }
+  }
+
+  Future deleteProject(BuildContext context, String id) async {
+    try {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      _isUpVoted = true;
+      var token = preferences.getString("token");
+      var response = await _projectService.deleteProject(token, id);
+      print("Response");
+      print(response);
+      _loading = false;
+      if (json.decode(response)['success'] == true) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+            "Project Deleted",
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.red,
+        ));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+            "Project Not Found",
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.red,
+        ));
+      }
+      notifyListeners();
+    } catch (e) {
+      print("error");
       print(e.toString());
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
