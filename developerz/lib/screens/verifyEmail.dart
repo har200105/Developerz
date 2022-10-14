@@ -107,14 +107,8 @@ class _VerifyEmailState extends State<VerifyEmail> {
                 padding: const EdgeInsets.only(top: 10.0),
                 child: ElevatedButton(
                     style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.black),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25.0),
-                                    side: const BorderSide(
-                                        color: Colors.white, width: 2.0)))),
+                      backgroundColor: MaterialStateProperty.all(Colors.black),
+                    ),
                     onPressed: () async {
                       FocusScope.of(context).unfocus();
                     },

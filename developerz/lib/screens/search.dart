@@ -132,7 +132,21 @@ class _SearchState extends State<Search> {
                         color3: Colors.deepOrangeAccent,
                       ),
                     ));
-              } else {
+              }
+
+              if (data.getLoading == false &&
+                  data.getSearchedDevelopers!.length == 0 &&
+                  Provider.of<ProjectProvider>(context)
+                          .getSearchedProjects
+                          .length ==
+                      0)
+                return SizedBox(
+                  height: MediaQuery.of(context).size.height / 2,
+                  child: Center(
+                    child: Text('No Searches Currently'),
+                  ),
+                );
+              else {
                 return ListView.builder(
                     shrinkWrap: true,
                     physics: const ClampingScrollPhysics(),

@@ -172,7 +172,7 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen>
                           await launch((data.getProject!.codeUrl!));
                         },
                         icon: const Icon(
-                          EvaIcons.githubOutline,
+                          EvaIcons.github,
                           color: Colors.black,
                         ),
                         tooltip: "Visit Project's Github Repo",
@@ -226,30 +226,13 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen>
                               child: Container(
                                 height: 50,
                                 width: 200,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(100.0),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Color(0x80000000),
-                                        blurRadius: 12.0,
-                                        offset: Offset(0.0, 5.0),
-                                      ),
-                                    ],
-                                    gradient: LinearGradient(
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.bottomRight,
-                                      colors: [
-                                        Color(0xff33ccff),
-                                        Color.fromARGB(255, 255, 241, 153),
-                                      ],
-                                    )),
                                 child: Center(
                                   child: Text(
                                     "Visit Developer's Profile",
                                     style: TextStyle(
                                         fontSize: 15.0,
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.white),
+                                        color: Colors.blue),
                                   ),
                                 ),
                               ),

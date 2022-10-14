@@ -100,15 +100,11 @@ class _ProfileState extends State<Profile> {
                       padding: const EdgeInsets.only(top: 30.0),
                       child: ElevatedButton(
                           style: ButtonStyle(
-                              minimumSize:
-                                  MaterialStateProperty.all(Size(200, 50)),
-                              backgroundColor: MaterialStateProperty.all(
-                                  Color.fromARGB(123, 9, 232, 143)),
-                              shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25.0),
-                              ))),
+                            minimumSize:
+                                MaterialStateProperty.all(Size(200, 50)),
+                            backgroundColor: MaterialStateProperty.all(
+                                Color.fromARGB(123, 9, 232, 143)),
+                          ),
                           onPressed: () {
                             Navigator.push(
                                 context,
@@ -159,35 +155,45 @@ class _ProfileState extends State<Profile> {
                           if (data.getDeveloper!.github != null &&
                               (data.getDeveloper!.github != ""))
                             IconButton(
-                                onPressed: () async {
-                                  await launch((data.getDeveloper!.github!));
-                                },
-                                icon: const Icon(EvaIcons.github)),
+                              onPressed: () async {
+                                await launch((data.getDeveloper!.github!));
+                              },
+                              icon: const Icon(EvaIcons.github),
+                              tooltip: "Visit your github",
+                            ),
                           if (data.getDeveloper!.linkedin != null &&
                               (data.getDeveloper!.linkedin != ""))
                             IconButton(
-                                onPressed: () async {
-                                  await launch((data.getDeveloper!.linkedin!));
-                                },
-                                icon: const Icon(EvaIcons.linkedinOutline,
-                                    color: Colors.blue)),
+                              onPressed: () async {
+                                await launch(
+                                  (data.getDeveloper!.linkedin!),
+                                );
+                              },
+                              icon: const Icon(EvaIcons.linkedinOutline,
+                                  color: Colors.blue),
+                              tooltip: "Visit your linkedin",
+                            ),
                           if (data.getDeveloper!.website != null &&
                               data.getDeveloper!.website != "")
                             IconButton(
-                                onPressed: () async {
-                                  await launch((data.getDeveloper!.website!));
-                                },
-                                icon: const Icon(EvaIcons.link)),
+                              onPressed: () async {
+                                await launch((data.getDeveloper!.website!));
+                              },
+                              icon: const Icon(EvaIcons.link),
+                              tooltip: "Visit your portfolio",
+                            ),
                           if (data.getDeveloper!.twitter != null &&
                               data.getDeveloper!.twitter != "")
                             IconButton(
-                                onPressed: () async {
-                                  await launch((data.getDeveloper!.twitter!));
-                                },
-                                icon: const Icon(
-                                  EvaIcons.twitterOutline,
-                                  color: Colors.lightBlue,
-                                )),
+                              onPressed: () async {
+                                await launch((data.getDeveloper!.twitter!));
+                              },
+                              icon: const Icon(
+                                EvaIcons.twitterOutline,
+                                color: Colors.lightBlue,
+                              ),
+                              tooltip: "Visit your twitter",
+                            ),
                         ],
                       ),
                     ),

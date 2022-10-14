@@ -93,19 +93,10 @@ class _ResetPasswordState extends State<ResetPassword> {
                   padding: const EdgeInsets.only(top: 10.0),
                   child: ElevatedButton(
                       style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.black),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(25.0),
-                                      side: const BorderSide(
-                                          color: Colors.white, width: 2.0)))),
-                      onPressed: () async {
-                        // await auth.sendForgotPasswordOTP(
-                        //     context, emailController.text);
-                        // FocusScope.of(context).unfocus();
-                      },
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.black),
+                      ),
+                      onPressed: () async {},
                       child: const Text("Send OTP",
                           style: TextStyle(color: Colors.white))),
                 ),

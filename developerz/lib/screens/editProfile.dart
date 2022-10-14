@@ -343,15 +343,11 @@ class _EditProfileState extends State<EditProfile> {
                       padding: const EdgeInsets.only(top: 20.0),
                       child: ElevatedButton(
                           style: ButtonStyle(
-                              minimumSize:
-                                  MaterialStateProperty.all(Size(200, 50)),
-                              backgroundColor: MaterialStateProperty.all(
-                                  Color.fromARGB(123, 9, 232, 143)),
-                              shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25.0),
-                              ))),
+                            minimumSize:
+                                MaterialStateProperty.all(Size(200, 50)),
+                            backgroundColor: MaterialStateProperty.all(
+                                Color.fromARGB(123, 9, 232, 143)),
+                          ),
                           onPressed: () {
                             if (_githubController.text.length != 0 &&
                                 (!(_githubController.text

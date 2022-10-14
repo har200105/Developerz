@@ -279,15 +279,11 @@ class _DeveloperProfileState extends State<DeveloperProfile> {
                                 }
                               },
                               style: ButtonStyle(
-                                  minimumSize:
-                                      MaterialStateProperty.all(Size(150, 50)),
-                                  backgroundColor: MaterialStateProperty.all(
-                                      Colors.indigo.shade600),
-                                  shape: MaterialStateProperty.all<
-                                          RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(25.0),
-                                  ))),
+                                minimumSize:
+                                    MaterialStateProperty.all(Size(150, 50)),
+                                backgroundColor: MaterialStateProperty.all(
+                                    Colors.indigo.shade600),
+                              ),
                               child: Text(
                                 data.getDeveloper!.followers!.indexWhere(
                                             (user) =>

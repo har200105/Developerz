@@ -148,15 +148,11 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                         padding: const EdgeInsets.only(top: 20.0),
                         child: ElevatedButton(
                             style: ButtonStyle(
-                                minimumSize:
-                                    MaterialStateProperty.all(Size(200, 50)),
-                                backgroundColor: MaterialStateProperty.all(
-                                    Color.fromARGB(123, 9, 232, 143)),
-                                shape: MaterialStateProperty.all<
-                                        RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25.0),
-                                ))),
+                              minimumSize:
+                                  MaterialStateProperty.all(Size(200, 50)),
+                              backgroundColor: MaterialStateProperty.all(
+                                  Color.fromARGB(123, 9, 232, 143)),
+                            ),
                             onPressed: () {
                               Provider.of<UserProvider>(context, listen: false)
                                   .LoginService(

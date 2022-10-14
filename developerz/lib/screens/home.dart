@@ -75,10 +75,10 @@ class _HomeScreenState extends State<HomeScreen> {
             : Provider.of<UserProvider>(context).getIsUser &&
                     Provider.of<UserProvider>(context).loading == false
                 ? Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(top: 50.0),
+                        padding: const EdgeInsets.only(top: 20.0),
                         child: CircleAvatar(
                           backgroundImage: NetworkImage(Provider.of<
                                       UserProvider>(context, listen: false)
