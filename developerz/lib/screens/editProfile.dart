@@ -16,7 +16,6 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
   final TextfieldTagsController _controller = TextfieldTagsController();
-  // late double _distanceToField;
 
   TextEditingController _bioController = TextEditingController();
   TextEditingController _githubController = TextEditingController();
@@ -62,7 +61,6 @@ class _EditProfileState extends State<EditProfile> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // _distanceToField = MediaQuery.of(context).size.width;
   }
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -97,8 +95,6 @@ class _EditProfileState extends State<EditProfile> {
           scrollDirection: Axis.vertical,
           child: Provider.of<DevelopersProvider>(context).getDeveloper != null
               ? Column(
-                  // scrollDirection: Axis.vertical,
-                  // shrinkWrap: true,
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [

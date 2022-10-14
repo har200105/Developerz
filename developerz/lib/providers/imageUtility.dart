@@ -28,4 +28,9 @@ class UtilityNotifier extends ChangeNotifier {
       print(e.toString());
     }
   }
+
+  void setUserImageVoid() {
+    userimage = "";
+    notifyListeners();
+  }
 }

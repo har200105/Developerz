@@ -51,7 +51,7 @@ class ProjectCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    if (image != null)
+                    if (image != null && image != "")
                       Center(
                         child: Image(
                           image: NetworkImage(image!),
@@ -88,7 +88,7 @@ class ProjectCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    if (github != null)
+                    if (github != null && github != "")
                       IconButton(
                         onPressed: () async {
                           if (await canLaunch(github!)) {
@@ -100,7 +100,7 @@ class ProjectCard extends StatelessWidget {
                         icon: const Icon(EvaIcons.github),
                         tooltip: "Visit Project's Github Repo",
                       ),
-                    if (link != null)
+                    if (link != null && link != "")
                       IconButton(
                         onPressed: () async {
                           await launch(link!);

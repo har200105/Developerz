@@ -29,11 +29,6 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen>
 
   @override
   void initState() {
-    print("ID");
-    print(Provider.of<UserProvider>(context, listen: false)
-        .user!
-        .sId!
-        .toString());
     Provider.of<ProjectProvider>(context, listen: false)
         .getProjectDetailsById(context, widget.id);
     _controller = AnimationController(
@@ -101,7 +96,8 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen>
             return Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                if (data.getProject!.image != null)
+                if (data.getProject!.image != null &&
+                    data.getProject!.image != "")
                   Padding(
                     padding: const EdgeInsets.only(top: 25.0),
                     child: Align(
@@ -114,25 +110,26 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen>
                       ),
                     ),
                   ),
-                if (data.getProject!.developer!.sId!.toString() ==
-                    Provider.of<UserProvider>(context).user!.sId!.toString())
-                  Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: IconButton(
-                        onPressed: () {
-                          Provider.of<ProjectProvider>(context, listen: false)
-                              .deleteProject(context, widget.id)
-                              .whenComplete(() => {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                DeveloperProfile(
-                                                    id: data.getProject!
-                                                        .developer!.sId!))),
-                                  });
-                        },
-                        icon: Icon(Icons.delete, color: Colors.red)),
-                  ),
+                if (Provider.of<UserProvider>(context).getIsUser == true)
+                  if (data.getProject!.developer!.sId!.toString() ==
+                      Provider.of<UserProvider>(context).user!.sId!.toString())
+                    Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: IconButton(
+                          onPressed: () {
+                            Provider.of<ProjectProvider>(context, listen: false)
+                                .deleteProject(context, widget.id)
+                                .whenComplete(() => {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  DeveloperProfile(
+                                                      id: data.getProject!
+                                                          .developer!.sId!))),
+                                    });
+                          },
+                          icon: Icon(Icons.delete, color: Colors.red)),
+                    ),
                 Padding(
                   padding: const EdgeInsets.only(top: 10.0),
                   child: Text(
@@ -292,39 +289,6 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen>
                               Row(
                                 children: [
                                   Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 25.0, bottom: 15.0),
-                                    child: ElevatedButton.icon(
-                                        style: ButtonStyle(
-                                            minimumSize:
-                                                MaterialStateProperty.all(
-                                                    Size(150, 50)),
-                                            backgroundColor:
-                                                MaterialStateProperty.all(
-                                                    Colors.red),
-                                            shape: MaterialStateProperty.all<
-                                                    RoundedRectangleBorder>(
-                                                RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(25.0),
-                                            ))),
-                                        onPressed: () async {
-                                          await data.downVoteProject(
-                                              context, widget.id);
-                                          await Provider.of<ProjectProvider>(
-                                                  context,
-                                                  listen: false)
-                                              .getProjectDetailsById(
-                                                  context, widget.id);
-                                        },
-                                        icon: const Icon(
-                                          EvaIcons.arrowDownOutline,
-                                          color: Colors.white,
-                                          size: 30.0,
-                                        ),
-                                        label: Text("Downvote")),
-                                  ),
-                                  Padding(
                                     padding: const EdgeInsets.only(top: 25.0),
                                     child: ElevatedButton.icon(
                                         style: ButtonStyle(
@@ -341,13 +305,15 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen>
                                                   BorderRadius.circular(25.0),
                                             ))),
                                         onPressed: () async {
-                                          await data.upVoteProject(
-                                              context, widget.id);
-                                          await Provider.of<ProjectProvider>(
-                                                  context,
-                                                  listen: false)
-                                              .getProjectDetailsById(
-                                                  context, widget.id);
+                                          await data
+                                              .upVoteProject(context, widget.id)
+                                              .whenComplete(() => {
+                                                    Provider.of<ProjectProvider>(
+                                                            context,
+                                                            listen: false)
+                                                        .getProjectDetailsById(
+                                                            context, widget.id)
+                                                  });
                                         },
                                         icon: const Icon(
                                           EvaIcons.arrowUpOutline,
@@ -355,6 +321,41 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen>
                                           size: 30.0,
                                         ),
                                         label: Text("Upvote")),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 25.0),
+                                    child: ElevatedButton.icon(
+                                        style: ButtonStyle(
+                                            minimumSize:
+                                                MaterialStateProperty.all(
+                                                    Size(150, 50)),
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.red),
+                                            shape: MaterialStateProperty.all<
+                                                    RoundedRectangleBorder>(
+                                                RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(25.0),
+                                            ))),
+                                        onPressed: () async {
+                                          await data
+                                              .downVoteProject(
+                                                  context, widget.id)
+                                              .whenComplete(() => {
+                                                    Provider.of<ProjectProvider>(
+                                                            context,
+                                                            listen: false)
+                                                        .getProjectDetailsById(
+                                                            context, widget.id)
+                                                  });
+                                        },
+                                        icon: const Icon(
+                                          EvaIcons.arrowDownOutline,
+                                          color: Colors.white,
+                                          size: 30.0,
+                                        ),
+                                        label: Text("Downvote")),
                                   ),
                                 ],
                               ),

@@ -95,6 +95,16 @@ class _SignupState extends State<Signup> with TickerProviderStateMixin {
               child: Column(
                 children: [
                   Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: SizedBox(
+                      child: Image.asset(
+                        "assets/developer.png",
+                        width: 100.0,
+                        height: 70.0,
+                      ),
+                    ),
+                  ),
+                  Padding(
                     padding: const EdgeInsets.only(top: 20.0),
                     child: const Text("Signup At the Developerz",
                         style: TextStyle(fontSize: 25)),
@@ -195,7 +205,12 @@ class _SignupState extends State<Signup> with TickerProviderStateMixin {
                                   _nameController.text,
                                   _emailController.text.trim().toLowerCase(),
                                   _passwordController.text.trim(),
-                                  utils.userimage);
+                                  utils.userimage)
+                              .whenComplete(() => {
+                                    Provider.of<UtilityNotifier>(context,
+                                            listen: false)
+                                        .setUserImageVoid()
+                                  });
                         },
                         clipBehavior: Clip.antiAliasWithSaveLayer,
                         child: const Text(
@@ -213,7 +228,9 @@ class _SignupState extends State<Signup> with TickerProviderStateMixin {
                                   builder: (context) => const Login()));
                         },
                         child: const Text("Already a user ?",
-                            style: TextStyle(color: Colors.indigo))),
+                            style: TextStyle(
+                                color: Colors.indigo,
+                                decoration: TextDecoration.underline))),
                   ),
                 ],
               ),

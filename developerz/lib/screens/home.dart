@@ -99,22 +99,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               color: Colors.white,
                             )),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Text(
-                            Provider.of<UserProvider>(context, listen: false)
-                                    .user!
-                                    .bio ??
-                                "",
-                            style: const TextStyle(
-                              color: Colors.white,
-                            )),
-                      ),
                       const Divider(
                         color: Colors.grey,
                         thickness: 2.0,
                       ),
-                      TextButton(
+                      ElevatedButton(
                           onPressed: () {
                             Get.to(
                                 () => Profile(
@@ -129,8 +118,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             "Profile",
                             style: TextStyle(color: Colors.white),
                           )),
-                      GestureDetector(
-                        onTap: () {
+                      ElevatedButton(
+                        onPressed: () {
                           Get.to(() => AddProject(),
                               transition: Transition.zoom,
                               duration: Duration(seconds: 1));
@@ -140,8 +129,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () {
+                      ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.red),
+                        ),
+                        onPressed: () {
                           Provider.of<UserProvider>(context, listen: false)
                               .logout();
                           Navigator.push(
@@ -229,7 +222,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         id: data.getDevelopers[index].sId!,
                         name: data.getDevelopers[index].name,
                         image: data.getDevelopers[index].image ??
-                            "https://thumbs.dreamstime.com/b/user-avatar-icon-button-profile-symbol-flat-person-icon-vector-user-avatar-icon-button-profile-symbol-flat-person-icon-%C3%A2%E2%82%AC-stock-131363829.jpg",
+                            "https://assets.leetcode.com/users/avatars/avatar_1659893972.png",
                         bio: data.getDevelopers[index].bio ?? "",
                         skills: data.getDevelopers[index].skills!,
                         github: data.getDevelopers[index].github,

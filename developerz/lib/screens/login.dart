@@ -36,7 +36,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
       CurvedAnimation(parent: _controller1, curve: Curves.easeInOut),
     );
     _controller2 = AnimationController(
-      duration: Duration(milliseconds: 1000),
+      duration: Duration(milliseconds: 2000),
       vsync: this,
     );
     animation2 = Tween<Offset>(
@@ -83,6 +83,16 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                   key: formkey,
                   child: Column(
                     children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 25.0),
+                        child: SizedBox(
+                          child: Image.asset(
+                            "assets/developer.png",
+                            width: 100.0,
+                            height: 90.0,
+                          ),
+                        ),
+                      ),
                       Padding(
                         padding: const EdgeInsets.only(top: 20.0),
                         child: const Text("Login At the Developerz",
@@ -163,7 +173,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                             )),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 20),
+                        padding: const EdgeInsets.only(top: 40),
                         child: GestureDetector(
                             onTap: () {
                               Navigator.pushReplacement(
@@ -172,7 +182,9 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                                       builder: (context) => const Signup()));
                             },
                             child: const Text("New To Developerz ?",
-                                style: TextStyle(color: Colors.blue))),
+                                style: TextStyle(
+                                    color: Colors.blue,
+                                    decoration: TextDecoration.underline))),
                       ),
                     ],
                   ),

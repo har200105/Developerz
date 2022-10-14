@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:developerz/models/developer.dart';
 import 'package:developerz/services/developerServices.dart';
 import 'package:developerz/widgets/bottomnavbar.dart';
@@ -28,14 +29,9 @@ class DevelopersProvider extends ChangeNotifier {
       _loading = false;
       notifyListeners();
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            "Something Went Wrong",
-          ),
-          backgroundColor: Colors.red,
-        ),
-      );
+      AnimatedSnackBar.material("Something Went Wrong",
+              type: AnimatedSnackBarType.error)
+          .show(context);
       _loading = false;
       notifyListeners();
     }
@@ -52,14 +48,9 @@ class DevelopersProvider extends ChangeNotifier {
       _loading = false;
       notifyListeners();
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            "Something Went Wrong",
-          ),
-          backgroundColor: Colors.red,
-        ),
-      );
+      AnimatedSnackBar.material("Something Went Wrong",
+              type: AnimatedSnackBarType.error)
+          .show(context);
       _loading = false;
       notifyListeners();
     }
@@ -74,25 +65,15 @@ class DevelopersProvider extends ChangeNotifier {
             preferences.getString("token"), id);
         print(jsonDecode(response));
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              "Please Login to Follow",
-            ),
-            backgroundColor: Colors.red,
-          ),
-        );
+        AnimatedSnackBar.material("Please Login to Follow",
+                type: AnimatedSnackBarType.info)
+            .show(context);
       }
     } catch (e) {
       print(e.toString());
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            "Something Went Wrong",
-          ),
-          backgroundColor: Colors.red,
-        ),
-      );
+      AnimatedSnackBar.material("Something Went Wrong",
+              type: AnimatedSnackBarType.error)
+          .show(context);
       _loading = false;
       notifyListeners();
     }
@@ -107,25 +88,15 @@ class DevelopersProvider extends ChangeNotifier {
             preferences.getString("token"), id);
         print(jsonDecode(response));
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              "Please Login to Follow",
-            ),
-            backgroundColor: Colors.red,
-          ),
-        );
+        AnimatedSnackBar.material("Please Login to Follow",
+                type: AnimatedSnackBarType.info)
+            .show(context);
       }
     } catch (e) {
       print(e.toString());
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            "Something Went Wrong",
-          ),
-          backgroundColor: Colors.red,
-        ),
-      );
+      AnimatedSnackBar.material("Something Went Wrong",
+              type: AnimatedSnackBarType.error)
+          .show(context);
       _loading = false;
       notifyListeners();
     }
@@ -153,10 +124,9 @@ class DevelopersProvider extends ChangeNotifier {
             website: website,
             skills: skills);
         if (json.decode(response)['success'] == true) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text("Profile Updated"),
-            backgroundColor: Colors.tealAccent,
-          ));
+          AnimatedSnackBar.material("Profile Updated",
+                  type: AnimatedSnackBarType.info)
+              .show(context);
           Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (context) => BottomNavigationBarExample()));
         }
@@ -167,14 +137,9 @@ class DevelopersProvider extends ChangeNotifier {
       }
     } catch (e) {
       print(e.toString());
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            "Something Went Wrong",
-          ),
-          backgroundColor: Colors.red,
-        ),
-      );
+      AnimatedSnackBar.material("Something Went Wrong",
+              type: AnimatedSnackBarType.error)
+          .show(context);
       _loading = false;
       notifyListeners();
     }

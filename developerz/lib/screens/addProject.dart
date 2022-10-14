@@ -1,3 +1,4 @@
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:developerz/providers/imageUtility.dart';
 import 'package:developerz/providers/projects.dart';
 import 'package:developerz/widgets/bottomnavbar.dart';
@@ -21,7 +22,6 @@ class _EditProfileState extends State<AddProject> {
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _githubController = TextEditingController();
   final TextEditingController _liveController = TextEditingController();
-  // late double _distanceToField;
 
   @override
   void initState() {
@@ -66,15 +66,18 @@ class _EditProfileState extends State<AddProject> {
                 child: const Text("Share Your Projects 🚀",
                     style: TextStyle(fontSize: 25)),
               ),
-              userImage.isNotEmpty
+              userImage.isNotEmpty && utils.userimage != ""
                   ? SizedBox(
                       height: 100.0,
                       width: 100.0,
                       child: Image(image: NetworkImage(utils.userimage)),
                     )
-                  : const SizedBox(
-                      height: 0,
-                      width: 0,
+                  : SizedBox(
+                      height: 100.0,
+                      width: 100.0,
+                      child: Container(
+                        color: Colors.white,
+                      ),
                     ),
               Padding(
                 padding:
@@ -288,13 +291,25 @@ class _EditProfileState extends State<AddProject> {
                           borderRadius: BorderRadius.circular(25.0),
                         ))),
                     onPressed: () {
-                      if (!(_githubController.text.contains("https://") ||
-                          _githubController.text.contains("http://"))) {
+                      if (utils.userimage.isEmpty ||
+                          utils.userimage == "" ||
+                          utils.userimage.length == 0) {
+                        AnimatedSnackBar.material(
+                                "Please upload project picture",
+                                type: AnimatedSnackBarType.error)
+                            .show(context);
+                        return;
+                      }
+
+                      if (_githubController.text.length != 0 &&
+                          (!(_githubController.text.contains("https://") ||
+                              _githubController.text.contains("http://")))) {
                         _githubController.text =
                             "https://" + _githubController.text;
                       }
-                      if (!(_liveController.text.contains("https://") ||
-                          _liveController.text.contains("http://"))) {
+                      if (_liveController.text.length != 0 &&
+                          (!(_liveController.text.contains("https://") ||
+                              _liveController.text.contains("http://")))) {
                         _liveController.text =
                             "https://" + _liveController.text;
                       }
@@ -306,7 +321,12 @@ class _EditProfileState extends State<AddProject> {
                               _githubController.text,
                               _liveController.text,
                               utils.userimage,
-                              _controller.getTags!);
+                              _controller.getTags!)
+                          .whenComplete(() => {
+                                Provider.of<UtilityNotifier>(context,
+                                        listen: false)
+                                    .setUserImageVoid()
+                              });
                     },
                     clipBehavior: Clip.antiAliasWithSaveLayer,
                     child: const Text(

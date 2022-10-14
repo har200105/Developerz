@@ -69,6 +69,8 @@ class _ProfileState extends State<Profile> {
               } else if (data.getDeveloper != null &&
                   data.getLoading == false) {
                 return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(top: 15.0),
@@ -80,20 +82,20 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                     Text(data.getDeveloper!.name ?? ""),
-                    SizedBox(
-                        height: 50.0,
-                        width: 200.0,
-                        child: Wrap(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 5.0),
-                              child: Text(
-                                data.getDeveloper!.bio ?? "",
-                                textAlign: TextAlign.center,
-                              ),
-                            )
-                          ],
-                        )),
+                    Center(
+                      child: SizedBox(
+                          child: Wrap(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5.0),
+                            child: Text(
+                              data.getDeveloper!.bio ?? "",
+                              textAlign: TextAlign.center,
+                            ),
+                          )
+                        ],
+                      )),
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(top: 30.0),
                       child: ElevatedButton(
@@ -251,7 +253,9 @@ class _ProfileState extends State<Profile> {
                     fontWeight: FontWeight.bold, fontSize: 15.0),
               ),
             Consumer<ProjectProvider>(builder: (context, data, snapshot) {
-              if (data.getLoading) {
+              if (Provider.of<DevelopersProvider>(context).getLoading ==
+                      false &&
+                  data.getLoading) {
                 return Center(
                   child: ColorLoader2(
                     color1: Colors.blue,

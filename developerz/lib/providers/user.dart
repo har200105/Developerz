@@ -1,7 +1,7 @@
 import 'dart:convert';
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:developerz/models/developer.dart';
 import 'package:developerz/screens/login.dart';
-import 'package:developerz/screens/verifyEmail.dart';
 import 'package:developerz/services/authenticationServices.dart';
 import 'package:developerz/widgets/bottomnavbar.dart';
 import 'package:flutter/material.dart';
@@ -66,22 +66,20 @@ class UserProvider extends ChangeNotifier {
       final success = parsedData['success'];
       final message = parsedData['message'];
       if (success == true) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text("Login Successfull")));
+        AnimatedSnackBar.material("Signup Successfull",
+                type: AnimatedSnackBarType.success)
+            .show(context);
         Navigator.of(context)
             .pushReplacement(MaterialPageRoute(builder: (context) => Login()));
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text(message),
-          backgroundColor: Colors.tealAccent,
-        ));
+        AnimatedSnackBar.material(message, type: AnimatedSnackBarType.error)
+            .show(context);
       }
     } catch (e) {
       print(e.toString());
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text("Something went wrong"),
-        backgroundColor: Colors.red,
-      ));
+      AnimatedSnackBar.material("Something Went Wrong",
+              type: AnimatedSnackBarType.error)
+          .show(context);
     }
   }
 
@@ -107,19 +105,21 @@ class UserProvider extends ChangeNotifier {
             context,
             MaterialPageRoute(
                 builder: (context) => BottomNavigationBarExample()));
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text("Login Successfull"), backgroundColor: Colors.green));
+        AnimatedSnackBar.material("Login Successfull",
+                type: AnimatedSnackBarType.success)
+            .show(context);
       } else {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => const Login()));
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text("Invalid Email or Password"),
-            backgroundColor: Colors.red));
+        AnimatedSnackBar.material("Invalid Email or Password",
+                type: AnimatedSnackBarType.error)
+            .show(context);
       }
     } catch (e) {
       print(e.toString());
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Something Went Wrong"), backgroundColor: Colors.red));
+      AnimatedSnackBar.material("Something Went Wrong",
+              type: AnimatedSnackBarType.error)
+          .show(context);
     }
   }
 }

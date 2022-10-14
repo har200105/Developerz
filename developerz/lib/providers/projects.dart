@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:developerz/models/developer.dart' as d;
 import 'package:developerz/models/project.dart';
 import 'package:developerz/services/projectServices.dart';
@@ -44,14 +45,9 @@ class ProjectProvider extends ChangeNotifier {
       _loading = false;
       notifyListeners();
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            "Something Went Wrong",
-          ),
-          backgroundColor: Colors.red,
-        ),
-      );
+      AnimatedSnackBar.material("Something Went Wrong",
+              type: AnimatedSnackBarType.error)
+          .show(context);
       _loading = false;
       notifyListeners();
     }
@@ -70,14 +66,9 @@ class ProjectProvider extends ChangeNotifier {
       notifyListeners();
     } catch (e) {
       print(e.toString());
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            "Something Went Wrong",
-          ),
-          backgroundColor: Colors.red,
-        ),
-      );
+      AnimatedSnackBar.material("Something Went Wrong",
+              type: AnimatedSnackBarType.error)
+          .show(context);
       _loading = false;
       notifyListeners();
     }
@@ -95,14 +86,9 @@ class ProjectProvider extends ChangeNotifier {
       _loading = false;
       notifyListeners();
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            "Something Went Wrong",
-          ),
-          backgroundColor: Colors.red,
-        ),
-      );
+      AnimatedSnackBar.material("Something Went Wrong",
+              type: AnimatedSnackBarType.error)
+          .show(context);
       _loading = false;
       notifyListeners();
     }
@@ -120,14 +106,9 @@ class ProjectProvider extends ChangeNotifier {
       notifyListeners();
     } catch (e) {
       print(e.toString());
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            "Something Went Wrong",
-          ),
-          backgroundColor: Colors.red,
-        ),
-      );
+      AnimatedSnackBar.material("Something Went Wrong",
+              type: AnimatedSnackBarType.error)
+          .show(context);
       _loading = false;
       notifyListeners();
     }
@@ -144,10 +125,9 @@ class ProjectProvider extends ChangeNotifier {
     try {
       _loading = true;
       if (name.isEmpty || description.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Name and Description is required"),
-          backgroundColor: Colors.tealAccent,
-        ));
+        AnimatedSnackBar.material("Name and Description is required",
+                type: AnimatedSnackBarType.info)
+            .show(context);
         return;
       }
       SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -156,24 +136,18 @@ class ProjectProvider extends ChangeNotifier {
           token, name, description, github, live, image, techStacksUsed);
       _loading = false;
       if (json.decode(response)['success'] == true) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Project Added"),
-          backgroundColor: Colors.tealAccent,
-        ));
+        AnimatedSnackBar.material("Project Added",
+                type: AnimatedSnackBarType.success)
+            .show(context);
         Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (context) => BottomNavigationBarExample()));
       }
       notifyListeners();
     } catch (e) {
       print(e.toString());
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            "Something Went Wrong",
-          ),
-          backgroundColor: Colors.red,
-        ),
-      );
+      AnimatedSnackBar.material("Something Went Wrong",
+              type: AnimatedSnackBarType.error)
+          .show(context);
       _loading = false;
       notifyListeners();
     }
@@ -187,22 +161,16 @@ class ProjectProvider extends ChangeNotifier {
       var response = await _projectService.upVoteProject(token, id);
       _loading = false;
       if (json.decode(response)['success'] == true) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Project Upvoted"),
-          backgroundColor: Colors.green,
-        ));
+        AnimatedSnackBar.material("Project upvoted",
+                type: AnimatedSnackBarType.success)
+            .show(context);
       }
       notifyListeners();
     } catch (e) {
       print(e.toString());
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            "Something Went Wrong",
-          ),
-          backgroundColor: Colors.red,
-        ),
-      );
+      AnimatedSnackBar.material("Something Went Wrong",
+              type: AnimatedSnackBarType.error)
+          .show(context);
       _loading = false;
       notifyListeners();
     }
@@ -218,34 +186,21 @@ class ProjectProvider extends ChangeNotifier {
       print(response);
       _loading = false;
       if (json.decode(response)['success'] == true) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text(
-            "Project Deleted",
-            style: TextStyle(color: Colors.white),
-          ),
-          backgroundColor: Colors.red,
-        ));
+        AnimatedSnackBar.material("Project deleted",
+                type: AnimatedSnackBarType.success)
+            .show(context);
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text(
-            "Project Not Found",
-            style: TextStyle(color: Colors.white),
-          ),
-          backgroundColor: Colors.red,
-        ));
+        AnimatedSnackBar.material("Project Not found",
+                type: AnimatedSnackBarType.error)
+            .show(context);
       }
       notifyListeners();
     } catch (e) {
       print("error");
       print(e.toString());
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            "Something Went Wrong",
-          ),
-          backgroundColor: Colors.red,
-        ),
-      );
+      AnimatedSnackBar.material("Something Went Wrong",
+              type: AnimatedSnackBarType.error)
+          .show(context);
       _loading = false;
       notifyListeners();
     }
@@ -259,22 +214,16 @@ class ProjectProvider extends ChangeNotifier {
       var response = await _projectService.downVoteProject(token, id);
       _loading = false;
       if (json.decode(response)['success'] == true) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Project Downvoted"),
-          backgroundColor: Colors.red,
-        ));
+        AnimatedSnackBar.material("Project Downvoted",
+                type: AnimatedSnackBarType.success)
+            .show(context);
       }
       notifyListeners();
     } catch (e) {
       print(e.toString());
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text(
-            "Something Went Wrong",
-          ),
-          backgroundColor: Colors.red,
-        ),
-      );
+      AnimatedSnackBar.material("Something Went Wrong",
+              type: AnimatedSnackBarType.error)
+          .show(context);
       _loading = false;
       notifyListeners();
     }
