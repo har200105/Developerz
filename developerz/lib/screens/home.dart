@@ -6,6 +6,7 @@ import 'package:developerz/screens/login.dart';
 import 'package:developerz/screens/profile.dart';
 import 'package:developerz/widgets/colorLoader.dart';
 import 'package:developerz/widgets/developerCard.dart';
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -88,22 +89,21 @@ class _HomeScreenState extends State<HomeScreen> {
                           radius: 50.0,
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                            Provider.of<UserProvider>(context, listen: false)
-                                .user!
-                                .name
-                                .toString(),
-                            style: const TextStyle(
-                              color: Colors.white,
-                            )),
-                      ),
+                      Text(
+                          Provider.of<UserProvider>(context, listen: false)
+                              .user!
+                              .name
+                              .toString(),
+                          style: const TextStyle(
+                            color: Colors.white,
+                          )),
                       const Divider(
                         color: Colors.grey,
                         thickness: 2.0,
                       ),
-                      ElevatedButton(
+                      Padding(
+                        padding: EdgeInsets.only(top: 10.0),
+                        child: TextButton.icon(
                           onPressed: () {
                             Get.to(
                                 () => Profile(
@@ -114,37 +114,45 @@ class _HomeScreenState extends State<HomeScreen> {
                                 transition: Transition.zoom,
                                 duration: Duration(seconds: 1));
                           },
-                          child: const Text(
+                          icon: Icon(EvaIcons.person, color: Colors.white),
+                          label: Text(
                             "Profile",
                             style: TextStyle(color: Colors.white),
-                          )),
-                      ElevatedButton(
-                        onPressed: () {
-                          Get.to(() => AddProject(),
-                              transition: Transition.zoom,
-                              duration: Duration(seconds: 1));
-                        },
-                        child: const Text(
-                          "Add Project",
-                          style: TextStyle(color: Colors.white),
+                          ),
                         ),
                       ),
-                      ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.red),
+                      Padding(
+                        padding: EdgeInsets.only(top: 10.0),
+                        child: TextButton.icon(
+                          onPressed: () {
+                            Get.to(() => AddProject(),
+                                transition: Transition.zoom,
+                                duration: Duration(seconds: 1));
+                          },
+                          icon:
+                              Icon(EvaIcons.codeDownload, color: Colors.white),
+                          label: const Text(
+                            "Add Project",
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ),
-                        onPressed: () {
-                          Provider.of<UserProvider>(context, listen: false)
-                              .logout();
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const Login()));
-                        },
-                        child: const Text(
-                          "Logout",
-                          style: TextStyle(color: Colors.white),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 10.0),
+                        child: TextButton.icon(
+                          onPressed: () {
+                            Provider.of<UserProvider>(context, listen: false)
+                                .logout();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Login()));
+                          },
+                          icon: Icon(EvaIcons.logOut, color: Colors.white),
+                          label: const Text(
+                            "Logout",
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ),
                       ),
                     ],
@@ -180,10 +188,10 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsets.only(left: 10.0, top: 10.0, bottom: 20.0),
+              padding: const EdgeInsets.only(top: 10.0),
               child: Align(
                   alignment: Alignment.center,
                   child: Row(

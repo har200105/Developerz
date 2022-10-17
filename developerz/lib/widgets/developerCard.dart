@@ -59,7 +59,10 @@ class Developer extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 10.0),
-                        child: Text(name!),
+                        child: Text(
+                          name!,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
                       )
                     ],
                   ),

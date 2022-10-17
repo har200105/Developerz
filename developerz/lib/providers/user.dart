@@ -122,4 +122,10 @@ class UserProvider extends ChangeNotifier {
           .show(context);
     }
   }
+
+  void showSnackBar(BuildContext context, String message) {
+    AnimatedSnackBar.material(message, type: AnimatedSnackBarType.info)
+        .show(context);
+    notifyListeners();
+  }
 }

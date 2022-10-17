@@ -1,5 +1,7 @@
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:developerz/providers/developers.dart';
 import 'package:developerz/providers/projects.dart';
+import 'package:developerz/providers/user.dart';
 import 'package:developerz/screens/editProfile.dart';
 import 'package:developerz/widgets/bottomnavbar.dart';
 import 'package:developerz/widgets/colorLoader.dart';
@@ -84,17 +86,18 @@ class _ProfileState extends State<Profile> {
                     Text(data.getDeveloper!.name ?? ""),
                     Center(
                       child: SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.7,
                           child: Wrap(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5.0),
-                            child: Text(
-                              data.getDeveloper!.bio ?? "",
-                              textAlign: TextAlign.center,
-                            ),
-                          )
-                        ],
-                      )),
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 5.0),
+                                child: Text(
+                                  data.getDeveloper!.bio ?? "",
+                                  textAlign: TextAlign.center,
+                                ),
+                              )
+                            ],
+                          )),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 30.0),
@@ -207,6 +210,11 @@ class _ProfileState extends State<Profile> {
                                 if (data.getDeveloper!.followers!.length > 0) {
                                   showFollowingsSheet(context,
                                       data.getDeveloper!.followers!, widget.id);
+                                } else {
+                                  Provider.of<UserProvider>(context,
+                                          listen: false)
+                                      .showSnackBar(
+                                          context, "No Followers Currently");
                                 }
                               },
                               child: profileDetailBox(
@@ -227,6 +235,11 @@ class _ProfileState extends State<Profile> {
                                       context,
                                       data.getDeveloper!.followings!,
                                       widget.id);
+                                } else {
+                                  Provider.of<UserProvider>(context,
+                                          listen: false)
+                                      .showSnackBar(
+                                          context, "No Following Currently");
                                 }
                               },
                               child: profileDetailBox(

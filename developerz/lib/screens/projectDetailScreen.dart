@@ -145,23 +145,26 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen>
                   ),
                 ),
                 if (data.getProject!.techStacksUsed != null)
-                  Wrap(
-                    spacing: 2.0,
-                    runSpacing: 2.0,
-                    children: [
-                      for (int i = 0;
-                          i < data.getProject!.techStacksUsed!.length;
-                          i++)
-                        Chip(
-                          padding: const EdgeInsets.all(10),
-                          backgroundColor: Colors.teal.shade400,
-                          label: Text(
-                            data.getProject!.techStacksUsed![i],
-                            style: const TextStyle(
-                                fontSize: 15, color: Colors.white),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    child: Wrap(
+                      spacing: 2.0,
+                      runSpacing: 2.0,
+                      children: [
+                        for (int i = 0;
+                            i < data.getProject!.techStacksUsed!.length;
+                            i++)
+                          Chip(
+                            padding: const EdgeInsets.all(10),
+                            backgroundColor: Colors.teal.shade400,
+                            label: Text(
+                              data.getProject!.techStacksUsed![i],
+                              style: const TextStyle(
+                                  fontSize: 15, color: Colors.white),
+                            ),
                           ),
-                        ),
-                    ],
+                      ],
+                    ),
                   ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -193,6 +196,7 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen>
                 Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Container(
+                    padding: EdgeInsets.all(15.0),
                     decoration: BoxDecoration(
                         color: Colors.white60,
                         boxShadow: [

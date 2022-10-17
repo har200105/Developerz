@@ -39,9 +39,9 @@ class ProjectCard extends StatelessWidget {
             transition: Transition.fade, duration: Duration(seconds: 1));
       },
       child: Card(
-        elevation: 10,
+        elevation: 20,
         child: Container(
-          width: MediaQuery.of(context).size.width * 0.95,
+          width: MediaQuery.of(context).size.width * 0.90,
           clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(20.0)),
           child: Padding(
@@ -70,8 +70,9 @@ class ProjectCard extends StatelessWidget {
                   child: Center(child: Text(description ?? "")),
                 ),
                 if (techStacks.isNotEmpty)
-                  if (techStacks.isNotEmpty)
-                    Wrap(spacing: 2.0, children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Wrap(spacing: 2.0, children: [
                       for (int i = 0; i < techStacks.length; i++)
                         if (techStacks.length > i)
                           Chip(
@@ -85,6 +86,7 @@ class ProjectCard extends StatelessWidget {
                             ),
                           ),
                     ]),
+                  ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -94,7 +96,7 @@ class ProjectCard extends StatelessWidget {
                           if (await canLaunch(github!)) {
                             await launch(github!);
                           } else {
-                            throw 'Could not launch $github!';
+                            throw 'Could not launch!';
                           }
                         },
                         icon: const Icon(EvaIcons.github),

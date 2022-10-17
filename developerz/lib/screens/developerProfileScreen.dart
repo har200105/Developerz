@@ -206,6 +206,11 @@ class _DeveloperProfileState extends State<DeveloperProfile> {
                                           context,
                                           data.getDeveloper!.followers!,
                                           widget.id);
+                                    } else {
+                                      Provider.of<UserProvider>(context,
+                                              listen: false)
+                                          .showSnackBar(context,
+                                              "No Followers Currently");
                                     }
                                   },
                                   child: profileDetailBox(
@@ -227,6 +232,11 @@ class _DeveloperProfileState extends State<DeveloperProfile> {
                                           context,
                                           data.getDeveloper!.followings!,
                                           widget.id);
+                                    } else {
+                                      Provider.of<UserProvider>(context,
+                                              listen: false)
+                                          .showSnackBar(context,
+                                              "No Followings Currently");
                                     }
                                   },
                                   child: profileDetailBox(

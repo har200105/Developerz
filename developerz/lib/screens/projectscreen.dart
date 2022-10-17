@@ -66,25 +66,28 @@ class _ProjectScreenState extends State<ProjectScreen> {
                   child: Text("No Projects Available Currently"),
                 );
               } else {
-                return ListView.builder(
-                    shrinkWrap: true,
-                    physics: const ClampingScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    itemCount: data.getProjects.length,
-                    itemBuilder: ((context, index) {
-                      return ProjectCard(
-                        id: data.getProjects[index].sId,
-                        projectName: data.getProjects[index].name,
-                        image: data.getProjects[index].image,
-                        description: data.getProjects[index].about,
-                        techStacks:
-                            data.getProjects[index].techStacksUsed ?? [],
-                        github: data.getProjects[index].codeUrl,
-                        link: data.getProjects[index].liveUrl,
-                        developer: data.getProjects[index].developer!.name,
-                        developerId: data.getProjects[index].developer!.sId,
-                      );
-                    }));
+                return Container(
+                  padding: const EdgeInsets.all(10.0),
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      physics: const ClampingScrollPhysics(),
+                      scrollDirection: Axis.vertical,
+                      itemCount: data.getProjects.length,
+                      itemBuilder: ((context, index) {
+                        return ProjectCard(
+                          id: data.getProjects[index].sId,
+                          projectName: data.getProjects[index].name,
+                          image: data.getProjects[index].image,
+                          description: data.getProjects[index].about,
+                          techStacks:
+                              data.getProjects[index].techStacksUsed ?? [],
+                          github: data.getProjects[index].codeUrl,
+                          link: data.getProjects[index].liveUrl,
+                          developer: data.getProjects[index].developer!.name,
+                          developerId: data.getProjects[index].developer!.sId,
+                        );
+                      })),
+                );
               }
             })
           ],
