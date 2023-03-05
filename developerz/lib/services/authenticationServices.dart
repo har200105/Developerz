@@ -15,8 +15,6 @@ class Authentication {
 
   Future signupUser(
       String email, String password, String name, String image) async {
-    print("Signup");
-    print(email);
     final http.Response response =
         await http.post(Uri.parse("${API.api}/signup"), body: {
       'email': email,
@@ -29,7 +27,6 @@ class Authentication {
       "Accept": "application/json",
       "Access-Control-Allow-Origin": "*"
     });
-    print(response.body);
     return response.body;
   }
 

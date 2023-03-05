@@ -18,8 +18,6 @@ class UtilityNotifier extends ChangeNotifier {
           .uploadFile(
               filePath: image!.path, resourceType: CloudinaryResourceType.image)
           .then((value) {
-        print("Cloudinary");
-        print(value.secureUrl!);
         userimage = value.secureUrl!;
         notifyListeners();
         return userimage;

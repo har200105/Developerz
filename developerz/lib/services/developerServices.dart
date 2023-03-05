@@ -36,7 +36,6 @@ class DeveloperService {
   }
 
   Future followDeveloper(String? token, String id) async {
-    print("See " + id);
     final Uri uri = Uri.parse(url + "/follow/" + id);
     if (token != null) {
       final http.Response response = await client.put(uri, headers: {
@@ -45,8 +44,6 @@ class DeveloperService {
         "Access-Control-Allow-Origin": "*",
         "Authorization": token,
       });
-
-      print(response.body);
 
       if (response.statusCode == 201) {
         return response.body;
@@ -67,11 +64,7 @@ class DeveloperService {
       });
 
       if (response.statusCode == 201) {
-        print("Response");
-        print(response.body);
         return response.body;
-      } else {
-        print(response.body);
       }
     } else {
       return;
@@ -86,7 +79,6 @@ class DeveloperService {
       String? website,
       List<String>? skills}) async {
     if (token != null) {
-      print(twitter);
       final Uri uri = Uri.parse(url + "/updateUserProfile");
 
       Map<String, dynamic> data = {

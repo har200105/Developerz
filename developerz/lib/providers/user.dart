@@ -26,10 +26,7 @@ class UserProvider extends ChangeNotifier {
       if (await preferences.getString("token") != null) {
         String? token = await preferences.getString("token");
         var response = await _authentication.getUser(token);
-        print(response);
         Data userData = Data.fromJson(jsonDecode(response));
-        print("setting user");
-        print(userData.email);
         _Isuser = userData.email != null ? true : false;
         _data = userData;
         _loading = false;
@@ -41,7 +38,6 @@ class UserProvider extends ChangeNotifier {
       }
     } catch (e) {
       logout();
-      print(preferences.getString("token"));
       print(e.toString() + " error");
       _loading = false;
       notifyListeners();
@@ -88,7 +84,6 @@ class UserProvider extends ChangeNotifier {
     try {
       var userData = await _authentication.loginUser(email, password);
       Map<String, dynamic> parsedData = await jsonDecode(userData);
-      print(parsedData['token']);
 
       final token = parsedData['token'];
       final success = parsedData['success'];

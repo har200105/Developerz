@@ -100,7 +100,6 @@ class Developer extends StatelessWidget {
                         if (linkedin != null && linkedin != "")
                           IconButton(
                               onPressed: () async {
-                                print(linkedin!);
                                 await launchUrl(Uri.parse(linkedin!));
                               },
                               tooltip: "Visit $name's linkedin",

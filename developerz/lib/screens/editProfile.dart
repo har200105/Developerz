@@ -309,9 +309,6 @@ class _EditProfileState extends State<EditProfile> {
                                                             color:
                                                                 Colors.white),
                                                       ),
-                                                      onTap: () {
-                                                        print("$tag selected");
-                                                      },
                                                     ),
                                                     const SizedBox(width: 4.0),
                                                     InkWell(
@@ -381,7 +378,6 @@ class _EditProfileState extends State<EditProfile> {
                               _twitterController.text =
                                   "https://" + _twitterController.text;
                             }
-                            print(_controller.getTags.runtimeType);
                             Provider.of<DevelopersProvider>(context,
                                     listen: false)
                                 .updateProfile(context,
