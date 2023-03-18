@@ -9,7 +9,6 @@ const { sendVerificationEmail } = require('../utils/mailServices');
 
 
 const signUp = catchAsyncErrors(async (req, res) => {
-    console.log(req.body);
     const { email, password, name, image } = req.body;
     if (!email || !password || !name) {
         return res.status(401).json({ message: "Please Add All The Feilds", success: false })
@@ -55,10 +54,8 @@ const signUp = catchAsyncErrors(async (req, res) => {
 
 const login = catchAsyncErrors(async (req, res) => {
     const { email, password } = req.body;
-    console.log(req.body);
     try {
         const exist = await User.findOne({ email });
-        console.log(exist);
         if (exist) {
             bcryptjs.compare(password, exist.password).then((matched) => {
                 if (matched) {
@@ -70,7 +67,6 @@ const login = catchAsyncErrors(async (req, res) => {
                         _id:exist._id
                     });
                 } else {
-                    console.log("Not Matched");
                     return res.json({ message: "Invalid Email or Password", success: false, verified: true });
                 }
             });
@@ -86,7 +82,6 @@ const login = catchAsyncErrors(async (req, res) => {
 
 const verifyOTP = async (req, res) => {
      const checkotp = await OTP.findOne({ otp: req.body.otp, email:req.body.email });
-    console.log(checkotp);
     if (!checkotp) {
         return res.json({message:"Not a Valid OTP",success:false});
     } else {
@@ -97,7 +92,6 @@ const verifyOTP = async (req, res) => {
         }, {
             new: true
         }).then(async (s) => {
-            console.log(s)
             await OTP.findOneAndDelete({ email: checkotp.email });
         }).then(() => {
             res.status(200).json({

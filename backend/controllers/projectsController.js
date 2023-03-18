@@ -3,7 +3,6 @@ const Project = require('../models/projects');
 const User = require('../models/user');
 
 const addProject = catchAsyncErrors(async (req, res) => {
-    console.log(req.body);
     const {name,github,live,techStacksUsed,about,image} = req.body;
     const newProject = new Project({
         name,

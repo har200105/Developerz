@@ -18,7 +18,6 @@ const getDeveloperBySkill = catchAsyncErrors(async (req, res) => {
 const getUserProfile = catchAsyncErrors(async (req, res) => {
     if (req.user) {
         res.status(201).json(req.user);
-        console.log(req.user);
    } 
 });
 
