@@ -38,7 +38,7 @@ class UserProvider extends ChangeNotifier {
       }
     } catch (e) {
       logout();
-      print(e.toString() + " error");
+      print(e.toString());
       _loading = false;
       notifyListeners();
     }

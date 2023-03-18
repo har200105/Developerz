@@ -63,7 +63,6 @@ class DevelopersProvider extends ChangeNotifier {
       if (preferences.getString("token") != null) {
         var response = await _developerService.followDeveloper(
             preferences.getString("token"), id);
-        print(jsonDecode(response));
       } else {
         AnimatedSnackBar.material("Please Login to Follow",
                 type: AnimatedSnackBarType.info)
@@ -86,7 +85,6 @@ class DevelopersProvider extends ChangeNotifier {
       if (preferences.getString("token") != null) {
         var response = await _developerService.unfollowDeveloper(
             preferences.getString("token"), id);
-        print(jsonDecode(response));
       } else {
         AnimatedSnackBar.material("Please Login to Follow",
                 type: AnimatedSnackBarType.info)

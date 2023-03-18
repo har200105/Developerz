@@ -80,7 +80,6 @@ class ProjectProvider extends ChangeNotifier {
         _loading = true;
       }
       var response = await _projectService.getProjectDetailsById(id);
-      print(response);
       Project modelData = Project.fromJson(jsonDecode(response));
       _project = modelData;
       _loading = false;
@@ -182,8 +181,6 @@ class ProjectProvider extends ChangeNotifier {
       _isUpVoted = true;
       var token = preferences.getString("token");
       var response = await _projectService.deleteProject(token, id);
-      print("Response");
-      print(response);
       _loading = false;
       if (json.decode(response)['success'] == true) {
         AnimatedSnackBar.material("Project deleted",
@@ -196,7 +193,6 @@ class ProjectProvider extends ChangeNotifier {
       }
       notifyListeners();
     } catch (e) {
-      print("error");
       print(e.toString());
       AnimatedSnackBar.material("Something Went Wrong",
               type: AnimatedSnackBarType.error)
