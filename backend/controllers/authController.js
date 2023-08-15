@@ -28,12 +28,6 @@ const signUp = catchAsyncErrors(async (req, res) => {
                 upperCaseAlphabets: false,
                 specialChars: false
             });
-            // const newOTP = await OTP({
-            //     email,
-            //     otp
-            // });
-            // await newOTP.save();
-            // sendVerificationEmail(email,otp);
             bcryptjs.hash(password, 8)
                 .then(async (hashedpassword) => {
                     const newUser = User({
