@@ -19,7 +19,6 @@ class _ResetPasswordState extends State<ResetPassword> {
 
   @override
   Widget build(BuildContext context) {
-    // var auth = Provider.of<DevelopersProvider>(context, listen: false);
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
@@ -69,7 +68,6 @@ class _ResetPasswordState extends State<ResetPassword> {
                       const EdgeInsets.only(top: 30.0, left: 80.0, right: 80.0),
                   child: TextFormField(
                       controller: emailController,
-                      // focusNode: FocusNode(),
                       style: const TextStyle(color: Colors.black),
                       decoration: InputDecoration(
                         labelText: "Email",
@@ -105,7 +103,6 @@ class _ResetPasswordState extends State<ResetPassword> {
                       const EdgeInsets.only(top: 25.0, left: 80.0, right: 80.0),
                   child: TextFormField(
                     controller: passwordController,
-                    // focusNode: FocusNode(),
                     style: const TextStyle(color: Colors.black),
                     decoration: InputDecoration(
                       suffixIcon: IconButton(
@@ -135,7 +132,6 @@ class _ResetPasswordState extends State<ResetPassword> {
                       const EdgeInsets.only(top: 25.0, left: 80.0, right: 80.0),
                   child: TextFormField(
                     controller: confirmPasswordController,
-                    // focusNode: FocusNode(),
                     style: const TextStyle(color: Colors.black),
                     decoration: InputDecoration(
                       suffixIcon: IconButton(
@@ -165,7 +161,6 @@ class _ResetPasswordState extends State<ResetPassword> {
                       const EdgeInsets.only(top: 25.0, left: 80.0, right: 80.0),
                   child: TextFormField(
                     controller: otpController,
-                    // focusNode: FocusNode(),
                     style: const TextStyle(color: Colors.black),
                     decoration: InputDecoration(
                       labelText: "OTP",
